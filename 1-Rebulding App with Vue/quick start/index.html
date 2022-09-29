@@ -4,21 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        input {
-         display: block; 
-         margin: auto;  
-        }
-        body{
-            display: flex;
-            justify-content: center;
-            text-align: center;
-        }
-        * {
-            padding: 10px;
-            margin: 10px;
-        }
-    </style>
+    <link href="plagin/prism.css" rel="stylesheet" />
+    <link href="style/style.css" rel="stylesheet" />
     <title> Quick start!</title>
 </head>
 
@@ -26,7 +13,7 @@
 
 <div id="app">
     <h2> Quick start </h2>
-    <h3> Быйстрый старт Vue с ипользованием CDM </h3>
+    <h3> Быстрый старт Vue с ипользованием CDM </h3>
     <input  type="text" v-model = "userInput">
     <button v-on:click = "saveElement" > Сохнанить элемент в список </button>
     <button v-on:click = "clearLocalStorage" > Очистить LocalStorage </button>
@@ -36,5 +23,34 @@
 <script src="https://unpkg.com/vue@next"></script>
 <script src="js/app.js"></script>
 
-</body>
+<script src="plagin/prism.js"></script>
+<div class= "test">
+<pre>
+    <code class="language-css">        
+        const app = Vue.createApp({
+            data() {
+                return {
+                    userInput: "",
+                    allUserInput:  JSON.parse(localStorage.getItem( "allUserInput") ) || [],
+                };
+            },
+            methods: {
+                saveElement(){
+                    if (this.userInput !== "") {
+                        console.log(this.allUserInput);
+                    this.allUserInput.push(this.userInput);
+                    localStorage.setItem( "allUserInput", JSON.stringify(this.allUserInput))
+                    }
+                },
+                clearLocalStorage() {
+                    localStorage.clear();
+                    this.allUserInput = [];
+                }
+            },
+        }).mount("#app");
+    </code>
+</у>
+</div>
+
+</body> 
 </html>
