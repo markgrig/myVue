@@ -8,7 +8,7 @@ const app = Vue.createApp({
     methods: {
         saveElement(){
             if (this.userInput !== "") {
-                console.log(this.allUserInput);
+
             this.allUserInput.push(this.userInput);
             localStorage.setItem( "allUserInput", JSON.stringify(this.allUserInput))
             }
@@ -18,5 +18,7 @@ const app = Vue.createApp({
             this.allUserInput = [];
         }
     },
-}).mount("#app");
+})
+
+app.mount("#app");  
 

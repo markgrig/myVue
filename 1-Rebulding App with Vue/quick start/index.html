@@ -37,9 +37,9 @@
             methods: {
                 saveElement(){
                     if (this.userInput !== "") {
-                        console.log(this.allUserInput);
-                    this.allUserInput.push(this.userInput);
-                    localStorage.setItem( "allUserInput", JSON.stringify(this.allUserInput))
+                       
+                        this.allUserInput.push(this.userInput);
+                        localStorage.setItem( "allUserInput", JSON.stringify(this.allUserInput))
                     }
                 },
                 clearLocalStorage() {
@@ -49,7 +49,7 @@
             },
         }).mount("#app");
     </code>
-</у>
+</pre>
 </div>
 
 </body> 
