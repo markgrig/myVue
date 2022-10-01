@@ -12,14 +12,16 @@ const app = Vue.createApp({
     methods: {
         saveElement(){
             if( this.validation ) {
-                this.allUserInput.push(this.userInput);
-                this.sumEpenses = 0;
-                this.allUserInput.forEach(element => {
-                    this.sumEpenses += Number(element);
-                });
-                this.userInput = ""
-                localStorage.setItem( "sumEpenses", JSON.stringify(this.sumEpenses))
-                localStorage.setItem( "allUserInput", JSON.stringify(this.allUserInput))
+                if ( this.userInput === "") {
+                    this.allUserInput.push(this.userInput);
+                    this.sumEpenses = 0;
+                    this.allUserInput.forEach(element => {
+                        this.sumEpenses += Number(element);
+                    });
+                    this.userInput = "";
+                    localStorage.setItem( "sumEpenses", JSON.stringify(this.sumEpenses))
+                    localStorage.setItem( "allUserInput", JSON.stringify(this.allUserInput))
+                }
             }
 
         },
