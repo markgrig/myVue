@@ -1,0 +1,92 @@
+body{
+    justify-content: center;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background: linear-gradient(to right, blue, pink);
+    padding: 20vh 0 0 0;
+}
+
+h3, h2{
+    color: white;
+    cursor: pointer;
+}
+ol {
+    width: 30%;
+    margin: auto;
+    min-width: 300px;
+}
+
+input{
+    height: 20px;   
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+input:focus{
+    box-shadow: 0 0 5px 1px white;
+}
+button {
+    padding: 10px;
+    margin: 10px;
+    color:  white;
+    background-color: rgba(58, 113, 196, 0.588);
+    border-radius: 20px;
+    border: solid 2px rgba(255, 255, 196, 0.5); 
+}
+button:hover {
+    box-shadow: 0 0 5px 1px white;
+    cursor: pointer;
+}
+li:nth-child(odd){
+    font-size: 150%;
+    background-color: rgba(33, 152, 71, 0.1);
+    border-bottom:  solid 2px black;
+}
+li:nth-child(even){
+    font-size: 150%;
+    background-color: rgba(24, 53, 185, 0.245);
+    border-bottom:  solid 2px black;
+}
+ol {
+    padding: 10px;
+}
+ul{
+    display: flex;
+    justify-content: center;
+}
+.test {
+    width: 50%;
+    font-size: 60%;
+    display: block;
+    margin: auto;
+}
+.placeholder-input-sucsess {
+    height: 20px;
+    position:absolute;
+    margin-left: 20px;
+    margin-top: 0px;
+    padding: 12px;
+    max-width: 200px;
+    background: rgba(47, 255, 0, 0.4);
+    border: solid 1px rgb(98, 249, 11);
+    box-shadow: 0 0 10px 1px rgb(98, 249, 11);
+    color: white;
+    border-radius: 50px;
+}
+
+.placeholder-input-error {
+    height: 20px;
+    position:absolute;
+    margin-left: 20px;
+    margin-top: 0px;
+    padding: 12px;
+    max-width: 200px;
+    background: rgba(255, 77, 0, 0.4);
+    border: solid 1px rgb(249, 94, 11);
+    box-shadow: 0 0 10px 1px rgb(249, 94, 11);
+    color: white;
+    border-radius: 50px;
+}
+
+

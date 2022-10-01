@@ -9,14 +9,15 @@
 
 <body class="font-option">
     
-    <h2 class = "center-block font-option"> Спиcок покупок </h2>
+    
 
-    <div id = "app">
-        <div class="pannel center-block">
+    <div id = "app" >
+        <h2 class = "center-block font-option"  v-bind:style = "{ background: topicColor.background, color: topicColor.text}" > Спиcок покупок </h2>
+        <div class="pannel center-block"  v-bind:style = "{ background: backgroundColor.background, color: backgroundColor.text  }" >
             <ol>
                 <table>
                      <tr>
-                        <td> <p class="name-column"> Товар </p> </td>
+                        <td> <p class="name-column" > Товар </p> </td>
                         <td>  <p class="name-column"> количество </p> </td>
                         <td>  <p class="name-column">магазин </p> </td> 
                     </tr>
@@ -35,7 +36,7 @@
                         <th><span> Быстроном</th>
                     </tr>
                      <tr>
-                        <th><span><li> хлеб </li></span>  </th>
+                        <th><span><li> хлеб  </li></span>  </th>
                         <th><span> один</span>  </th>
                         <th><span> Быстроном</th>
                     </tr>
@@ -123,18 +124,22 @@
                         <th><span> Быстроном</th>
                     </tr>
                     <tr>
-                        <th><span><li> молоко </li></span>  </th>
+                        <th><span><li> молоко  </li></span>  </th>
                         <th><span> од</span>  </th>
                         <th><span> Быстроном</th>
                     </tr>
                     
                 </table>
             </ol>
-            <button v-on:click = "openForm()"> ✏️ </button> 
          </div>
-        
+
+         <div class = "button-pannel">
+            <button v-on:click = "openForm()"> ✏️ </button> 
+            <button v-on:click = "changeBackgroundColor()"> 🎲</button>
+        </div>
+
         <Transition>
-           <div v-html = "formHTML" v-if = "formHTML" ></div>
+           <div v-html = "formHTML" v-if = "formHTML" > </div>
         </Transition>
         
     </div>
@@ -143,4 +148,5 @@
 <script type="java-script" href="js/app.js"></script>
 
 </body>
+
 </html>
