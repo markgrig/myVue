@@ -14,7 +14,7 @@
     <h2 > Cписок расходов</h2>
     <h3 v-text ="'Cумма расходов: '  + sumEpenses + ' руб.'"> </h3>
         <ul>
-            <input  type="text" v-on:input = "validationFun">
+            <input  type="text" v-on:input = "validationFun($event)" v-on:keyup.enter = "saveElement">
              <div v-show ="placeholderInput" v-html = "placeholderInput"> </div>
         </ul>
     <button v-on:click = "saveElement" > Сохнанить сумму в список </button>
