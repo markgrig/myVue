@@ -13,12 +13,17 @@
 <div id="app">
     <h2 > Cписок расходов</h2>
     <h3 v-text ="'Cумма расходов: '  + sumEpenses + ' руб.'"> </h3>
-        <ul>
-            <input  type="text" v-on:input = "validationFun($event)" v-on:keyup.enter = "saveElement">
-             <div v-show ="placeholderInput" v-html = "placeholderInput"> </div>
-        </ul>
-    <button v-on:click = "saveElement" > Сохнанить сумму в список </button>
-    <button v-on:click = "clearLocalStorage" > Очистить LocalStorage </button>
+    <ul>      
+            
+            <input  type="text" v-bind:value = "userInput"v-on:input = "validationFun($event)" v-on:keyup.enter = "saveElement">
+            <div  v-show ="placeholderInput"v-on:click = "clearInput"  v-html = "placeholderClearInput">  </div> 
+            <div v-show ="placeholderInput" v-html = "placeholderInput"> </div>
+    </ul>
+    <ul class="list-button">
+        <button v-on:click = "saveElement" > Сохнанить сумму в список </button>
+        <button v-on:click = "clearLocalStorage" > Очистить память браузера </button>
+    </ul>
+   
     <ol> <li  v-for =" el in allUserInput" v-text ="el + ' руб.'"> </li> </ol>
 </div>
 
