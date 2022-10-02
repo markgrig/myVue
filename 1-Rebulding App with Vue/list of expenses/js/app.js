@@ -11,6 +11,7 @@ const app = Vue.createApp({
     },
     methods: {
         saveElement(){
+            
             if( this.validation ) {
                 if ( this.userInput !== "") {
                     this.allUserInput.push(this.userInput);
@@ -30,7 +31,9 @@ const app = Vue.createApp({
             this.allUserInput = [];
             this.sumEpenses = 0;
         },
-        validationFun() {
+        validationFun(event) {
+            this.userInput = event.target.value;
+            
             if ( Number(this.userInput) ) {
                 this.validation = true;
                 this.placeholderInput =  `<div class= "placeholder-input-sucsess"> Успешно!   </div>`
