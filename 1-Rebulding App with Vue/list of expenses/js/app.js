@@ -29,6 +29,7 @@ const app = Vue.createApp({
         
         },
         clearLocalStorage() {
+         
             localStorage.clear();
             this.allUserInput = [];
             this.sumEpenses = 0;

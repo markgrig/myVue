@@ -1,0 +1,63 @@
+body{
+    justify-content: center;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background: linear-gradient(to right, blue, pink);
+    padding: 5vh 0 0 0;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+ }
+
+h2{
+    width: 400px;
+    display: block;
+    margin: auto;  
+}
+h3, h2{
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+input{
+    text-align: center;
+    width: 200px;
+    height: 20px;   
+    padding: 10px;
+    margin: 3px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+input:focus{
+    box-shadow: 0 0 5px 1px white;
+}
+
+.black-div{
+    position: absolute;
+    left: 45vw;
+    top: 50vh;
+    background-color: rgba(0, 0, 0, 0.188);
+    
+    border-radius: 20px;
+    border: solid 2px white;
+}
+.shadow-box {
+    padding: 10px 10px 10px 10px;
+    border-radius: 20px;
+    background-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 5px 1px rgba(0, 255, 255, 0.9);
+    color: rgba(104, 12, 12, 0.994);
+}
+
+@media( max-width: 700px) {
+  
+    input {
+        width: 40%;
+    }
+   
+   
+}
