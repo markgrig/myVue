@@ -37,7 +37,7 @@ const app = Vue.createApp({
             this.isFirstHover = false;
         },
         placeholderLeave() {
-            this.formula = "<strong> На веди на  подсказку </strong>";
+            this.formula = "<strong> Наведи на  подсказку </strong>";
             clearInterval(this.intervalFun);
             this.isFirstHover = true;
         },
