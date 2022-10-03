@@ -12,20 +12,23 @@ const app = Vue.createApp({
             isFirstHover: true,
         };
     },
-    methods: {
+    computed: {
         showResult() {
+            console.log(123);
             if ( Number(this.inputWidth) + Number(this.inputLeft)*2 === 100) {
                 return `${this.inputLeft} - это правильный ответ!`;
             } else {
                 return "Жду правльный ответ";
             }
         },
+    },
+    methods: {
         placeholderShow() {
             this.formula = "<strong> L = (100 - W)/2 </strong>";
             let i = 0;
           
             if ( this.isFirstHover ) {
-                console.log(123);
+                
                 this.intervalFun = setInterval( () => { 
                     const color = `rgba(  ${Math.abs(Math.round(255 - 255*Math.sin(2*3.14*(i+3.24)/50)))}, 0, ${ 100+ Math.abs(Math.round(155*Math.sin(2*3.14*(i+3.14)/50)))}`;
                     const amp = `${ 1 + Math.abs(Math.round( 50*Math.sin(2*3.14*i/300)))}`;
