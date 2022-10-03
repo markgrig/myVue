@@ -59,6 +59,10 @@ input:focus{
     input {
         width: 40%;
     }
-   
-   
+    .shadow-box {
+        width: 80%;
+    }
+   body {
+    overflow: hidden;
+   }
 }
