@@ -13,8 +13,8 @@
 <div id="app">
 
     <h2 >  Измени размеры блока и поставь посерединке :) </h2>
-    <h2  class = "shadow-box"v-on:mouseover = "placeholderShow"  v-on:mouseleave = "placeholderLeave" 
-    v-html = "formula"  v-bind:style = "{ boxShadow: boxShadow }">  </h2>
+    <h2  class = "shadow-box"  v-html = "formula"  
+    v-on:mouseover = "placeholderShow" v-on:mouseleave = "placeholderLeave" v-bind:style = "{ boxShadow: boxShadow , border: border } ">  </h2>
     <h2 v-text = "showResult()"> </h2>
     <h3 > 1 - Ширина, 2 - длина, 3 -координата слева (в размерах экрана) </h3>
 

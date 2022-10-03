@@ -7,6 +7,7 @@ const app = Vue.createApp({
             inputLeft: "45",
             formula: "<strong> На веди на  подсказку </strong>",
             boxShadow: "0 0 5px 1px rgba(0, 255, 255, 0.9);",
+            border: "solid 3px rgba(0, 255, 255, 1);",
             intervalFun: "",
             isFirstHover: true,
         };
@@ -26,8 +27,10 @@ const app = Vue.createApp({
             if ( this.isFirstHover ) {
                 console.log(123);
                 this.intervalFun = setInterval( () => { 
-                    this.boxShadow = ` 0px  0px ${ 1 + Math.abs(Math.round( 20*Math.sin(2*3.14*i/80)))}px 2px
-                    rgba(  ${Math.abs(Math.round(255 - 255*Math.sin(2*3.14*(i+3.24)/50)))}, 0, ${ 100+ Math.abs(Math.round(155*Math.sin(2*3.14*(i+3.14)/50)))}, 1)`;
+                    const color = `rgba(  ${Math.abs(Math.round(255 - 255*Math.sin(2*3.14*(i+3.24)/50)))}, 0, ${ 100+ Math.abs(Math.round(155*Math.sin(2*3.14*(i+3.14)/50)))}`;
+                    const amp = `${ 1 + Math.abs(Math.round( 50*Math.sin(2*3.14*i/300)))}`;
+                    this.border =  `solid 2px ${color}`;
+                    this.boxShadow = ` 0px  0px ${amp}px 2px ${ color }, 1)`;
                     i++;
                 }, 50)
             }
@@ -37,7 +40,6 @@ const app = Vue.createApp({
             this.formula = "<strong> На веди на  подсказку </strong>";
             clearInterval(this.intervalFun);
             this.isFirstHover = true;
-            this.boxShadow =  "0 0 5px 1px rgba(0, 255, 255, 0.9)"
         },
     }, 
 });
