@@ -63,3 +63,31 @@ input {
 .v-leave-to {
   opacity: 0;
 }
+
+@media (max-width: 700px) {
+    input {
+        height: 20vh;
+    }
+    input:focus {
+        padding: 10px;
+        border-radius: 30px;
+        transition: 1.5s;
+        
+    }
+    .form {
+        padding-bottom: 5vh   ;
+    }
+    h2 {
+        margin-left: 0px;
+        display: block;
+        margin: auto;
+        padding: 50px 20px 20px 20px;
+        text-align: center;
+        width: 90%;
+        font-size: 130%;
+    }
+    h1{
+        font-size: 130%;
+    }
+    
+}
