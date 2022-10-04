@@ -1,0 +1,90 @@
+body{
+    justify-content: center;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+h2{
+    font-size: 200%;
+    height: 10vh;
+    width: 50%;
+    display: block;
+    margin: auto;
+    text-align: center;
+    padding: 10vh;
+    color: white;
+    cursor: pointer;
+}
+h3{ 
+    font-size: 200%;
+    color: rgb(61, 165, 42);
+    padding: 30px;
+    padding-bottom: 50vh;
+}
+.form {
+    padding-bottom: 20vh   ;
+}
+h1{
+    position: absolute;
+    top: 2vh;
+    left: 2vh;
+    font-size: 30px;
+}
+input {
+    display: block;
+    margin: auto;
+    color: white;
+    padding: 50px;
+    font-size: 200%;
+    background-color: rgba(240, 255, 255, 0.227);
+    border-radius: 10px;
+    border: solid 2px white;
+    box-shadow: 0 0 20px 4px white;
+    width: 50%;
+    height: 50px;
+}
+.v-enter-active,
+.v-leave-active {
+  transition    : opacity 1s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+@media (max-width: 700px) {
+    input {
+        height: 20vh;
+    }
+    input:focus {
+        padding: 10px;
+        border-radius: 30px;
+        transition: 1.5s;
+        
+    }
+    .form {
+        padding-bottom: 5vh   ;
+    }
+    h2 {
+        margin-left: 0px;
+        display: block;
+        margin: auto;
+        padding: 50px 20px 20px 20px;
+        text-align: center;
+        width: 90%;
+        font-size: 130%;
+    }
+    h1{
+        font-size: 130%;
+    }
+    
+}

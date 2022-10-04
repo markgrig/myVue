@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Quick start!</title>
+</head>
+
+<body>
+
+<div id="app">
+    
+    <h1 v-text ="checkScore" > </h1>
+
+    <h2 v-text = "instructions" > </h2>
+    
+    <div class = "form">
+        <input v-model ="answer" type="text">
+    </div>
+    <Transition> 
+        <h3 v-text ="statusAssist" v-if = "statusAssist" > </h3>
+    </Transition>
+    <h3> </h3>
+   
+</div>
+
+<script src="https://unpkg.com/vue@next"></script>
+<script src="js/app.js"></script>
+
+</body> 
+</html>
