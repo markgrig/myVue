@@ -1,21 +1,20 @@
 import "../style/style.css"
-const loadingAnimation = () => {
+const backgroundAnimation = () => {
     const bodyElement = document.querySelector('body')
     let i = 0;
 
-    const intervalFun = setInterval( () => { 
+    setInterval( () => { 
         
         const colorLeft = `rgba(  ${Math.abs(Math.round(255 - 125*Math.sin(2*3.14*(i-3.14)/500)))}, 0, ${ 255 - Math.abs(Math.round(120*Math.sin(2-3.14*(i+3.14)/500)))})`
         const colorRight = `rgba(  ${Math.abs(Math.round(100 - 100*Math.sin(2*3.14*(i-3.14)/500)))}, 0, ${ 100+ Math.abs(Math.round(155*Math.sin(2*3.14*(i-3.14)/500)))})` 
         bodyElement.style.background =  `linear-gradient( 70deg,  ${colorRight} , ${colorLeft})`;
      
-
         i++;
     }, 50)
 
 }
 
-loadingAnimation()
+backgroundAnimation()
 
 const app = Vue.createApp({
     data() {
@@ -27,7 +26,7 @@ const app = Vue.createApp({
                 "На каком языке написан Vue? :) две буквы. ",
                 "Когда был написан vue.js?",
                 "Когда на него обрушилась популярность?",
-                "Как называется сущность, использующая вычислительные объекты во vue?",
+                "Как называются вычислительные свойства во vue?",
                 "Как сокращённо записать v-click?",
                 "Ой, кажется я утюг выключить забыл!"
             ],
@@ -41,7 +40,8 @@ const app = Vue.createApp({
             ],
             answer: "",
             instructions: "" ,
-            start: true,
+            isAssistantSilent: true,
+            username: "Гость",
             score: 0,
         };
     },
@@ -50,20 +50,18 @@ const app = Vue.createApp({
             
             await new Promise(resolve => setTimeout(resolve, 500));
 
-            
-            if (this.allAnswers.length === 0 && this.start) {
+            if (this.allAnswers.length === 0 && this.isAssistantSilent) {
                 this.messaging(0)
             }    
-            if ( this.allAnswers.length === 1 && (value === "Привет" || value === "привет"  ) && this.start) {
+            if ( this.allAnswers.length === 1 && (value === "Привет" || value === "привет"  ) && this.isAssistantSilent) {
                 await this.messaging(1);
-                if ( this.allAnswers[1].trim() === "" ) { this.allAnswers[1] = "Гость"}
-                this.allInstructions[2] = `Скажи, ${this.allAnswers[1]}! ${this.allInstructions[2]}`
+                this.username = this.allAnswers[1].trim() ;
+                this.allInstructions[2] = `Скажи, ${this.username}! ${this.allInstructions[2]}`
             }  
-            if ( (this.allAnswers.length > 1 )  && this.start && this.allAnswers.length < 9) {
-                console.log(1233123);
+            if ( (this.allAnswers.length > 1 ) && this.allAnswers.length < 9 && this.isAssistantSilent) {
                 this.messaging(this.allAnswers.length);
             }
-            console.log(this.allAnswers[1]);
+            
         }
     },
     computed: {
@@ -77,34 +75,34 @@ const app = Vue.createApp({
             if ( this?.allAnswers[1] ) {
                 return "Ассистент задаёт вопрос и ждёт ответа"
             }
-            if ( this.answer === "" &&  this.start) {
+            if ( this.answer === "" &&  this.isAssistantSilent) {
                 return `Ассистент ожидает`
             }
-            if ( !this.start) {
+            if ( !this.isAssistantSilent) {
                 return "Ассистент печатает"
             }
         },
         checkScore(){
             if ( this?.allAnswers[8] ) {
-                return  ` ${ this.allAnswers[1] } : ${ this.score },  Cпасибо!`
+                return  ` ${ this.allAnswers[1] }: ${ this.score },  Cпасибо!`
             }
             if ( this?.allAnswers[7]) {
-                return  ` ${ this.allAnswers[1] } :${ this.score } ,  Ответ: ${ this.trueAnswer[4]}`
+                return  ` ${ this.allAnswers[1] }: ${ this.score } ,  Ответ: ${ this.trueAnswer[4]}`
             }
             if ( this?.allAnswers[6]) {
-                return  ` ${ this.allAnswers[1] } :${ this.score } ,  Ответ: ${ this.trueAnswer[3]}`
+                return  ` ${ this.allAnswers[1] }: ${ this.score } ,  Ответ: ${ this.trueAnswer[3]}`
             }
             if ( this?.allAnswers[5]) {
-                return  ` ${ this.allAnswers[1] } :${ this.score } ,  Ответ: ${ this.trueAnswer[2]}`
+                return  ` ${ this.allAnswers[1] }: ${ this.score } ,  Ответ: ${ this.trueAnswer[2]}`
             }
             if ( this?.allAnswers[4]) {
-                return  ` ${ this.allAnswers[1] } :${ this.score } ,  Ответ: ${ this.trueAnswer[1]}`
+                return  ` ${ this.allAnswers[1] }: ${ this.score } ,  Ответ: ${ this.trueAnswer[1]}`
             }
             if ( this?.allAnswers[3]) {
-                return  ` ${ this.allAnswers[1] } :${ this.score } ,  Ответ: ${ this.trueAnswer[0]}`
+                return  ` ${ this.allAnswers[1] }: ${ this.score } ,  Ответ: ${ this.trueAnswer[0]}`
             }
             if ( this?.allAnswers[1] ) {
-                return  ` ${ this.allAnswers[1] } : ${ this.score }, `
+                return  ` ${ this.allAnswers[1] }: ${ this.score }, `
             }
         }
     },
@@ -117,7 +115,7 @@ const app = Vue.createApp({
             }
         },
         async messaging(n) {
-            this.start = false;
+            this.isAssistantSilent = false;
             this.answer = "";
             this.instructions = "";
             await this.showInstuctions( this.allInstructions[n]);
@@ -129,7 +127,7 @@ const app = Vue.createApp({
                 clearInterval( interval );
             }
 
-            this.start = true;
+            this.isAssistantSilent = true;
             this.allAnswers[n] = this.answer.trim();
 
             if ( this.allAnswers.length >= 4 && this.allAnswers.length < 9) {
@@ -141,5 +139,7 @@ const app = Vue.createApp({
         },
     },
 
-}).mount("#app")
+})
+
+app.mount("#app")
 

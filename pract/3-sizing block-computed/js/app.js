@@ -14,7 +14,7 @@ const app = Vue.createApp({
     },
     computed: {
         showResult() {
-            console.log(123);
+            
             if ( Number(this.inputWidth) + Number(this.inputLeft)*2 === 100) {
                 return `${this.inputLeft} - это правильный ответ!`;
             } else {
