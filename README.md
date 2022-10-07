@@ -1,8 +1,8 @@
 <h2> В данном репозитории будут мои успехи в освоении фреймворка Vue3 </h2>
 <ol> 
-  <li><a href="https://markgrig.github.io/myVue/1-Rebulding%20App%20with%20Vue/quick%20start/index.html"> Быстрый старт Vue с использованием CDN </a> </li>
-  <li> <a href="https://markgrig.github.io/myVue/1-Rebulding%20App%20with%20Vue/list%20of%20expenses/"> Список расходов Vue с использованием CDN </a> </li>
-  <li> <a href="https://markgrig.github.io/myVue/1-Rebulding%20App%20with%20Vue/shopping%20list/index.html"> Список покупок Vue с использованием CDN </a></li> 
-  <li> <a href="https://markgrig.github.io/myVue/1-Rebulding%20App%20with%20Vue/sizing%20block/index.html"> Игра "Выровни блок" Vue с использованием CDN </a></li>
-  <li> <a href="https://markgrig.github.io/myVue/1-Rebulding%20App%20with%20Vue/bot%20questionnaire/index.html"> Анкета бот vue CDN </a></li>
+  <li><a href="https://markgrig.github.io/myVue/pract/0-list-quickStart/index.html"> Быстрый старт Vue с использованием CDN </a> </li>
+  <li> <a href="https://markgrig.github.io/myVue/pract/2-listOfExpenses-validation/index.html"> Список расходов Vue с использованием CDN </a> </li>
+  <li> <a href="https://markgrig.github.io/myVue/pract/1-shoppingList-bind/index.html"> Список покупок Vue с использованием CDN </a></li> 
+  <li> <a href="https://markgrig.github.io/myVue/pract/3-sizing%20block-computed/index.html"> Игра "Выровни блок" Vue с использованием CDN </a></li>
+  <li> <a href="https://markgrig.github.io/myVue/pract/4-botQuestionnaire-watch/index.html"> Анкета бот vue CDN </a></li>
 </ol>
