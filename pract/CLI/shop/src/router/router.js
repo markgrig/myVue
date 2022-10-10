@@ -5,11 +5,11 @@ import {createRouter, createWebHistory} from "vue-router"
 
 const routes = [
     {
-        path: "/",
+        path: '/',
         component: HomePage,
     },
     {
-        path: "/home1",
+        path: '/home1',
         component: HomePage1,
     },
     {
@@ -20,8 +20,8 @@ const routes = [
     
 ]
 const router = createRouter({
+    history: createWebHistory(),
     routes,
-    history: createWebHistory(process.env.BASE_URL)
 })
 
 export default router

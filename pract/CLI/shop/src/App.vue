@@ -5,6 +5,15 @@
     <router-link to="/home2">Go to Home2</router-link>
     <router-view></router-view>
   </div>
+
+  <IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
 </template>
 
 <script>
