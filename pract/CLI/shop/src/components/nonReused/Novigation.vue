@@ -1,12 +1,12 @@
 <template>
-  <div class="novigator">
-    <h1>{{ title }}</h1>
-  </div>
+  <div class="novigatorPannel">
+    <h1> {{ title }}</h1>
+  </div>  
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'NovigationPannel',
   props: {
     title: String
   }

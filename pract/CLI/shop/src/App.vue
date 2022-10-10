@@ -1,26 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/shop.jpg">
-  <Novigation title="Web-shop"/>
+  <div class ="app">
+    <router-link to="/">Go to Home </router-link>
+    <router-link to="/home1">Go to Home1</router-link>
+    <router-link to="/home2">Go to Home2</router-link>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import Novigation from './components/Novigation.vue'
 
 export default {
   name: 'App',
-  components: {
-    Novigation
-  }
 }
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+}
+body, html {
+  margin: 0;
+  padding: 0;
 }
 </style>
