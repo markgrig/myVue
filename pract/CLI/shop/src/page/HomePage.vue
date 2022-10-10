@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Novigation from '@/components/nonReused/Novigation.vue'
+import Novigation from '../components/nonReused/Novigation.vue'
 
 
 export default {
