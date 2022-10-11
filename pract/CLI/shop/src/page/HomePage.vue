@@ -1,7 +1,7 @@
 <template>
   <div id = "home">
     <Novigation title="Web-shop"/>
-    <img src="@/img/shop.jpg">
+    <img src="../img/shop.jpg">
   </div>
 </template>
 
