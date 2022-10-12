@@ -116,13 +116,13 @@ span:focus {
   #home {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0px;
     margin: 0px;
   }
   span {
     padding: 10px 20px;
     width: 70%;
-    margin: 80px 14%;
+    margin: 80px 18% 40px 9%;
     height: 150px;
   }
   img {

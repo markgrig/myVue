@@ -34,4 +34,8 @@ body{
   width: 100%;
   background-attachment: fixed;
 }
+
+body{
+  background-size: auto;
+}
 </style>

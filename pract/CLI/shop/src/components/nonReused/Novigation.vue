@@ -49,7 +49,7 @@ export default {
   padding: 30px;
 }
 h2 {
-  padding: 10px;
+  padding: 10px 0px 0px 0px;
   text-align: center;
   color: rgb(251, 246, 246);
 
