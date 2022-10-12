@@ -1,44 +1,72 @@
 <template>
-  <div class="novigation-element" @:click = 'goToCategory( name, urlName)'>
-        {{ name }} 
-  </div>  
+   <h2> {{ nameCategory }} </h2>
+
+  <div class ="navigator">
+    <div class="novigation-element" 
+        @:click = 'changeCategory( category.name, category.urlName)'
+        v-for='category, id in categores' :key = 'id' >
+          {{ category.name }} 
+    </div>
+  </div>
+    
 </template>
 
 <script>
+import { constant } from '@/factory/constants.js'
 
 export default {
   name: 'NovigationElement',
-  props: {
-    name: String ,
-    urlName: String
+  data () {
+  return {
+    categores: constant.category,
+    nameCategory: "Добро пожаловть!",
+  }
   },
   methods: {
-    goToCategory( name, urlName) {
+    changeCategory( name, urlName) {
       const url = '/category/' + urlName;
       this.$router.push({ path: url })
-      this.$emit('changeCategory', name)
-    }
-  }
+      this.nameCategory = name
+    },
+  },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.novigation-element{
-    display: block;
-    margin: auto;
-    text-align: center;
-    width: 200px;
-    height: 30px;
-    color: rgba(0, 0, 255, 0.459);
-    background-color: rgba(105, 235, 240, 0.765);
-    border: solid;
 
-    padding: 10px 0px 0px 0px;
-    border-radius: 10px;
+.navigator {
+  display: flex;
+  align-items: center;
+  padding: 30px;
+}
+h2 {
+  padding: 10px;
+  text-align: center;
+  color: brown;
+}
+
+.novigation-element{
+  display: block;
+  margin: auto;
+  text-align: center;
+
+  width: 200px;
+  height: 30px;
+  
+  color: rgba(0, 0, 255, 0.459);
+  background-color: rgba(105, 235, 240, 0.765);
+  border: solid;
+
+  padding: 10px 0px 0px 0px;
+  border-radius: 10px;
 
 }
 @media (max-width: 850px){
+  .navigator {
+    flex-direction: column;
+    margin: 30px;
+  }
   .novigation-element {
     display: block;
     margin: 30px;
