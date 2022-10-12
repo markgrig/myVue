@@ -121,13 +121,13 @@ span:focus {
   }
   span {
     padding: 10px 20px;
-    margin: 80px auto;
     width: 90%;
+    margin: 80px auto;
     height: 150px;
   }
   img {
     width: 50%;
-    margin: 0% 25%;
+    margin: 0% 24%;
     height: auto;
   }
   span:hover {
