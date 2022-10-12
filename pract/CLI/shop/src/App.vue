@@ -1,32 +1,69 @@
 <template>
+  
   <div class ="home-router">
-    <router-link to="/">Go to Home </router-link>
-    <router-link to="/home1">Go to Home1</router-link>
-    <router-link to="/home2">Go to Home2</router-link>
-    <main>
-      <router-view/>
-    </main>
+    <Novigation  v-for='category, id in categores' :key = 'id' 
+      :name='category.name'
+      :urlName='category.urlName'
+      @changeCategory = 'changeNameCategory'
+      />
   </div>
+  <h2> 
+    {{ nameCategory }}
+  </h2>
+  <main>
+      <router-view/>
+  </main>
   
 </template>
 
 <script>
 
+import Novigation from '@/components/nonReused/Novigation.vue'
+import { constant } from '@/factory/constants.js'
+
 export default {
+  
   name: 'App',
+
+  data () {
+  return {
+    categores: constant.category,
+    nameCategory: "Добро пожаловть!",
+  }
+  },
+  methods: {
+    changeNameCategory(value) {
+        this.nameCategory = value;
+    }
+  },
+  components: {
+    Novigation
+  }
+  
 }
 
 </script>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+}
+body{
+  background-color: rgba(182, 255, 80, 0.285);
+}
 .home-router {
   display: flex;
-  flex-direction: column;
   align-items: center;
   padding: 30px;
 }
-body, html {
-  margin: 0;
-  padding: 0;
+h2 {
+  text-align: center;
+}
+@media (max-width: 850px){
+  .home-router {
+    flex-direction: column;
+    margin: 30px;
+  }
 }
 </style>

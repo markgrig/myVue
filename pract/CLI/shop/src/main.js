@@ -1,40 +1,35 @@
 import { createApp } from 'vue'
-import {createRouter, createWebHistory} from "vue-router"
 import { componentArray } from './components/reused/componentsArray'
 import App from './App.vue'
-import HomePage from "./page/HomePage"
-import HomePage1 from "./page/HomePage1"
-import HomePage2 from "./page/HomePage2"
+import { router } from './router/router'
 
-const pages = [
-    {
-        path: '/',
-        name: "home",
-        component: HomePage,
-    },
-    {
-        path: '/home1',
-        name: "home1",
-        component: HomePage1,
-    },
-    {
-        path: "/home2",
-        name: "home2",
-        component: HomePage2,
-    },
-    
-]
+const createIcons = (iconsUrl) => {
+    const link = document.createElement("link")
+    link.rel = "shortcut icon"
+    link.href = iconsUrl
+    link.type = "image/png"
+    document.head.append(link)
+}
+const createchangerDocumentTitle = (router) => {
+    router.beforeEach((el) => {
+        if (el.meta.title) {
+            document.title = el.meta.title;
+        }
+        else {
+            document.title = "Shop"
+        }
 
-const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes: pages,
-})
+    })
+}
+createIcons("https://cdn-icons-png.flaticon.com/512/478/478045.png")
+createchangerDocumentTitle(router)
 
 const app = createApp(App)
 
 componentArray.forEach( component => {
     app.component( component.name, component);
 });
+
 
 app.use(router)
 app.mount('#app')
