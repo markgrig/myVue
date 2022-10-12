@@ -121,8 +121,8 @@ span:focus {
   }
   span {
     padding: 10px 20px;
-    width: 90%;
-    margin: 80px 4%;
+    width: 70%;
+    margin: 80px 14%;
     height: 150px;
   }
   img {
