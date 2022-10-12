@@ -76,6 +76,9 @@ h2 {
     flex-direction: column;
     margin: 30px;
   }
+  .navigator:nth-child(1) {
+    height: 60px;
+  }
   .novigation-element {
     display: block;
     margin: 10px;

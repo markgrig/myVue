@@ -1,7 +1,7 @@
 <template>
 
   <div id = "home">
-    <WhitePlacholder textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"> </WhitePlacholder>
+    <WhitePlacholder class ="white-placeholder" textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"> </WhitePlacholder>
     <div> <img class="ligth" src="@/img/quest.jpg" 
       @mouseover="placholderMouseoverQestionary()"
       @mouseout="placholderMouseoverQestionary()">
@@ -116,21 +116,27 @@ span:focus {
   #home {
     display: flex;
     flex-direction: column;
+    padding: 20px;
+    margin: 0px;
   }
   span {
     padding: 10px 20px;
-    margin: 40px auto;
+    margin: 80px auto;
     width: 90%;
     height: 150px;
   }
   img {
     width: 50%;
+    margin: 0% 25%;
     height: auto;
   }
   span:hover {
-  margin-top: 10px;
+  margin-top: 60px;
   height: calc(150px + 20px);
 
+}
+.white-placeholder {
+  opacity: 0;
 }
 }
 </style>
