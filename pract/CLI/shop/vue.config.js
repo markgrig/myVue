@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: '/myVue/'
+    publicPath: '/myVue/pract/CLI/shop/dist/'
 }
