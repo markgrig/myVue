@@ -26,7 +26,7 @@ const pages = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL + "myVue/pract/CLI/shop/dist/"),
+    history: createWebHistory(),
     routes: pages,
 })
 
