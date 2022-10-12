@@ -5,4 +5,5 @@
   <li> <a href="https://markgrig.github.io/myVue/pract/CDN/1-shoppingList-bind/index.html"> Список покупок (CDN) </a></li> 
   <li> <a href="https://markgrig.github.io/myVue/pract/CDN/3-sizing%20block-computed/index.html"> Игра "Выровни блок" (CDN) </a></li>
   <li> <a href="https://markgrig.github.io/myVue/pract/CDN/4-botQuestionnaire-watch/index.html"> Анкета-бот (CDN)  </a></li>
+  <li> <a href="https://markshop.netlify.app"> Web-приложение магазин (Vue-CLI)  </a></li>
 </ol>
