@@ -2,13 +2,15 @@
    <h2> {{ nameCategory }} </h2>
 
   <div class ="navigator">
-    <div class="novigation-element" 
+    <div class="novigation-element ligth" 
         @:click = 'changeCategory( category.name, category.urlName)'
         v-for='category, id in categores' :key = 'id' >
           {{ category.name }} 
     </div>
   </div>
     
+  <div diplay = "none">  {{ findUrl(this.$route.params.id) }}  </div>
+
 </template>
 
 <script>
@@ -19,7 +21,7 @@ export default {
   data () {
   return {
     categores: constant.category,
-    nameCategory: "Добро пожаловть!",
+    nameCategory: "",
   }
   },
   methods: {
@@ -27,7 +29,13 @@ export default {
       const url = '/category/' + urlName;
       this.$router.push({ path: url })
       this.nameCategory = name
-    },
+     },
+    findUrl(urlInpute) {
+        console.log(urlInpute);
+        this.categores.forEach(element => {
+            if ( urlInpute?.trim() === element.urlName?.trim() ) { this.nameCategory = element.name }
+        });
+    }
   },
 }
 </script>
@@ -43,7 +51,8 @@ export default {
 h2 {
   padding: 10px;
   text-align: center;
-  color: brown;
+  color: rgb(251, 246, 246);
+
 }
 
 .novigation-element{
@@ -69,7 +78,7 @@ h2 {
   }
   .novigation-element {
     display: block;
-    margin: 30px;
+    margin: 10px;
   }
 }
 </style>

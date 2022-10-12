@@ -27,7 +27,11 @@
   margin: 0;
 }
 body{
-  background-color: rgba(182, 255, 80, 0.285);
+  background-image: url( './img/background.jpg' );
+  background-position: 50% 0%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  background-attachment: fixed;
 }
-
 </style>
