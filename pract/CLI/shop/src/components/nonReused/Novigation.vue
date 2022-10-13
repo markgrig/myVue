@@ -63,7 +63,7 @@ h2 {
   width: 200px;
   height: 30px;
   
-  color: rgba(0, 0, 255, 0.459);
+  color: rgba(0, 0, 255, 0.7);
   background-color: rgba(105, 235, 240, 0.765);
   border: solid;
 

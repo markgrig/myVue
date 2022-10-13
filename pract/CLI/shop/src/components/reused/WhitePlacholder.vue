@@ -16,8 +16,8 @@ export default {
 div {
     padding: 20px;
     position: absolute;
-    top: auto;
-    left: 100px;
+    margin-top: -15%;
+    margin-left: -12%;
     height: 50px;
     width: 100px;
     padding: 10px 0px 10px 20px;

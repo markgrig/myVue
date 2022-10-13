@@ -1,10 +1,11 @@
 <template>
 
   <div id = "home">
-    <WhitePlacholder class ="white-placeholder" textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"> </WhitePlacholder>
+    
     <div> <img class="ligth" src="@/img/quest.jpg" 
       @mouseover="placholderMouseoverQestionary()"
       @mouseout="placholderMouseoverQestionary()">
+      <WhitePlacholder class ="white-placeholder" textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"> </WhitePlacholder> 
     </div>
   
     <span class="ligth" @:mouseover="tellAboutShop()"> {{ infoAbotShop }}</span>
@@ -41,7 +42,7 @@ export default {
             }
         },
         placholderMouseoverQestionary() {
-        console.log(234);
+        
         return this.mouseoverQestionary = !this.mouseoverQestionary
       }
     },
@@ -74,7 +75,7 @@ img {
     box-shadow:  0 1px 5px 1px white;
   }
   50%{
-    box-shadow:  0 1px 10px 5px white;
+    box-shadow:  0 1px 15px 5px white;
   }
   100%{
     box-shadow:  0 1px 5px 1px white;

@@ -2,7 +2,7 @@
     
     <Novigation/>
     <router-view/>
-
+      
 </template>
 
 <script>
@@ -15,7 +15,7 @@
     name: 'App',
     components: {
       Novigation
-    }
+    },
     
   }
 
@@ -27,15 +27,19 @@
   margin: 0;
 }
 body{
-  background-image: url( './img/background.jpg' );
-  background-position: 50% 0%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
+  background-position: center center;
+  margin: 0;
+  background: url( './img/background.jpg' );
+  background-size: 100% auto;
   background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
 }
 
-body{
-  background-size: auto;
+@media (max-width: 850px){
+  body{
+    background-size: auto 100%;
+  }
+
 }
 </style>
