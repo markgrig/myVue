@@ -2,7 +2,7 @@
   <BlueButton @click="clickCreateProduct()"/>
   <WhiteModalWindow v-if= "isCreatProduct && !isMobile" @deleteModalWindow = "deleteThisCompanent"> </WhiteModalWindow>
   <WhiteModileModalWindow v-if= "isCreatProduct && isMobile" @deleteModalWindow = "deleteThisCompanent"> </WhiteModileModalWindow>
-  {{ isMobile}}
+ 
 </template>
 
 <script>
@@ -35,4 +35,5 @@ export default {
 h1{
   text-align: center;
 }
+
 </style>

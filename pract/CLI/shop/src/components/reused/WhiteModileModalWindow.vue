@@ -6,11 +6,11 @@
          {{ getStatusProdaction }} 
     </h4>
 
-    <div class="modal-window product-form" :style="{ left: modalFormLeft , display: modalFormDisplay}">
+    <div class="modal-window product-form" :style="{ top: modalFormTop , display: modalFormDisplay}">
         <div class="cross" @:click="deleteModal($event)"> &#10006; </div>
     </div>
 
-    <div class="modal-window product-card" :style="{ left: modalCardLeft, display:  modalCardDisplay }">
+    <div class="modal-window product-card" :style="{ top: modalCardTop, display:  modalCardDisplay }">
         <div class="cross" @:click="deleteModal($event)"> &#10006; </div>
         <h4 class="modal-input-topic"> Название товара: </h4>
         <span contenteditable="true" class="modal-input"> 123</span>
@@ -37,11 +37,11 @@
 <script>
 
 export default {
-    name: "WhiteModalWindow",
+    name: "WhiteModileModalWindow",
     data() {
         return {
-            modalCardLeft: "60%",
-            modalFormLeft: "8%",
+            modalCardTop: "60%",
+            modalFormTop: "15%",
             modalCardDisplay: "",
             modalFormDisplay: "",
             nameDeletemodal: "",
@@ -53,17 +53,17 @@ export default {
         deleteModal(event) {
             if ( event.target.closest(".product-card") ) {
                 this.modalCardDisplay = "none"
-                this.modalFormLeft = "27%"
+                this.modalFormTop = "27%"
                 this.nameDeletemodal = "oкно с вводом данных"
             } else {
                 this.modalFormDisplay = "none"
-                this.modalCardLeft = "35%"
+                this.modalCardTop = "35%"
                 this.nameDeletemodal = "демонстрационное окно"
             }
 
             this.modalHide = true
             
-            if (  this.modalFormLeft === "27%" &&  this.modalCardLeft === "35%" ) {
+            if (  this.modalFormTop === "27%" &&  this.modalCardTop === "35%" ) {
                 this.nameDeletemodal =  'оба окна'
                 this.isExit = true
                 this.modalHide = false
@@ -71,8 +71,8 @@ export default {
             
         },
         returnModal() {
-            this.modalCardLeft = "60%"
-            this.modalFormLeft = "8%"
+            this.modalCardTop = "60%"
+            this.modalFormTop = "15%"
             this.modalCardDisplay = ""
             this.modalFormDisplay = ""
             this.modalHide = false
@@ -89,13 +89,13 @@ export default {
     },
     computed: {
         getStatusProdaction() {
-            if (  this.modalFormLeft === "27%" &&  this.modalCardLeft === "35%" ) {
+            if (  this.modalFormTop === "27%" &&  this.modalCardTop === "35%" ) {
                 return "Вы не хотите добавить продукт продукт?"
             }
-            if (  this.modalFormLeft === "27%" ) {
+            if (  this.modalFormTop === "27%" ) {
                 return "Сейчас вы можете сконцетрироваться на карточке продукта"
             }
-            if (  this.modalCardLeft === "35%" ) {
+            if (  this.modalCardTop === "35%" ) {
                 return "Сейчас вы можете сконцетрироваться на заполнении полей"
             }
             return "Сейчас вы можите наблюдать за карточкой и заполнять её"
@@ -107,6 +107,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+*{
+    overflow: hidden;
+}
 .black-window {
     position: absolute;
     left: 0;
@@ -127,11 +130,11 @@ export default {
 }
 .flex-class{
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
 }
 .icons{
-    width: 60%;
-    margin-left: 20%;
+    width: 80%;
+    margin-left: 10%;
     top: 20px;
     box-shadow: none;
     border: none;
@@ -145,7 +148,7 @@ export default {
     color: white;
 }
 .ico-noexit, .ico-exit {
-   margin: 100px 0px;
+   margin: 80px 23%;
    width: 30% auto;
    
 }
@@ -154,15 +157,17 @@ export default {
 }
 
 .computed-window {
-    font-size: 130%;
+    font-size: 80%;
     color: white;
     padding: 3px;
     box-shadow: none;
     border: none;
-    width: 100vw;
+    width: 80%;
     text-align: center;
-    height: 3%;
+    height: 1%;
     top: 10px;
+    left: 10%;
+    overflow: visible;
 }
 
 
@@ -170,8 +175,8 @@ export default {
     text-align: center;
     color: white;
     padding: 5px;
-    left: 40%;
-    width: 20%;
+    left: 23%;
+    width: 50%;
     bottom: 2%;
 }
 
@@ -183,9 +188,9 @@ export default {
 
 .product-form {
     background-color: rgba(255, 255, 255, 0.85);
-    height: 80%;
-    width: 46%;
-    top: 10%;
+    height: 40%;
+    width: 90%;
+    left: 4%;
 }
 
 .product-form:hover {
@@ -197,10 +202,9 @@ export default {
 
 .product-card {
     background-color: rgba(255, 255, 255, 0.15);
-    height: 60%;
-    width: 30%;
-    top: 20%;
-
+    height: 30%;
+    left: 9%;
+    width: 80%;
 }
 
 .product-card:hover {
@@ -242,18 +246,13 @@ export default {
 }
 
 .cross {
-    height: 40px;
+    height: 20px;
     position: relative;
     font-size: 30px;
     color: red;
     bottom: -5px;
     left: calc(100% - 40px);
+    overflow: visible;
 }
 
-.cross:hover {
-    font-size: 32px;
-    position: relative;
-    color: red;
-    left: calc(100% - 40px);
-}
 </style>

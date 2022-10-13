@@ -72,12 +72,15 @@ h2 {
 
 }
 @media (max-width: 850px){
+  .navigator div:nth-child(2) {
+    height: 50px;
+  }
+}
+
+@media (max-width: 700px){
   .navigator {
     flex-direction: column;
     margin: 30px;
-  }
-  .navigator div:nth-child(2) {
-    height: 50px;
   }
   .novigation-element {
     display: block;

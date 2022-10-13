@@ -38,8 +38,14 @@ body{
 
 @media (max-width: 850px){
   body{
-    background-size: auto 100%;
-  }
+    background-size: 100% auto;
+    }
+}
 
+@media (max-width: 700px){
+  body{
+    background-size: auto 100%;
+    overflow: hidden;
+    }
 }
 </style>

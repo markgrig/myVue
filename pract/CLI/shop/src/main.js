@@ -28,6 +28,7 @@ const app = createApp(App)
 
 componentArray.forEach( component => {
     app.component( component.name, component);
+    console.log(component);
 });
 
 
