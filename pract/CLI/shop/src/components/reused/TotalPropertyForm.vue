@@ -1,0 +1,179 @@
+<template>
+    <div class="flex-class" @:click ="isNotUserWrite">
+        <div>
+            <h4 class="modal-input-topic"> Наименование: {{ rty }}</h4>
+            <textarea class="modal-input" @:click ="userWrite()">  </textarea>
+        </div>
+        <div>
+            <h4 class="modal-input-topic"> Цена(руб): </h4>
+            <textarea class="modal-input"  @:click ="userWrite()" > </textarea>
+        </div>
+    </div>
+
+    <div>
+         <h4 class="modal-input-topic"> Описание: </h4>
+        <textarea class="modal-input modal-input-info"  @:click ="userWrite()"> </textarea>
+    </div>
+
+    <div v-show = "!hidePicturePannel" class="flex-class div-picture">
+        <div>
+            <img src="@/img/sell.png" alt="" class = "picture"> 
+            <WhitePlacholder class ="white-placeholder" textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"></WhitePlacholder>
+        </div>
+        <div> 
+            <img src="@/img/picture.jpg" alt="" class = "picture"> 
+        </div>
+    </div>
+    
+</template>
+
+<script scoped>
+import WhitePlacholder from './WhitePlacholder.vue';
+export default {
+    name: "TotalPropertyForm",
+    props: {
+        totalProperty: Object,
+        isMobile: Boolean
+    },
+    data() {
+        return {
+            hidePicturePannel: false
+        }
+    },
+    methods: {
+        show() {
+            console.log(this.totalProperty);
+        },
+        userWrite() {
+            if ( this.isMobile ) { this.hidePicturePannel = true }
+            
+        },
+        isNotUserWrite(event) {
+            if ( event.target.tagName !== "TEXTAREA" ) {
+                console.log( event.target.tagName);
+                this.hidePicturePannel = false
+            }
+        }
+    },
+    components: { WhitePlacholder }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+.modal-input {
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    overflow: auto;
+
+    height: 6vh;
+    width: 18vh;
+    resize: none; 
+    padding: 5px 4vh;
+    margin-left:  1vh;
+    margin-top: 4%;
+
+    border: solid 1px rgb(120, 108, 83);
+    background-color: rgba(18, 198, 201, 0.102);
+    border-radius: 1vh;
+}
+.modal-input-topic {
+    font-size: 3vh ;
+    outline: none;
+    color: white;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.modal-input:focus {
+    border: solid 2px white;
+    height: 8vh;
+    margin-left: calc(1vh - 2px);
+    transition: 0.1s;
+    outline: none;
+}
+.modal-input-info {
+    
+    width: 80%;
+    height: 20vh;
+    padding: 5px 5% 20px;
+    margin-left: 5%;
+    
+ 
+}
+
+.modal-input-info:focus {
+    border: solid 2px white;
+    height: 22vh;
+    margin-left: calc(5% - 2px);
+    transition: 0.1s;
+    outline: none;
+}
+.div-picture {
+    position: absolute;
+    top:  63vh;
+
+}
+.picture {
+    z-index: 100;
+    width: 11vh;
+    margin: 0;
+    border-radius: 10vh;
+    height: auto;
+    padding: 1vh;
+}
+.picture:hover {
+    animation: light 1s infinite;
+}
+.div-picture{
+    display: flex;
+    justify-content: space-between;
+    width: 30vw;
+}
+
+
+@media (max-width: 850px){
+
+
+    .modal-input-topic {
+        font-size: 3.5vw;
+    }
+    .modal-input {
+        height: 3vh;
+        width: 15vw;
+        font-size: 3vw;
+    }
+
+    .modal-input-info {
+        height: 3vh;
+        width: 60vw;
+        margin-left: 3vh;
+        font-size: 4vw;
+    }
+
+    .modal-input:focus {
+    height: 6vh;   
+    }
+
+    .modal-input-info:focus {
+        height: 6vh;
+    }
+    .div-picture {
+        position: fixed;
+        top: 78vh;  
+        width: 70vw;
+        margin-left: 5vw;
+       
+    }
+    .picture {
+        margin: 0;
+        width: 15vw;
+    }
+    
+}
+
+
+</style>

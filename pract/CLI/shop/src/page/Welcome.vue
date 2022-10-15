@@ -61,7 +61,7 @@ img {
   position: relative;
   margin: 0;
   border-radius: 40px;
-  border: solid 5px rgb(156, 101, 19);
+  border: solid 0.2vh rgb(156, 101, 19);
   height: 50vh;
   box-shadow:  0 1px 5px 1px white;
   opacity: 1;

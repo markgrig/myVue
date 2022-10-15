@@ -1,27 +1,58 @@
 <template>
-  <BlueButton @click="clickCreateProduct()"/>
-  <WhiteModalWindow v-if= "isCreatProduct && !isMobile" @deleteModalWindow = "deleteThisCompanent"> </WhiteModalWindow>
-  <WhiteModileModalWindow v-if= "isCreatProduct && isMobile" @deleteModalWindow = "deleteThisCompanent"> </WhiteModileModalWindow>
- 
+  <BlueButton @click="clickCreateProduct()" textButton = "Создать товар"> </BlueButton>
+
+  <ModalForAddProduct v-if= "isCreatProduct && !isMobile" 
+      @deleteModalWindow = "deleteThisCompanent"
+      :product= 'product' :isMobile = 'isMobile'
+      :modalCardWidth = "'30%'" :modalCardHeight = "'60%'"
+      :modalFormWidth = "'46'" :modalFormHeight = "'80'"
+      :startCardMargin = "'8%  60%'" :centralCardMargin = "'10% 35%'"
+      :startFormMargin = "'5% 8%'"    :centralFormMargin = "'4%  27%'"
+      >
+
+  </ModalForAddProduct>
+
+  <ModalForAddProduct v-if= "isCreatProduct && isMobile" 
+      @deleteModalWindow = "deleteThisCompanent"
+      :product= 'product' :isMobile = 'isMobile'
+      :modalCardWidth = "'80%'" :modalCardHeight = "'40vh'"
+      :modalFormWidth = "'90%'" :modalFormHeight = "'40%'"
+      :startCardMargin = "'50vh 9%'" :centralCardMargin = "'30vh 9%'"
+      :startFormMargin = "'15% 4%'" :centralFormMargin = "'25vh  4%'"> 
+  </ModalForAddProduct>
+
+  
+
 </template>
 
 <script>
-import { createProduct } from "@/factory/factory.js"
+import *  as AbstactFactory from "@/factory/factory.js"
+import ModalForAddProduct from '@/components/nonReused/ModalForAddProduct.vue'
+import BlueButton from "../components/reused/BlueButton.vue"
 
 export default {
     name: "Category",
+    components: {
+    ModalForAddProduct,
+    BlueButton
+},
     data() {
       return {
         nameCategory : "",
         isCreatProduct: false,
-        isMobile: RegExp('Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini', "i").test(navigator.userAgent)
+        product: {},
+        isMobile: Boolean( ( window.innerWidth < 850)),
       }
     },
     methods: {
       clickCreateProduct() {
-        const res = createProduct()
+        const category = this.$route.params.id
+        //создание пустого продукт
+        this.product = AbstactFactory.createProduct(category)
         this.isCreatProduct = true
-        console.log(res);
+        console.log(this.product);
+       
+       
       },
       deleteThisCompanent() {
         this.isCreatProduct = false
@@ -32,6 +63,7 @@ export default {
 </script>
 
 <style>
+
 h1{
   text-align: center;
 }

@@ -1,13 +1,26 @@
 import { Product, VideoProduct, MusicInstrumentProduct } from "./classProduct"
 
-export const createProduct = ( category , dataProduct = "" ) => {
-    if ( category === "musicInstr" )  {
-        return new MusicInstrumentProduct(...dataProduct )
+
+export const createProduct = (category , dataProduct = "" ) => {
+        if ( category.trim() === "music_instrument" )  {
+            return createMusicInstrumentProduct(dataProduct )
+        }
+        if ( category.trim() === "video" ) {
+            return createVideoProduct(dataProduct)
+        }
+        
+        return createOrdinaryProduct(dataProduct)
     }
 
-    if ( category === "video" ) {
-        return new VideoProduct(...dataProduct)
-    }
 
+const createOrdinaryProduct = (dataProduct) => {
     return new Product(...dataProduct)
 }
+
+const createMusicInstrumentProduct = (dataProduct) => {
+    return new MusicInstrumentProduct(...dataProduct )
+} 
+
+const createVideoProduct = (dataProduct) => {
+    return new VideoProduct(...dataProduct)
+} 

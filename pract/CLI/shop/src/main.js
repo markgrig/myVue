@@ -21,6 +21,8 @@ const createchangerDocumentTitle = (router) => {
 
     })
 }
+
+
 createIcons("https://cdn-icons-png.flaticon.com/512/478/478045.png")
 createchangerDocumentTitle(router)
 
@@ -30,7 +32,6 @@ componentArray.forEach( component => {
     app.component( component.name, component);
     console.log(component);
 });
-
 
 app.use(router)
 app.mount('#app')

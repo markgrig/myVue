@@ -6,20 +6,54 @@
          {{ getStatusProdaction }} 
     </h4>
 
-    <div class="modal-window product-form" :style="{ left: modalFormLeft , display: modalFormDisplay}">
-        <div class="cross" @:click="deleteModal($event)"> &#10006; </div>
+    <div class="modal-window product-form" 
+        :style="{ 
+                margin: modalFormMargin , 
+                display: modalFormDisplay,
+                width: modalFormWidth,
+                height: modalFormHeight , 
+                }">
+
+        <div class="cross" 
+            @:click="deleteModal($event)"> &#10006; </div>
+
+        <TotalPropertyView 
+            :totalProperty = "product.totalProperty" :isMobile = 'isMobile'>
+        </TotalPropertyView>
+
+        <SpecificPropertyView 
+            :specificPropetry = "product.specificPropetry" >
+        </SpecificPropertyView>
+
     </div>
 
-    <div class="modal-window product-card" :style="{ left: modalCardLeft, display:  modalCardDisplay }">
-        <div class="cross" @:click="deleteModal($event)"> &#10006; </div>
-        <h4 class="modal-input-topic"> Название товара: </h4>
-        <span contenteditable="true" class="modal-input"> 123</span>
+    <div class="modal-window product-card" 
+        :style="{ margin : modalCardMargin, 
+                  display:  modalCardDisplay,
+                  width: modalCardWidth,
+                  height: modalCardHeight , 
+                }"
+    >
+                
+        <div class="cross" 
+            @:click="deleteModal($event)"> &#10006; </div>
+
+        <TotalPropertyForm 
+            :totalProperty = "product.totalProperty"
+            :isMobile = "isMobile">
+        </TotalPropertyForm>
+
+        <SpecificPropertyForm 
+            :specificPropetry = "product.specificPropetry" >
+        </SpecificPropertyForm>
+
+
     </div>
 
 
-    <div v-show="modalHide" @click ="returnModal()" class="modal-window return-two-window"> Вернуть {{nameDeletemodal}} </div>
+    <div v-show="modalHide" @click ="returnModal()" class="modal-window return-two-window"> Вернуть {{ nameDeletemodal }} </div>
     
-    <div v-show="isExit"  class ="modal-window icons">
+    <div v-show="isExit"  class ="modal-window icons" >
             <div class = "flex-class">
                 <div>
                     <img class ="ico-exit" src="@/img/exit.jpg" alt=""  @click ="Leave()">
@@ -31,51 +65,68 @@
                 </div>
             </div>
     </div>
-
 </template>
 
 <script>
 
+
+
 export default {
-    name: "WhiteModalWindow",
+    name: "ModalForAddProduct",
+    props: {
+        product: Object,
+        startCardMargin: String,
+        centralCardMargin: String,
+        startFormMargin: String,
+        centralFormMargin: String,
+        modalCardWidth: String,
+        modalCardHeight: String,
+        modalFormWidth: String,
+        modalFormHeight: String,
+        isMobile: Boolean,
+    },
     data() {
         return {
-            modalCardLeft: "60%",
-            modalFormLeft: "8%",
+            modalCardMargin: this.startCardMargin,
+            modalFormMargin: this.startFormMargin,
             modalCardDisplay: "",
             modalFormDisplay: "",
             nameDeletemodal: "",
             modalHide: false,
             isExit: false,
+           
         }
     },
     methods: {
         deleteModal(event) {
             if ( event.target.closest(".product-card") ) {
+                
                 this.modalCardDisplay = "none"
-                this.modalFormLeft = "27%"
+                this.modalFormMargin = this.centralFormMargin
                 this.nameDeletemodal = "oкно с вводом данных"
             } else {
+    
                 this.modalFormDisplay = "none"
-                this.modalCardLeft = "35%"
+                this.modalCardMargin = this.centralCardMargin
                 this.nameDeletemodal = "демонстрационное окно"
             }
 
             this.modalHide = true
             
-            if (  this.modalFormLeft === "27%" &&  this.modalCardLeft === "35%" ) {
-                this.nameDeletemodal =  'оба окна'
+            if (  this.modalFormMargin === this.centralFormMargin &&  this.modalCardMargin === this.centralCardMargin ) {
                 this.isExit = true
                 this.modalHide = false
             }
             
+        
         },
         returnModal() {
-            this.modalCardLeft = "60%"
-            this.modalFormLeft = "8%"
+            this.modalCardMargin = this.startCardMargin
+            this.modalFormMargin = this.startFormMargin
             this.modalCardDisplay = ""
             this.modalFormDisplay = ""
             this.modalHide = false
+           
         },
         noLeave() {
             this.isExit = false
@@ -89,16 +140,37 @@ export default {
     },
     computed: {
         getStatusProdaction() {
-            if (  this.modalFormLeft === "27%" &&  this.modalCardLeft === "35%" ) {
+            console.log( this.centralCardMargin ,  this.modalFormMargin);
+            if (   this.modalFormMargin === this.centralFormMargin &&   this.modalCardMargin === this.centralCardMargin  ) {
                 return "Вы не хотите добавить продукт продукт?"
             }
-            if (  this.modalFormLeft === "27%" ) {
+            if (   this.modalFormMargin === this.centralFormMargin ) {
                 return "Сейчас вы можете сконцетрироваться на карточке продукта"
             }
-            if (  this.modalCardLeft === "35%" ) {
+            if (   this.modalCardMargin === this.centralCardMargin  ) {
                 return "Сейчас вы можете сконцетрироваться на заполнении полей"
             }
             return "Сейчас вы можите наблюдать за карточкой и заполнять её"
+            },
+            changePositionPicuresInput() {
+
+                if ( this.isMobile ) { 
+                    const pannelPictures = document.querySelector(".div-picture")
+                    console.log(pannelPictures);
+                   
+
+                    if ( this.modalFormMargin === this.centralFormMargin ||   this.modalCardMargin === this.centralCardMargin ) {
+                        if ( pannelPictures ) {
+                             pannelPictures.style.top = "10vh"
+                        }
+                    else {
+                        if ( pannelPictures ) {
+                            pannelPictures.style.top = ""         
+                        }
+                    }
+                }
+                }   
+                return ""
             }
     }
 }
@@ -107,6 +179,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .black-window {
     position: absolute;
     left: 0;
@@ -118,6 +191,7 @@ export default {
 }
 
 .modal-window {
+   
     z-index: 2;
     position: absolute;
     border-radius: 10px;
@@ -125,10 +199,7 @@ export default {
     box-shadow: 0px 1px 5px 1px rgba(255, 255, 255, 0.343);
 
 }
-.flex-class{
-    display: flex;
-    justify-content: space-around;
-}
+
 .icons{
     width: 60%;
     margin-left: 20%;
@@ -170,8 +241,8 @@ export default {
     text-align: center;
     color: white;
     padding: 5px;
-    left: 40%;
-    width: 20%;
+    left: 42vw;
+    width: 15vw;
     bottom: 2%;
 }
 
@@ -182,10 +253,10 @@ export default {
 }
 
 .product-form {
+    top: 0;
     background-color: rgba(255, 255, 255, 0.85);
     height: 80%;
     width: 46%;
-    top: 10%;
 }
 
 .product-form:hover {
@@ -196,10 +267,10 @@ export default {
 }
 
 .product-card {
+    top: 0;
     background-color: rgba(255, 255, 255, 0.15);
     height: 60%;
     width: 30%;
-    top: 20%;
 
 }
 
@@ -208,37 +279,6 @@ export default {
     transition: 0.7s;
     border-radius: 12px;
     box-shadow: 0px 0px 20px 5px rgb(136, 133, 133);
-}
-
-.modal-input {
-    height: 24px;
-    font-size: 16px;
-    padding: 4px 5% 4px 5px;
-    width: 50%;
-    margin-top: 4%;
-    margin-left: 21%;
-    border: solid 1px rgb(120, 108, 83);
-    ;
-    background-color: rgba(18, 198, 201, 0.102);
-    border-radius: 5px;
-    color: white;
-}
-
-.modal-input-topic {
-    outline: none;
-    color: white;
-    /* rgb(236, 107, 51);*/
-    text-align: center;
-    width: 50%;
-    margin-top: 10%;
-    margin-left: 25%;
-}
-
-.modal-input:focus {
-    border: solid 1.5px white;
-    margin-left: calc(21% - 2px);
-    transition: 0.1s;
-    outline: none;
 }
 
 .cross {
@@ -255,5 +295,59 @@ export default {
     position: relative;
     color: red;
     left: calc(100% - 40px);
+}
+
+@media (max-width: 850px){
+    
+    .flex-class{
+    display: flex;
+    flex-direction: column;
+    }
+
+    .icons{
+    width: 80%;
+    margin-left: 10%;
+    top: 20px;
+    box-shadow: none;
+    border: none;
+    }
+    
+    .ico-noexit, .ico-exit {
+   margin: 80px 23%;
+   width: 30% auto;
+   
+    }
+
+.computed-window {
+    font-size: 80%;
+    padding: 3px;
+    width: 80%;
+    height: 1%;
+    top: 10px;
+    left: 10%;
+    overflow: visible;
+    }
+
+.return-two-window {
+    text-align: center;
+    left: 23%;
+    width: 50%;
+    bottom: 2%;
+    }
+
+    .cross {
+    height: 5vh;
+    position: relative;
+    font-size: 5vh;
+    bottom: -5px;
+    left: calc(100% - 40px);
+    overflow: visible;
+}
+}
+
+@media (max-width: 850px){
+    * {
+        overflow: hidden;
+    }
 }
 </style>
