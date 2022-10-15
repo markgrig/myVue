@@ -1,9 +1,10 @@
 <template>
 
-    <div class="black-window"></div>
+    <div>
+        <div class="black-window" ></div>
 
     <h4  class="modal-window computed-window ">
-         {{ getStatusProdaction }} 
+         {{ getStatusProdaction }}
     </h4>
 
     <div class="modal-window product-form" 
@@ -18,7 +19,8 @@
             @:click="deleteModal($event)"> &#10006; </div>
 
         <TotalPropertyView 
-            :totalProperty = "product.totalProperty" :isMobile = 'isMobile'>
+            :totalProperty = "product.totalProperty" 
+            :isMobile = 'isMobile'>
         </TotalPropertyView>
 
         <SpecificPropertyView 
@@ -36,11 +38,14 @@
     >
                 
         <div class="cross" 
-            @:click="deleteModal($event)"> &#10006; </div>
+            @:click="deleteModal($event)"
+            > &#10006;
+         </div>
 
-        <TotalPropertyForm 
+        <TotalPropertyForm
             :totalProperty = "product.totalProperty"
             :isMobile = "isMobile">
+            :isUserWrite = "isUserWrite" 
         </TotalPropertyForm>
 
         <SpecificPropertyForm 
@@ -65,9 +70,13 @@
                 </div>
             </div>
     </div>
+    </div>
+    
 </template>
 
 <script>
+
+
 
 
 
@@ -84,6 +93,7 @@ export default {
         modalFormWidth: String,
         modalFormHeight: String,
         isMobile: Boolean,
+        isUserWrite: Boolean,
     },
     data() {
         return {
@@ -94,6 +104,7 @@ export default {
             nameDeletemodal: "",
             modalHide: false,
             isExit: false,
+            isUserWriteData: this.isUserWrite
            
         }
     },
@@ -135,7 +146,7 @@ export default {
         Leave(){
             this.isExit = false
             this.$emit( 'deleteModalWindow')
-        }
+        },
         
     },
     computed: {

@@ -1,7 +1,7 @@
 <template>
-    <div class="flex-class" @:click ="isNotUserWrite">
+    <div class="flex-class" >
         <div>
-            <h4 class="modal-input-topic"> Наименование: {{ rty }}</h4>
+            <h4 class="modal-input-topic"> Наименование: </h4>
             <textarea class="modal-input" @:click ="userWrite()">  </textarea>
         </div>
         <div>
@@ -28,16 +28,18 @@
 </template>
 
 <script scoped>
+
 import WhitePlacholder from './WhitePlacholder.vue';
 export default {
     name: "TotalPropertyForm",
     props: {
         totalProperty: Object,
-        isMobile: Boolean
+        isMobile: Boolean,
+        isUserWrite: Boolean,
     },
     data() {
         return {
-            hidePicturePannel: false
+            hidePicturePannel: this.isUserWrite
         }
     },
     methods: {
@@ -45,15 +47,14 @@ export default {
             console.log(this.totalProperty);
         },
         userWrite() {
-            if ( this.isMobile ) { this.hidePicturePannel = true }
+            console.log(this.isMobile);
+            if ( this.isMobile ) { 
+                this.hidePicturePannel = true
+                this.$parent.$parent.isUserWrite = true;
+                console.log("поменял");
+            }
             
         },
-        isNotUserWrite(event) {
-            if ( event.target.tagName !== "TEXTAREA" ) {
-                console.log( event.target.tagName);
-                this.hidePicturePannel = false
-            }
-        }
     },
     components: { WhitePlacholder }
 }

@@ -26,5 +26,12 @@ div {
     border: solid 3px white;
     transition: 1s;
     box-shadow:  0 0 5px 3px white;
+} 
+@media (max-width: 850px){
+    div {
+        margin: 0;
+        top: 40vh;
+        left: 4vw;
+    }
 }
 </style>

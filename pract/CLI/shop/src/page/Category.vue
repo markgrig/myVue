@@ -1,9 +1,10 @@
-<template>
+<template >
   <BlueButton @click="clickCreateProduct()" textButton = "Создать товар"> </BlueButton>
 
   <ModalForAddProduct v-if= "isCreatProduct && !isMobile" 
       @deleteModalWindow = "deleteThisCompanent"
-      :product= 'product' :isMobile = 'isMobile'
+      @click = "userClicked"
+      :product= 'product' :isMobile = 'isMobile' :isUserWrite = 'isUserWrite'
       :modalCardWidth = "'30%'" :modalCardHeight = "'60%'"
       :modalFormWidth = "'46'" :modalFormHeight = "'80'"
       :startCardMargin = "'8%  60%'" :centralCardMargin = "'10% 35%'"
@@ -14,6 +15,7 @@
 
   <ModalForAddProduct v-if= "isCreatProduct && isMobile" 
       @deleteModalWindow = "deleteThisCompanent"
+      @click = "userClicked"
       :product= 'product' :isMobile = 'isMobile'
       :modalCardWidth = "'80%'" :modalCardHeight = "'40vh'"
       :modalFormWidth = "'90%'" :modalFormHeight = "'40%'"
@@ -42,6 +44,7 @@ export default {
         isCreatProduct: false,
         product: {},
         isMobile: Boolean( ( window.innerWidth < 850)),
+        isUserWrite: false
       }
     },
     methods: {
@@ -56,7 +59,13 @@ export default {
       },
       deleteThisCompanent() {
         this.isCreatProduct = false
-      }
+      },
+      userClicked(event) {
+        
+        if ( event.target.tagName !== "TEXTAREA" && this.isUserWrite ) {
+                this.isUserWrite = false
+            }
+      },
     }
 }
 

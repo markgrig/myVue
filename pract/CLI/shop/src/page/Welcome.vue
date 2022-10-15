@@ -127,8 +127,8 @@ span:focus {
     height: 150px;
   }
   img {
-    width: 50%;
-    margin: 0% 24%;
+    width: 20%;
+    margin: 0% 40%;
     height: auto;
   }
   span:hover {
@@ -136,8 +136,6 @@ span:focus {
   height: calc(150px + 20px);
 
 }
-.white-placeholder {
-  opacity: 0;
-}
+
 }
 </style>
