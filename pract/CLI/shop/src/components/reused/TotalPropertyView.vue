@@ -1,12 +1,16 @@
 <template>
-   123
+   {{ nameUsersProduct }} {{ priceUsersProduct }} {{ infoUsersProduct }}
+
 </template>
 
 <script>
 export default {
     name: "TotalPropertyView",
     props: {
-        totalProperty: Object
+        totalProperty: Object,
+        nameUsersProduct: String,
+        priceUsersProduct: String,
+        infoUsersProduct: String,
     }
 }
 </script>

@@ -1,7 +1,9 @@
 <template>
     
-    <Novigation/>
+    <div class = "box-background">
+      <Novigation/>
     <router-view/>
+    </div>
       
 </template>
 
@@ -36,22 +38,16 @@ body{
   background-repeat: no-repeat;
   overflow-x: hidden;
 }
-
 .flex-class{
     display: flex;
     justify-content: space-around;
 }
 
-@media (max-width: 850px){
-  body{
-    background-size: 100% auto;
-    }
-}
-
 @media (max-width: 700px){
   body{
     background-size: auto 100%;
-    overflow: hidden;
+    background-position: center;
+    
     }
 }
 </style>

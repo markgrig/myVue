@@ -55,14 +55,16 @@ export default {
   display: flex;
   justify-content: center;
   padding: 50px;
-  margin: 26px;
+  margin: 10vh;
 }
 img {
   position: relative;
   margin: 0;
-  border-radius: 40px;
+  box-sizing: border-box;
+  border-radius: 30px;
   border: solid 0.2vh rgb(156, 101, 19);
-  height: 50vh;
+  height: 250px;
+  margin: 20px 0;
   box-shadow:  0 1px 5px 1px white;
   opacity: 1;
 }
@@ -88,12 +90,12 @@ span {
   display: block;
   width: 30%;
   padding: 40px;
-  margin: 50px;
+  margin: 50px ;
   height: 20vh;
   color: rgba(0, 0, 0, 0.876) ;
   background-color: rgba(245, 245, 220, 0.4);
   overflow: auto ;
-  border: solid 5px black;
+  border: solid 3px black;
   border-radius: 5px;
 }
 
@@ -113,7 +115,7 @@ span:focus {
   transition: 1s;  
 }
 
-@media (max-width: 850px){
+@media (max-width: 700px){
   #home {
     display: flex;
     flex-direction: column;
@@ -121,19 +123,21 @@ span:focus {
     margin: 0px;
   }
   span {
+    font-size: 18px;
     padding: 10px 20px;
     width: 70%;
-    margin: 80px 18% 40px 9%;
-    height: 150px;
+    margin: auto;
+    height: 25vh;
   }
   img {
-    width: 20%;
-    margin: 0% 40%;
+    width: 120px;
+    margin: 20px calc(50% - 65px);
     height: auto;
   }
   span:hover {
-  margin-top: 60px;
-  height: calc(150px + 20px);
+  margin-top: 0px;
+  padding: 20px;
+  height: calc(24vh + 20px);
 
 }
 

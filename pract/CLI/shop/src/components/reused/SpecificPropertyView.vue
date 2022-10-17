@@ -6,7 +6,9 @@
 export default {
     name: "SpecificPropertyView",
     props: {
-        specificPropetry: Object
+        specificPropetry: Object,
+        nameUsersProduct: String,
+        priceUsersProduct: String,
     }
 }
 </script>

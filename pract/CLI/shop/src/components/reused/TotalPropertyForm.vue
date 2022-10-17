@@ -1,28 +1,43 @@
 <template>
     <div class="flex-class" >
         <div>
-            <h4 class="modal-input-topic"> Наименование: </h4>
-            <textarea class="modal-input" @:click ="userWrite()">  </textarea>
+            <h4 class="modal-input-topic"> Наименование: {{ nameCategory }} </h4>
+            <textarea 
+                class="modal-input" 
+                @click="userWrite()" 
+                :value="nameUsersProduct"
+                @input="$emit('update:nameUsersProduct', $event.target.value)">  </textarea>
         </div>
-        <div>
+        <div >
             <h4 class="modal-input-topic"> Цена(руб): </h4>
-            <textarea class="modal-input"  @:click ="userWrite()" > </textarea>
+            <textarea 
+                class="modal-input" 
+                @click="userWrite()" 
+                :value="priceUsersProduct"
+                @input="$emit('update:priceUsersProduct', $event.target.value)">
+            </textarea>
         </div>
     </div>
 
     <div>
          <h4 class="modal-input-topic"> Описание: </h4>
-        <textarea class="modal-input modal-input-info"  @:click ="userWrite()"> </textarea>
+        <textarea
+            class="modal-input modal-input-info"
+            @click="userWrite()" 
+            :value="infoUsersProduct"
+            @input="$emit('update:infoUsersProduct', $event.target.value)">
+        </textarea>
     </div>
 
-    <div v-show = "!hidePicturePannel" class="flex-class div-picture">
+    <div v-show = "!isUserWrite" class="flex-class div-picture">
         <div>
-            <img src="@/img/sell.png" alt="" class = "picture"> 
+            <img src="@/img/sell.png" alt="" class = "picture" @:click="userLoadPicture()"> 
             <WhitePlacholder class ="white-placeholder" textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"></WhitePlacholder>
         </div>
         <div> 
             <img src="@/img/picture.jpg" alt="" class = "picture"> 
         </div>
+        <!-- <div class = "name-category"> {{ recommedForUsers }}</div> -->
     </div>
     
 </template>
@@ -36,25 +51,29 @@ export default {
         totalProperty: Object,
         isMobile: Boolean,
         isUserWrite: Boolean,
+        nameUsersProduct: String,
+        priceUsersProduct: String,
+        infoUsersProduct: String
     },
-    data() {
-        return {
-            hidePicturePannel: this.isUserWrite
-        }
-    },
+    emits: ['update:nameUsersProduct', 'update:priceUsersProduct', 'update:infoUsersProduct'],
     methods: {
         show() {
             console.log(this.totalProperty);
         },
         userWrite() {
-            console.log(this.isMobile);
-            if ( this.isMobile ) { 
-                this.hidePicturePannel = true
-                this.$parent.$parent.isUserWrite = true;
-                console.log("поменял");
-            }
+            if ( this.isMobile ) {
+                this.$emit( "userWriteText", true) 
+            } 
             
         },
+        serLoadPicture() {
+            
+        }
+    },
+    computed: {
+        recommedForUsers() {
+            return "123"
+        }
     },
     components: { WhitePlacholder }
 }
@@ -62,6 +81,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.name-category {
+    font-size: 2vw;
+    width: 20vw;
+    margin-top: 4vh;
+    margin-left: 5vw;
+    text-align: center;
+    position: absolute;
+    color: white;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
 
 .modal-input {
     font-size: 16px;
@@ -133,6 +167,7 @@ export default {
     display: flex;
     justify-content: space-between;
     width: 30vw;
+    
 }
 
 

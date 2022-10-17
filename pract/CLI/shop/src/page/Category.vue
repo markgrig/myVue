@@ -2,8 +2,8 @@
   <BlueButton @click="clickCreateProduct()" textButton = "Создать товар"> </BlueButton>
 
   <ModalForAddProduct v-if= "isCreatProduct && !isMobile" 
+      
       @deleteModalWindow = "deleteThisCompanent"
-      @click = "userClicked"
       :product= 'product' :isMobile = 'isMobile' :isUserWrite = 'isUserWrite'
       :modalCardWidth = "'30%'" :modalCardHeight = "'60%'"
       :modalFormWidth = "'46'" :modalFormHeight = "'80'"
@@ -14,12 +14,12 @@
   </ModalForAddProduct>
 
   <ModalForAddProduct v-if= "isCreatProduct && isMobile" 
+     
       @deleteModalWindow = "deleteThisCompanent"
-      @click = "userClicked"
       :product= 'product' :isMobile = 'isMobile'
       :modalCardWidth = "'80%'" :modalCardHeight = "'40vh'"
       :modalFormWidth = "'90%'" :modalFormHeight = "'40%'"
-      :startCardMargin = "'50vh 9%'" :centralCardMargin = "'30vh 9%'"
+      :startCardMargin = "'50vh 9%'" :centralCardMargin = "'30vh 9%'" 
       :startFormMargin = "'15% 4%'" :centralFormMargin = "'25vh  4%'"> 
   </ModalForAddProduct>
 
@@ -40,7 +40,7 @@ export default {
 },
     data() {
       return {
-        nameCategory : "",
+        nameCategory : this.$route.params.id,
         isCreatProduct: false,
         product: {},
         isMobile: Boolean( ( window.innerWidth < 850)),
@@ -49,9 +49,9 @@ export default {
     },
     methods: {
       clickCreateProduct() {
-        const category = this.$route.params.id
+        this.nameCategory = this.$route.params.id
         //создание пустого продукт
-        this.product = AbstactFactory.createProduct(category)
+        this.product = AbstactFactory.createProduct(this.nameCategory)
         this.isCreatProduct = true
         console.log(this.product);
        
@@ -59,12 +59,6 @@ export default {
       },
       deleteThisCompanent() {
         this.isCreatProduct = false
-      },
-      userClicked(event) {
-        
-        if ( event.target.tagName !== "TEXTAREA" && this.isUserWrite ) {
-                this.isUserWrite = false
-            }
       },
     }
 }

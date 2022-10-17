@@ -1,10 +1,10 @@
 <template>
 
-    <div>
+    <div  @click = "userClicked">
         <div class="black-window" ></div>
 
     <h4  class="modal-window computed-window ">
-         {{ getStatusProdaction }}
+         {{ getStatusProdaction }} {{ nameProduct }} {{ priceProduct }} {{ infoProduct }} {{ nameCategory }}
     </h4>
 
     <div class="modal-window product-form" 
@@ -20,7 +20,11 @@
 
         <TotalPropertyView 
             :totalProperty = "product.totalProperty" 
-            :isMobile = 'isMobile'>
+            :isMobile = 'isMobile'
+            :nameUsersProduct = "nameProduct"
+            :priceUsersProduct = "priceProduct"
+            :infoUsersProduct = "infoProduct"
+            >
         </TotalPropertyView>
 
         <SpecificPropertyView 
@@ -43,9 +47,13 @@
          </div>
 
         <TotalPropertyForm
+            @userWriteText = "userWriteText"
             :totalProperty = "product.totalProperty"
-            :isMobile = "isMobile">
-            :isUserWrite = "isUserWrite" 
+            :isMobile = "isMobile"
+            :isUserWrite = "isUserWrite"
+            v-model:nameUsersProduct="nameProduct"
+            v-model:priceUsersProduct="priceProduct"
+            v-model:infoUsersProduct = "infoProduct">
         </TotalPropertyForm>
 
         <SpecificPropertyForm 
@@ -62,11 +70,11 @@
             <div class = "flex-class">
                 <div>
                     <img class ="ico-exit" src="@/img/exit.jpg" alt=""  @click ="Leave()">
-                    <h3> Да, я не хочу</h3>
+                    <h3> Да, я уверен  </h3>
                 </div>
                 <div>
                     <img class ="ico-noexit" src="@/img/noExit.jpg" alt="" @click ="noLeave()">
-                    <h3> Нет. я хочу вернутся! </h3>
+                    <h3> Нет, я добавлю</h3>
                 </div>
             </div>
     </div>
@@ -93,7 +101,6 @@ export default {
         modalFormWidth: String,
         modalFormHeight: String,
         isMobile: Boolean,
-        isUserWrite: Boolean,
     },
     data() {
         return {
@@ -104,8 +111,10 @@ export default {
             nameDeletemodal: "",
             modalHide: false,
             isExit: false,
-            isUserWriteData: this.isUserWrite
-           
+            isUserWrite: false,
+            nameProduct: "",
+            priceProduct: "",
+            infoProduct: "",
         }
     },
     methods: {
@@ -147,13 +156,23 @@ export default {
             this.isExit = false
             this.$emit( 'deleteModalWindow')
         },
+        userWriteText(value) {
+            console.log(123);
+            this.isUserWrite = value
+        },
+        userClicked(event) {
+        console.log(event.target.tagName);
+        if ( event.target.tagName !== "TEXTAREA" && this.isUserWrite ) {
+                this.isUserWrite = false
+            }
+        },
         
     },
     computed: {
         getStatusProdaction() {
             console.log( this.centralCardMargin ,  this.modalFormMargin);
             if (   this.modalFormMargin === this.centralFormMargin &&   this.modalCardMargin === this.centralCardMargin  ) {
-                return "Вы не хотите добавить продукт продукт?"
+                return "Вы уверены, что не хотите добавлять продукт?"
             }
             if (   this.modalFormMargin === this.centralFormMargin ) {
                 return "Сейчас вы можете сконцетрироваться на карточке продукта"
@@ -190,7 +209,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+body {
+    overflow-x: hidden;
+}
 .black-window {
     position: absolute;
     left: 0;
@@ -202,7 +223,6 @@ export default {
 }
 
 .modal-window {
-   
     z-index: 2;
     position: absolute;
     border-radius: 10px;
@@ -212,6 +232,7 @@ export default {
 }
 
 .icons{
+    
     width: 60%;
     margin-left: 20%;
     top: 20px;
@@ -222,8 +243,8 @@ export default {
     margin-top: -60px;
     text-align: center;
     font-size: 140%;
-    width: 40%;
-    margin-left: 30%;
+    width: 80%;
+    margin-left: 12%;
     color: white;
 }
 .ico-noexit, .ico-exit {
@@ -236,7 +257,7 @@ export default {
 }
 
 .computed-window {
-    font-size: 130%;
+    font-size: 1.2vw;
     color: white;
     padding: 3px;
     box-shadow: none;
@@ -249,6 +270,8 @@ export default {
 
 
 .return-two-window {
+    
+    font-size: 1vw;
     text-align: center;
     color: white;
     padding: 5px;
@@ -264,6 +287,7 @@ export default {
 }
 
 .product-form {
+    
     top: 0;
     background-color: rgba(255, 255, 255, 0.85);
     height: 80%;
@@ -316,21 +340,21 @@ export default {
     }
 
     .icons{
-    width: 80%;
-    margin-left: 10%;
+    width: 80vw;
+    margin-left: 8vw;
     top: 20px;
     box-shadow: none;
     border: none;
     }
     
     .ico-noexit, .ico-exit {
-   margin: 80px 23%;
-   width: 30% auto;
+        margin: 15vh 26.5vw;
+        width: 30vw;
    
     }
 
 .computed-window {
-    font-size: 80%;
+    font-size: 3.5vw;
     padding: 3px;
     width: 80%;
     height: 1%;
@@ -340,6 +364,7 @@ export default {
     }
 
 .return-two-window {
+    font-size: 2.9vw;
     text-align: center;
     left: 23%;
     width: 50%;
