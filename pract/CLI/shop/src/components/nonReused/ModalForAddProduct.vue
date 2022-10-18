@@ -3,8 +3,8 @@
     <div  @click = "userClicked">
         <div class="black-window" ></div>
 
-    <h4  class="modal-window computed-window ">
-         {{ getStatusProdaction }} {{ nameProduct }} {{ priceProduct }} {{ infoProduct }} {{ nameCategory }}
+    <h4  class="modal-window computed-window " >
+         {{ getStatusProdaction }} {{ answerFactory }}  {{ this.usersProduct.totalProperty }}
     </h4>
 
     <div class="modal-window product-form" 
@@ -19,16 +19,14 @@
             @:click="deleteModal($event)"> &#10006; </div>
 
         <TotalPropertyView 
-            :totalProperty = "product.totalProperty" 
             :isMobile = 'isMobile'
-            :nameUsersProduct = "nameProduct"
-            :priceUsersProduct = "priceProduct"
-            :infoUsersProduct = "infoProduct"
+            :nameUsersProduct="usersProduct.totalProperty.name"
+            :priceUsersProduct="usersProduct.totalProperty.price"
+            :infoUsersProduct = "usersProduct.totalProperty.info">
             >
         </TotalPropertyView>
 
-        <SpecificPropertyView 
-            :specificPropetry = "product.specificPropetry" >
+        <SpecificPropertyView >
         </SpecificPropertyView>
 
     </div>
@@ -42,23 +40,22 @@
     >
                 
         <div class="cross" 
-            @:click="deleteModal($event)"
+            @:click="deleteModal($event);"
             > &#10006;
          </div>
 
         <TotalPropertyForm
             @userWriteText = "userWriteText"
-            :totalProperty = "product.totalProperty"
             :isMobile = "isMobile"
             :isUserWrite = "isUserWrite"
-            v-model:nameUsersProduct="nameProduct"
-            v-model:priceUsersProduct="priceProduct"
-            v-model:infoUsersProduct = "infoProduct">
+            :checkQualityName = "usersProduct.checkQualityName"
+            v-model:nameUsersProduct="usersProduct.totalProperty.name"
+            v-model:priceUsersProduct="usersProduct.totalProperty.price"
+            v-model:infoUsersProduct = "usersProduct.totalProperty.info">
         </TotalPropertyForm>
 
-        <SpecificPropertyForm 
-            :specificPropetry = "product.specificPropetry" >
-        </SpecificPropertyForm>
+        <SpecificPropertyForm></SpecificPropertyForm>
+      
 
 
     </div>
@@ -88,10 +85,11 @@
 
 
 
+
+
 export default {
     name: "ModalForAddProduct",
     props: {
-        product: Object,
         startCardMargin: String,
         centralCardMargin: String,
         startFormMargin: String,
@@ -101,6 +99,7 @@ export default {
         modalFormWidth: String,
         modalFormHeight: String,
         isMobile: Boolean,
+        getAbstactFactory: Function,
     },
     data() {
         return {
@@ -112,9 +111,8 @@ export default {
             modalHide: false,
             isExit: false,
             isUserWrite: false,
-            nameProduct: "",
-            priceProduct: "",
-            infoProduct: "",
+            usersProduct: this.getAbstactFactory().createProduct(""),
+            
         }
     },
     methods: {
@@ -138,7 +136,7 @@ export default {
                 this.modalHide = false
             }
             
-        
+           
         },
         returnModal() {
             this.modalCardMargin = this.startCardMargin
@@ -157,7 +155,6 @@ export default {
             this.$emit( 'deleteModalWindow')
         },
         userWriteText(value) {
-            console.log(123);
             this.isUserWrite = value
         },
         userClicked(event) {
@@ -182,26 +179,26 @@ export default {
             }
             return "Сейчас вы можите наблюдать за карточкой и заполнять её"
             },
-            changePositionPicuresInput() {
+        changePositionPicuresInput() {
 
-                if ( this.isMobile ) { 
-                    const pannelPictures = document.querySelector(".div-picture")
-                    console.log(pannelPictures);
-                   
+            if ( this.isMobile ) { 
+                const pannelPictures = document.querySelector(".div-picture")
+                console.log(pannelPictures);
+            
 
-                    if ( this.modalFormMargin === this.centralFormMargin ||   this.modalCardMargin === this.centralCardMargin ) {
-                        if ( pannelPictures ) {
-                             pannelPictures.style.top = "10vh"
-                        }
-                    else {
-                        if ( pannelPictures ) {
-                            pannelPictures.style.top = ""         
-                        }
+                if ( this.modalFormMargin === this.centralFormMargin ||   this.modalCardMargin === this.centralCardMargin ) {
+                    if ( pannelPictures ) {
+                        pannelPictures.style.top = "10vh"
+                    }
+                else {
+                    if ( pannelPictures ) {
+                        pannelPictures.style.top = ""         
                     }
                 }
-                }   
-                return ""
             }
+            }   
+            return ""
+        },
     }
 }
 
@@ -218,8 +215,9 @@ body {
     top: 0;
     background-color: rgba(0, 0, 0, 0.95);
     width: 100%;
-    height: 100%;
+    height: 120%;
     z-index: 1;
+   
 }
 
 .modal-window {
@@ -287,26 +285,24 @@ body {
 }
 
 .product-form {
-    
+    padding: 10px;
+    box-sizing: border-box;
     top: 0;
-    background-color: rgba(255, 255, 255, 0.85);
-    height: 80%;
-    width: 46%;
+    background-color: white;
+    border-radius: 4vmax 0;
+    clip-path: polygon(0% 0%, 0% , 46% 100%, 46% 21%, 92% 21%, 92% 61%, 46% 61%, 46% 100%, 100% 100%, 100% 0%);
+
 }
 
 .product-form:hover {
 
     transition: 0.7s;
-    border-radius: 12px;
     box-shadow: 0px 0px 10px 2px rgb(136, 133, 133);
 }
 
 .product-card {
     top: 0;
     background-color: rgba(255, 255, 255, 0.15);
-    height: 60%;
-    width: 30%;
-
 }
 
 .product-card:hover {
@@ -332,7 +328,7 @@ body {
     left: calc(100% - 40px);
 }
 
-@media (max-width: 850px){
+@media (max-width: 700px){
     
     .flex-class{
     display: flex;
@@ -381,7 +377,7 @@ body {
 }
 }
 
-@media (max-width: 850px){
+@media (max-width: 700px){
     * {
         overflow: hidden;
     }

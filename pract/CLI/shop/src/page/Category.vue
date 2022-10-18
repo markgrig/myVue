@@ -4,11 +4,12 @@
   <ModalForAddProduct v-if= "isCreatProduct && !isMobile" 
       
       @deleteModalWindow = "deleteThisCompanent"
-      :product= 'product' :isMobile = 'isMobile' :isUserWrite = 'isUserWrite'
+      :product= 'product' :isMobile = 'isMobile' 
+      :isUserWrite = 'isUserWrite' :getAbstactFactory = "getAbstactFactory"
       :modalCardWidth = "'30%'" :modalCardHeight = "'60%'"
-      :modalFormWidth = "'46'" :modalFormHeight = "'80'"
-      :startCardMargin = "'8%  60%'" :centralCardMargin = "'10% 35%'"
-      :startFormMargin = "'5% 8%'"    :centralFormMargin = "'4%  27%'"
+      :modalFormWidth = "'48%'" :modalFormHeight = "'55%'"
+      :startCardMargin = "'8%  60%'" :centralCardMargin = "'8% 35%'"
+      :startFormMargin = "'8% 10%'"    :centralFormMargin = "'8%  27%'"
       >
 
   </ModalForAddProduct>
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-import *  as AbstactFactory from "@/factory/factory.js"
+import *  as AbstactFactory from "@/factory/AbstructFactory.js"
 import ModalForAddProduct from '@/components/nonReused/ModalForAddProduct.vue'
 import BlueButton from "../components/reused/BlueButton.vue"
 
@@ -42,20 +43,17 @@ export default {
       return {
         nameCategory : this.$route.params.id,
         isCreatProduct: false,
-        product: {},
         isMobile: Boolean( ( window.innerWidth < 850)),
         isUserWrite: false
       }
     },
     methods: {
+      getAbstactFactory() {
+        return AbstactFactory
+      },
       clickCreateProduct() {
         this.nameCategory = this.$route.params.id
-        //создание пустого продукт
-        this.product = AbstactFactory.createProduct(this.nameCategory)
         this.isCreatProduct = true
-        console.log(this.product);
-       
-       
       },
       deleteThisCompanent() {
         this.isCreatProduct = false

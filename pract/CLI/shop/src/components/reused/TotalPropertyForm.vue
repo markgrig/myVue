@@ -6,9 +6,9 @@
                 class="modal-input" 
                 @click="userWrite()" 
                 :value="nameUsersProduct"
-                @input="$emit('update:nameUsersProduct', $event.target.value)">  </textarea>
+                @input="checkQuality($event)">  </textarea>
         </div>
-        <div >
+        <div>
             <h4 class="modal-input-topic"> Цена(руб): </h4>
             <textarea 
                 class="modal-input" 
@@ -51,9 +51,10 @@ export default {
         totalProperty: Object,
         isMobile: Boolean,
         isUserWrite: Boolean,
-        nameUsersProduct: String,
+        nameUsersProduct: String, 
         priceUsersProduct: String,
-        infoUsersProduct: String
+        infoUsersProduct: String,
+        checkQualityName: Function
     },
     emits: ['update:nameUsersProduct', 'update:priceUsersProduct', 'update:infoUsersProduct'],
     methods: {
@@ -66,7 +67,11 @@ export default {
             } 
             
         },
-        serLoadPicture() {
+        checkQuality(event) {
+          
+            console.log(  this.checkQualityName() );
+            const value =  event.target.value;
+            this.$emit('update:nameUsersProduct', value)
             
         }
     },
@@ -104,10 +109,11 @@ export default {
     overflow: auto;
 
     height: 6vh;
-    width: 18vh;
+    min-height: 2vw;
+    width: 5vw;
     resize: none; 
-    padding: 5px 4vh;
-    margin-left:  1vh;
+    padding: 5px 2vw;
+    margin-left:  0vw;
     margin-top: 4%;
 
     border: solid 1px rgb(120, 108, 83);
@@ -115,7 +121,7 @@ export default {
     border-radius: 1vh;
 }
 .modal-input-topic {
-    font-size: 3vh ;
+    font-size: 1.5vw ;
     outline: none;
     color: white;
     width: 100%;
@@ -126,24 +132,25 @@ export default {
 .modal-input:focus {
     border: solid 2px white;
     height: 8vh;
-    margin-left: calc(1vh - 2px);
+    margin-left: -1px;
     transition: 0.1s;
     outline: none;
 }
 .modal-input-info {
     
     width: 80%;
-    height: 20vh;
+    --height: 10vh;
+    min-height: 18vh;
     padding: 5px 5% 20px;
     margin-left: 5%;
-    
- 
+    margin-bottom: 30%;
 }
 
 .modal-input-info:focus {
     border: solid 2px white;
-    height: 22vh;
+    height: 20vh;
     margin-left: calc(5% - 2px);
+    margin-bottom: 10%;
     transition: 0.1s;
     outline: none;
 }
@@ -171,7 +178,7 @@ export default {
 }
 
 
-@media (max-width: 850px){
+@media (max-width: 700px){
 
 
     .modal-input-topic {

@@ -47,7 +47,7 @@ body{
   body{
     background-size: auto 100%;
     background-position: center;
-    
+    overflow-y: hidden;
     }
 }
 </style>

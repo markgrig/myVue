@@ -1,5 +1,20 @@
 <template>
-   {{ nameUsersProduct }} {{ priceUsersProduct }} {{ infoUsersProduct }}
+    
+    <h3 class="product-name">  {{ nameUsersProduct }}  </h3>
+
+    <div class="flex-class">
+        <div>
+            <img class = "product-img" src="@/img/123.jpeg" alt="">
+            <div class="product-price"> {{ priceUsersProduct }}  руб.</div>
+        </div>
+    
+        <div class = "background-info">
+            
+                <h3 class = "product-info-topic"> Описание: </h3>
+                <div class = "product-info">  {{ infoUsersProduct }} </div>   
+              
+        </div> 
+    </div>
 
 </template>
 
@@ -17,16 +32,75 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-button {
-    background-color: rgba(0, 0, 255, 0.465);       
-    padding: 10px; 
-    display: block;
-    margin: auto;
-    color: white;
-    border-radius: 12px;
-    margin-top: 20px;
+.product-name {
+    font-size: 2vw;
+    width: 50%;
+    height: 2vw;
+    margin-left: 25%;
+    text-align: center;
+    color: black
 }
-button:hover {
-    box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.315);
+
+.product-price{
+    position: absolute;
+    font-size: 2.5vw;
+    top: -0.2vw;
+    left:-0.2vw;
+    width: 12vw;
+    color: white;
+    padding: 0.75vh 3vh  0.75vh 2vh;
+    text-align: center;
+    border: solid 2px rgba(255, 0, 0, 0.66);
+    border-radius: 9vmax 0;
+    background-color: #b60f0f99;
+}
+.product-img {
+    width: 15vw;
+    height: 15vw;
+    object-fit:cover;
+    padding: 0.3vw;
+    margin: 1vw;
+}
+    .background-info{
+    margin:  1vw 3vw;
+    background-image:  url( "../../img/backgroundInfo.jpg") ;
+    background-size: 70%;
+    height: 30px; 
+    height: min-content;
+    max-height: 15vw;
+    border-radius: 1vw; 
+    border: solid 0.25vw   black
+}
+.product-info{
+    overflow: auto;
+    font-size: 1.4vw;
+    margin: 0;
+    padding: 0px 10px 30px 20px;
+    color: rgb(246, 234, 234);
+    width: 20vw;
+    min-height: 30px; 
+    text-indent: 30px; 
+    height: min-content;
+    max-height: calc(12vw - 30px);
+    background-color:  rgba(76, 76, 76, 0.2);
+    border-radius: 0vw 0vw 0.5vw 0.5vw; 
+}
+.product-info-topic {
+    padding-bottom: 10px;
+    color: rgb(246, 234, 234);
+    text-align: center;
+    font-size: 2vw;
+    height: 2vw;
+    text-indent: 0px;
+    background-color:   rgba(76, 76, 76, 0.2);
+    border-radius: 0.5vw 0.5vw 0 0;
+    border-bottom: solid  0.1vw whitesmoke
+}
+
+@media (max-width: 850px){
+    h3 , .price {
+     font-size: 5vh;
+    }
+
 }
 </style>
