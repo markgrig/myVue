@@ -6,7 +6,8 @@
                 class="modal-input" 
                 @click="userWrite()" 
                 :value="nameUsersProduct"
-                @input="checkQuality($event)">  </textarea>
+                @input="$emit('update:nameUsersProduct', $event.target.value)"> 
+             </textarea>
         </div>
         <div>
             <h4 class="modal-input-topic"> Цена(руб): </h4>
@@ -37,7 +38,6 @@
         <div> 
             <img src="@/img/picture.jpg" alt="" class = "picture"> 
         </div>
-        <!-- <div class = "name-category"> {{ recommedForUsers }}</div> -->
     </div>
     
 </template>
@@ -54,7 +54,6 @@ export default {
         nameUsersProduct: String, 
         priceUsersProduct: String,
         infoUsersProduct: String,
-        checkQualityName: Function
     },
     emits: ['update:nameUsersProduct', 'update:priceUsersProduct', 'update:infoUsersProduct'],
     methods: {
@@ -67,18 +66,6 @@ export default {
             } 
             
         },
-        checkQuality(event) {
-          
-            console.log(  this.checkQualityName() );
-            const value =  event.target.value;
-            this.$emit('update:nameUsersProduct', value)
-            
-        }
-    },
-    computed: {
-        recommedForUsers() {
-            return "123"
-        }
     },
     components: { WhitePlacholder }
 }

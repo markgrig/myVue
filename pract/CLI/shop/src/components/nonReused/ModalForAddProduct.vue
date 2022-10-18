@@ -20,9 +20,9 @@
 
         <TotalPropertyView 
             :isMobile = 'isMobile'
-            :nameUsersProduct="usersProduct.totalProperty.name"
-            :priceUsersProduct="usersProduct.totalProperty.price"
-            :infoUsersProduct = "usersProduct.totalProperty.info">
+            :nameUsersProduct="usersProduct.checkQualityName()"
+            :priceUsersProduct="usersProduct.checkQualityPrice()"
+            :infoUsersProduct = "usersProduct.checkQualityInfo()">
             >
         </TotalPropertyView>
 
@@ -48,7 +48,6 @@
             @userWriteText = "userWriteText"
             :isMobile = "isMobile"
             :isUserWrite = "isUserWrite"
-            :checkQualityName = "usersProduct.checkQualityName"
             v-model:nameUsersProduct="usersProduct.totalProperty.name"
             v-model:priceUsersProduct="usersProduct.totalProperty.price"
             v-model:infoUsersProduct = "usersProduct.totalProperty.info">

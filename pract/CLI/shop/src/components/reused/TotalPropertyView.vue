@@ -44,11 +44,13 @@ export default {
 .product-price{
     position: absolute;
     font-size: 2.5vw;
-    top: -0.2vw;
-    left:-0.2vw;
+    top: -3px;
+    left: -3px;
     width: 12vw;
+    min-width: 8vw;
+    width: fit-content;
     color: white;
-    padding: 0.75vh 3vh  0.75vh 2vh;
+    padding: 0.75vh 1vw  0.75vh 1vw;
     text-align: center;
     border: solid 2px rgba(255, 0, 0, 0.66);
     border-radius: 9vmax 0;
