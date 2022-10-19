@@ -1,7 +1,7 @@
 <template>
     <div class="flex-class" >
         <div>
-            <h4 class="modal-input-topic"> Наименование: {{ nameCategory }} </h4>
+            <h4 class="modal-input-topic"> Наименование: </h4>
             <textarea 
                 class="modal-input" 
                 @click="userWrite()" 
@@ -48,7 +48,6 @@ import WhitePlacholder from './WhitePlacholder.vue';
 export default {
     name: "TotalPropertyForm",
     props: {
-        totalProperty: Object,
         isMobile: Boolean,
         isUserWrite: Boolean,
         nameUsersProduct: String, 
@@ -124,7 +123,6 @@ export default {
     outline: none;
 }
 .modal-input-info {
-    
     width: 80%;
     --height: 10vh;
     min-height: 18vh;

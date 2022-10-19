@@ -1,8 +1,9 @@
 
 export class FactoryProduct {
-    constructor( name , info, price, caclObj, img ) {
+    constructor( name = " " , info = " " ,  price = "0" ,caclObj, img)
+    {
         this.totalProperty = {
-            name: name, 
+            name: name,  
             info: info,
             price: price,
             caclObj: caclObj,
@@ -22,32 +23,35 @@ export class FactoryProduct {
             return str.replace(" ",'')
         }
     }
-
     separateThousands(price) {
 
-        let result = ""
-        const thousant = Math.floor(((price/1000))).toString()
-        const nothousant = Math.floor( ((price/1000)%1)*1000 )
+        if ( price === 0 ) { return "0" }
 
-        thousant > 0 ?  result  = thousant.toString() + " " + nothousant : result  = nothousant
+        const thousant = Math.floor(((price/1000)))
+        const nothousant = Math.round( ((price/1000)%1)*1000 ) || "000" 
+
+        if ( thousant > 0 ) {
+            return thousant.toString() + " " + nothousant
+        }  else {
+            return nothousant
+        }
        
-        return  result
     }
     
     checkQualityName() {
 
         this.error = ""
-        const name = this.totalProperty.name
-
+        const name =  this.totalProperty.name
+       // console.log(this.totalProperty.name ,123 );
         if (  Number( this.removeSpace(name) ) ) {
             this.error = "Название товара не может сосотоять из одних цифор."
             return ""
         }
-       
+        
         if ( name.length < 20 ) {
-            return   this.totalProperty.name 
+            return name 
         } else {
-            this.error = "Количество символов в названии не должно привышать 20."
+            this.error = "Количество символов и пробелов в названии не должно привышать 20."
             return ""
         }
     }
@@ -55,9 +59,9 @@ export class FactoryProduct {
     checkQualityPrice() {
         
         const price = Number(this.totalProperty.price)
+        console.log(123);
         this.error = ""
-
-        if ( !price ) {
+        if ( !price &&  price !== 0 ) {
             this.error = "Цена должна быть числом"
             return ""
         }
@@ -71,7 +75,7 @@ export class FactoryProduct {
             return billions.toString() + " млн."
         }
        
-        if (  price > 0  ) {
+        if (  price >= 0  ) {
             return this.separateThousands(price)
         } else {
             this.error = "Введите положительное число!"
@@ -79,37 +83,17 @@ export class FactoryProduct {
         }
     }
     checkQualityInfo() {
-        /*
-        if (  this.totalProperty.info )  {
-            const wordArray  = this.totalProperty.info.split(" ")
-            const newWordArray = []
-            console.log(wordArray);
-            for (let i = 0; i < wordArray.length; i++) {
-                   
-                    console.log(wordArray[i].length );
-                    let numberSpace = Math.ceil( wordArray[i].length /10) 
-                    console.log(numberSpace );
-                    
-                        for (let j = 0; j < numberSpace; j++) {
-                            console.log(1213);   
-                            newWordArray[i+j + newWordArray.length -1 ] = wordArray[i].slice(0,9)
-                            wordArray[i]   = wordArray[i].slice(9   )
-                            console.log(newWordArray);
-                            console.log( (i-j));
-                        }
-                    
-                   
-            }       
-            
-            const result =  newWordArray.join(" ")
+         
+        const info = this.totalProperty.info
+       
+        if ( info.length < 1000 ) {
+            return info
+        } else {
+            this.error = "Количество символов и пробелов в описании не должно привышать 1000."
+            return ""
+        }
        
     
-return result
-
-        } */
-
-        return this.totalProperty.info
-
     }
 }
 

@@ -15,19 +15,20 @@ export default {
 <style scoped>
 button {
     background-color: rgba(8, 35, 117, 0.3); 
-    border: solid 1px rgb(128, 101, 48);     
-    padding: 10px 20px; 
+    border: solid 0.05vw rgb(128, 101, 48);     
+    padding: 1vw; 
     display: block;
     margin: auto;
     color: white;
-    border-radius: 12px;
+    border-radius: 1vw;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 80px;
+    width: 8vw;
+    height: 3vw;
 }
 button:hover {
     box-shadow: 0 0 6px 3px rgba(78, 77, 77, 0.315);
     background-color: rgba(8, 35, 117, 0.3); 
-    border: solid 1px rgb(236, 212, 164);
+    border: solid 0.05vw rgb(236, 212, 164);
 }
 </style>

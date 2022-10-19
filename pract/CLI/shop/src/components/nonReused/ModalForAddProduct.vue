@@ -246,7 +246,8 @@ body {
 }
 .ico-noexit, .ico-exit {
    margin: 100px 0px;
-   width: 30% auto;
+   width: 20vw;
+   height: auto;
    
 }
 .ico-noexit:hover, .ico-exit:hover {

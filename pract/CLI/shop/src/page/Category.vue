@@ -18,6 +18,7 @@
      
       @deleteModalWindow = "deleteThisCompanent"
       :product= 'product' :isMobile = 'isMobile'
+      :isUserWrite = 'isUserWrite' :getAbstactFactory = "getAbstactFactory"
       :modalCardWidth = "'80%'" :modalCardHeight = "'40vh'"
       :modalFormWidth = "'90%'" :modalFormHeight = "'40%'"
       :startCardMargin = "'50vh 9%'" :centralCardMargin = "'30vh 9%'" 

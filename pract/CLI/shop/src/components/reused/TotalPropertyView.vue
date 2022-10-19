@@ -26,6 +26,14 @@ export default {
         nameUsersProduct: String,
         priceUsersProduct: String,
         infoUsersProduct: String,
+    },
+    watch: {
+        nameUsersProduct() {
+            console.log(1);
+            if( !this.nameUsersProduct ) {
+                console.log(123);
+            }
+        }
     }
 }
 </script>
@@ -64,6 +72,7 @@ export default {
     margin: 1vw;
 }
     .background-info{
+    word-break: break-word;
     margin:  1vw 3vw;
     background-image:  url( "../../img/backgroundInfo.jpg") ;
     background-size: 70%;
