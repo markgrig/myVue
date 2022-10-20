@@ -11,11 +11,11 @@ export class FactoryProduct {
         }
         this.error =  ""
         this.success = {
-            name: false, 
-            info: false,
-            price: false,
-            caclObj: false,
-            img: false,
+            name: { status: false, value: "" },
+            info:  { status: false, value: "" },
+            price:  { status: false, value: "" },
+            caclObj:  { status: false, value: "" },
+            img:  { status: false, value: "" },
         }
     }
     removeSpace(str) {
@@ -42,44 +42,51 @@ export class FactoryProduct {
 
         this.error = ""
         const name =  this.totalProperty.name
-       // console.log(this.totalProperty.name ,123 );
+        
         if (  Number( this.removeSpace(name) ) ) {
-            this.error = "Название товара не может сосотоять из одних цифор."
-            return ""
+            this.success.name.value = "Название товара не может сосотоять из одних цифор."
+            this.success.name.status = false
+            return "Неподходящее имя"
         }
         
         if ( name.length < 20 ) {
+            this.success.name.status = true
             return name 
         } else {
-            this.error = "Количество символов и пробелов в названии не должно привышать 20."
-            return ""
+            this.success.name.value = "Количество символов и пробелов в названии не должно привышать 20."
+            this.success.name.status = false
+            return "Неподходящее имя"
         }
     }
     
     checkQualityPrice() {
         
         const price = Number(this.totalProperty.price)
-        console.log(123);
+        
         this.error = ""
         if ( !price &&  price !== 0 ) {
-            this.error = "Цена должна быть числом"
-            return ""
+            this.success.price.value = "Цена должна быть числом"
+            this.success.price.status = false
+            return "0"
         }
         if ( price > 1000000000 ) {
-            this.error = "Введите число меньше миллиарда. Побойтесь Бога!"
-            return ""
+            this.success.price.value = "Введите число меньше миллиарда. Побойтесь Бога!"
+            this.success.price.status = false
+            return "0"
         }
         if (  price > 1000000  ) {
             const billions = Math.round((price/100000))/10
-            console.log( billions);
+            
+            this.success.price.status = true
             return billions.toString() + " млн."
         }
        
         if (  price >= 0  ) {
+            this.success.price.status = true
             return this.separateThousands(price)
         } else {
-            this.error = "Введите положительное число!"
-            return ""
+            this.success.price.value = "Введите положительное число!"
+            return "0"
         }
     }
     checkQualityInfo() {
@@ -87,10 +94,12 @@ export class FactoryProduct {
         const info = this.totalProperty.info
        
         if ( info.length < 1000 ) {
+            this.success.info.status = true
             return info
         } else {
-            this.error = "Количество символов и пробелов в описании не должно привышать 1000."
-            return ""
+            this.success.info.value = "Количество символов и пробелов в описании не должно привышать 1000."
+            this.success.info.status = false
+            return "Неподходящее описание..."
         }
        
     

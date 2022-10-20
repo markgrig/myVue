@@ -4,18 +4,16 @@
             <h4 class="modal-input-topic"> Наименование: </h4>
             <textarea 
                 class="modal-input" 
-                @click="userWrite()" 
-                :value="nameUsersProduct"
-                @input="$emit('update:nameUsersProduct', $event.target.value)"> 
+                @click="userTouched()" 
+                @:input="$emit( 'userInput' , 'name' , $event.target.value.trim() )"> 
              </textarea>
         </div>
         <div>
             <h4 class="modal-input-topic"> Цена(руб): </h4>
             <textarea 
                 class="modal-input" 
-                @click="userWrite()" 
-                :value="priceUsersProduct"
-                @input="$emit('update:priceUsersProduct', $event.target.value)">
+                @click="userTouched()" 
+                @:input = "$emit( 'userInput',  'price' ,  $event.target.value.trim()  )">
             </textarea>
         </div>
     </div>
@@ -24,13 +22,12 @@
          <h4 class="modal-input-topic"> Описание: </h4>
         <textarea
             class="modal-input modal-input-info"
-            @click="userWrite()" 
-            :value="infoUsersProduct"
-            @input="$emit('update:infoUsersProduct', $event.target.value)">
+            @click="userTouched()" 
+            @:input = "$emit( 'userInput',  'info' ,  $event.target.value.trim() )">
         </textarea>
     </div>
 
-    <div v-show = "!isUserWrite" class="flex-class div-picture">
+    <div v-show = "!isUserTouched" class="flex-class div-picture">
         <div>
             <img src="@/img/sell.png" alt="" class = "picture" @:click="userLoadPicture()"> 
             <WhitePlacholder class ="white-placeholder" textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"></WhitePlacholder>
@@ -49,21 +46,17 @@ export default {
     name: "TotalPropertyForm",
     props: {
         isMobile: Boolean,
-        isUserWrite: Boolean,
+        isUserTouched: Boolean,
         nameUsersProduct: String, 
         priceUsersProduct: String,
         infoUsersProduct: String,
     },
-    emits: ['update:nameUsersProduct', 'update:priceUsersProduct', 'update:infoUsersProduct'],
     methods: {
         show() {
             console.log(this.totalProperty);
         },
-        userWrite() {
-            if ( this.isMobile ) {
-                this.$emit( "userWriteText", true) 
-            } 
-            
+        userTouched() {         
+        this.$emit( "userTouchedTextarea",  this.isMobile )  
         },
     },
     components: { WhitePlacholder }

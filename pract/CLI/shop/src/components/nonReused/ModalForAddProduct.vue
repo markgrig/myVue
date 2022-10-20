@@ -4,7 +4,7 @@
         <div class="black-window" ></div>
 
     <h4  class="modal-window computed-window " >
-         {{ getStatusProdaction }} {{ answerFactory }}  {{ this.usersProduct.totalProperty }}
+         {{ getStatusProdaction }} {{ answerFactory }} 
     </h4>
 
     <div class="modal-window product-form" 
@@ -20,9 +20,14 @@
 
         <TotalPropertyView 
             :isMobile = 'isMobile'
-            :nameUsersProduct="usersProduct.checkQualityName()"
-            :priceUsersProduct="usersProduct.checkQualityPrice()"
-            :infoUsersProduct = "usersProduct.checkQualityInfo()">
+
+            :nameUsersProduct = "usersProduct.totalProperty.name"
+            :priceUsersProduct = "usersProduct.totalProperty.price"
+            :infoUsersProduct = "usersProduct.totalProperty.info"
+
+            :isNameSuccess =  "usersProduct?.success.name"
+            :isPriceSuccess =  "usersProduct?.success.price"
+            :isInfoSuccess =  "usersProduct?.success.info"
             >
         </TotalPropertyView>
 
@@ -45,12 +50,15 @@
          </div>
 
         <TotalPropertyForm
-            @userWriteText = "userWriteText"
             :isMobile = "isMobile"
-            :isUserWrite = "isUserWrite"
-            v-model:nameUsersProduct="usersProduct.totalProperty.name"
-            v-model:priceUsersProduct="usersProduct.totalProperty.price"
-            v-model:infoUsersProduct = "usersProduct.totalProperty.info">
+            :isUserTouched = "isUserTouched"
+
+            :nameUsersProduct="usersProduct.totalProperty.name"
+            :priceUsersProduct="usersProduct.totalProperty.price"
+            :infoUsersProduct = "usersProduct.totalProperty.info"
+
+            @userTouchedTextarea = "userTouchedTextarea"
+            @userInput = "userInput">
         </TotalPropertyForm>
 
         <SpecificPropertyForm></SpecificPropertyForm>
@@ -65,11 +73,11 @@
     <div v-show="isExit"  class ="modal-window icons" >
             <div class = "flex-class">
                 <div>
-                    <img class ="ico-exit" src="@/img/exit.jpg" alt=""  @click ="Leave()">
+                    <img class ="ico-exit" src="@/img/exit.jpg" alt=""  @click ="userLeave()">
                     <h3> Да, я уверен  </h3>
                 </div>
                 <div>
-                    <img class ="ico-noexit" src="@/img/noExit.jpg" alt="" @click ="noLeave()">
+                    <img class ="ico-noexit" src="@/img/noExit.jpg" alt="" @click ="userNotLeave()">
                     <h3> Нет, я добавлю</h3>
                 </div>
             </div>
@@ -109,7 +117,7 @@ export default {
             nameDeletemodal: "",
             modalHide: false,
             isExit: false,
-            isUserWrite: false,
+            isUserTouched: false,
             usersProduct: this.getAbstactFactory().createProduct(""),
             
         }
@@ -145,21 +153,35 @@ export default {
             this.modalHide = false
            
         },
-        noLeave() {
+        userNotLeave() {
             this.isExit = false
             this.returnModal()
         },
-        Leave(){
+        userLeave(){
             this.isExit = false
             this.$emit( 'deleteModalWindow')
         },
-        userWriteText(value) {
-            this.isUserWrite = value
+        userTouchedTextarea(status) {
+            this.isUserTouched = status
         },
         userClicked(event) {
-        console.log(event.target.tagName);
-        if ( event.target.tagName !== "TEXTAREA" && this.isUserWrite ) {
-                this.isUserWrite = false
+
+            if ( event.target.tagName !== "TEXTAREA" && this.isUserTouched ) {
+                    this.isUserTouched = false
+                }
+        },
+        userInput( property , value  ) {
+            
+            this.usersProduct.totalProperty[property] = value;
+
+            if ( property == "name" ) {
+                this.usersProduct.totalProperty.name = this.usersProduct.checkQualityName()
+            }
+            if ( property === "price" ) {
+                this.usersProduct.totalProperty.price = this.usersProduct.checkQualityPrice()
+            }
+            if ( property === "info" ) {
+                this.usersProduct.totalProperty.info = this.usersProduct.checkQualityInfo()
             }
         },
         
