@@ -32,11 +32,21 @@ body{
   scrollbar-width: none;
   background-position: center center;
   margin: 0;
-  background: url( './img/background.jpg' );
-  background-size: 100% auto;
+  background: url( './img/background1920w.jpg' );
+ 
+  background-image: image-set(
+    url("./img/background500w.jpg") 500w, 
+    url("./img/background700w.jpg") 700w,
+    url("./img/background1200w.jpg") 1200w,
+    url("./img/background1920w.jpg") 1920w);
+  
+  
+  background-size: 100vw auto;
   background-attachment: fixed;
   background-repeat: no-repeat;
   overflow-x: hidden;
+
+ 
 }
 .flex-class{
     display: flex;
@@ -45,7 +55,7 @@ body{
 
 @media (max-width: 700px){
   body{
-    background-size: auto 100%;
+    background-size: auto 100vh;
     background-position: center;
     overflow-y: hidden;
     }

@@ -23,8 +23,8 @@ button {
     border-radius: 1vw;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 8vw;
-    height: 3vw;
+    padding: calc( 0.7vh + 0.7vw );
+    height: fit-content;
 }
 button:hover {
     box-shadow: 0 0 6px 3px rgba(78, 77, 77, 0.315);

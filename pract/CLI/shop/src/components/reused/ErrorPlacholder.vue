@@ -24,7 +24,7 @@ div {
     margin-right: 10vh;
     height: min-content;
     padding: 1vh 2vh 1vh 2vh;
-    background-color: rgba(255, 58, 58, 0.8);
+    background-color: rgba(255, 58, 58, 0.75);
     border-radius: 4vh 4vh 4vh 4vh;
     border: solid 3px rgb(198, 25, 25);
     transition: 1s;
