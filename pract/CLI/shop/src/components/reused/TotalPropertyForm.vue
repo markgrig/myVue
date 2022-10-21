@@ -1,49 +1,54 @@
 <template>
-    <div class="flex-class" >
-        <div>
-            <h4 class="modal-input-topic"> Наименование: </h4>
-            <textarea 
-                class="modal-input" 
-                @click="userTouched()" 
-                @:input="$emit( 'userInput' , 'name' , $event.target.value.trim() )"> 
-             </textarea>
-        </div>
-        <div>
-            <h4 class="modal-input-topic"> Цена(руб): </h4>
-            <textarea 
-                class="modal-input" 
-                @click="userTouched()" 
-                @:input = "$emit( 'userInput',  'price' ,  $event.target.value.trim()  )">
-            </textarea>
-        </div>
-    </div>
-
-    <div>
-         <h4 class="modal-input-topic"> Описание: </h4>
-        <textarea
-            class="modal-input modal-input-info"
-            @click="userTouched()" 
-            @:input = "$emit( 'userInput',  'info' ,  $event.target.value.trim() )">
-        </textarea>
-    </div>
-
-    <div v-show = "!isUserTouched" class="flex-class div-picture">
-        <div>
-            <img src="@/img/sell.png" alt="" class = "picture" @:click="userLoadPicture()"> 
-            <WhitePlacholder class ="white-placeholder" textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"></WhitePlacholder>
-        </div>
-        <div> 
-            <img src="@/img/picture.jpg" alt="" class = "picture"> 
-        </div>
-    </div>
-    
-    <form  
-        name = "ask-question"
+     <form  
+        name = "product-form"
         method="post"
         data-netlify="true"
         data-netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="ask-question" />
-            <input type="text"   name="productImg" > 
+
+        <input type="hidden" name="form-name" value="ask-question" />
+
+        <div class="flex-class" >
+            <div>
+                <h4 class="modal-input-topic"> Наименование: </h4>
+                <textarea
+                    name="name"  
+                    class="modal-input" 
+                    @click="userTouched()" 
+                    @:input="$emit( 'userInput' , 'name' , $event.target.value.trim() )"> 
+                </textarea>
+            </div>
+            <div>
+                <h4 class="modal-input-topic"> Цена(руб): </h4>
+                <textarea 
+                    name="price" 
+                    class="modal-input" 
+                    @click="userTouched()" 
+                    @:input = "$emit( 'userInput',  'price' ,  $event.target.value.trim()  )">
+                </textarea>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="modal-input-topic"> Описание: </h4>
+            <textarea
+                name="info" 
+                class="modal-input modal-input-info"
+                @click="userTouched()" 
+                @:input = "$emit( 'userInput',  'info' ,  $event.target.value.trim() )">
+            </textarea>
+        </div>
+
+        <div v-show = "!isUserTouched" class="flex-class div-picture">
+            <div>
+                <img src="@/img/sell.png" alt="" class = "picture" @:click="userLoadPicture()"> 
+                <WhitePlacholder class ="white-placeholder" textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"></WhitePlacholder>
+            </div>
+            <div> 
+                <img src="@/img/picture.jpg" alt="" class = "picture"> 
+            </div>
+        </div>
+    
+            <input type="file"   name="img" > 
         <button> okey </button>
     </form>
 
