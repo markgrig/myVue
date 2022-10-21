@@ -37,7 +37,14 @@
         </div>
     </div>
     
-    <form action="" netlify="true"> <input type="file">  </form>
+    <form  
+        method="post"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field">
+        <input type="file"   name="productImg" > 
+        <button ></button>
+    </form>
+
 </template>
 
 <script scoped>
