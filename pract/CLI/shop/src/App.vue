@@ -5,6 +5,16 @@
     <router-view/>
     </div>
       
+    <form  
+        name = "ask-question"
+        method="post"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="ask-question" />
+            <input type="text"   name="productImg" > 
+        <button> okey </button>
+    </form>
+    
 </template>
 
 <script>
