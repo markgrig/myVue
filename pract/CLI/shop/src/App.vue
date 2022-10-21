@@ -41,7 +41,7 @@ body{
     url("./img/background1920w.jpg") 1920w);
   
   
-  background-size: 100vw auto;
+  background-size: 110vw auto;
   background-attachment: fixed;
   background-repeat: no-repeat;
   overflow-x: hidden;

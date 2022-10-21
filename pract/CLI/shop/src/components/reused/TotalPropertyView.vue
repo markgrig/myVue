@@ -95,7 +95,6 @@ export default {
     margin:  1vw 3vw;
     background-image:  url( "../../img/backgroundInfo.jpg") ;
     background-size: 70%;
-    height: 30px; 
     height: min-content;
     max-height: 15vw;
     border-radius: 1vw; 
@@ -105,7 +104,7 @@ export default {
     overflow: auto;
     font-size: 1.4vw;
     margin: 0;
-    padding: 0px 10px 30px 20px;
+    padding: 0px 10px 10px 20px;
     color: rgb(246, 234, 234);
     width: 20vw;
     min-height: 30px; 
@@ -143,10 +142,50 @@ export default {
     left: 60vh;
     border-radius: 0.2vw 2vw 2vw 2vw;
 }
-@media (max-width: 850px){
-    h3 , .price {
-     font-size: 5vh;
+@media (max-width: 700px){
+
+    .product-price{
+
+    font-size: 4vw;
+    border-radius: 4vmax 0;
+    min-width: 30vw;
+  
     }
 
+    .product-img {
+        width: 25vw;
+        height: 25vw;
+    }
+    
+
+    .background-info{
+        word-break: break-word;
+        margin:  1vh 3vh;
+        background-image:  url( "../../img/backgroundInfo.jpg") ;
+        background-size: 70%;
+        height: min-content;
+        max-height: 15vh;
+        border-radius: 1vw; 
+        border: solid 0.25vh   black
+    }
+
+    .product-info{
+       
+        font-size: 2vh;
+        max-height: calc(30vh - 30px);
+        width: 30vw;
+      
+    }
+    .product-info-topic {
+        padding-bottom: 10px;
+        color: rgb(246, 234, 234);
+        text-align: center;
+        font-size: 4vw;
+        height: 2vh;
+        text-indent: 0px;
+        background-color:   rgba(76, 76, 76, 0.2);
+        border-radius: 0.5vw 0.5vw 0 0;
+        border-bottom: solid  0.1vw whitesmoke
+    }
 }
 </style>

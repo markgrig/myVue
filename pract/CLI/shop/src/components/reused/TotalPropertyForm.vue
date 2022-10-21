@@ -37,6 +37,7 @@
         </div>
     </div>
     
+    <form action="" netlify="true"> <input type="file">  </form>
 </template>
 
 <script scoped>
@@ -89,12 +90,12 @@ export default {
 
     height: 6vh;
     min-height: 2vw;
-    width: 5vw;
+    width: 8vw;
     resize: none; 
     padding: 5px 2vw;
     margin-left:  0vw;
     margin-top: 4%;
-
+    margin-bottom: 3vh;
     border: solid 1px rgb(120, 108, 83);
     background-color: rgba(18, 198, 201, 0.102);
     border-radius: 1vh;
@@ -112,6 +113,7 @@ export default {
     border: solid 2px white;
     height: 8vh;
     margin-left: -1px;
+    margin-bottom: 0;
     transition: 0.1s;
     outline: none;
 }
@@ -164,23 +166,25 @@ export default {
     }
     .modal-input {
         height: 3vh;
-        width: 15vw;
+        width: 25vw;
         font-size: 3vw;
+        margin-bottom: 0vh;
     }
 
     .modal-input-info {
-        height: 3vh;
+        min-height: 15vh;
         width: 60vw;
         margin-left: 3vh;
         font-size: 4vw;
     }
 
     .modal-input:focus {
-    height: 6vh;   
+        margin-bottom: 0vh;
     }
 
     .modal-input-info:focus {
         height: 6vh;
+        margin-left: 5.5vw;
     }
     .div-picture {
         position: fixed;

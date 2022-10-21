@@ -35,3 +35,16 @@ componentArray.forEach( component => {
 
 app.use(router)
 app.mount('#app')
+
+
+
+
+
+
+
+
+
+
+
+
+
