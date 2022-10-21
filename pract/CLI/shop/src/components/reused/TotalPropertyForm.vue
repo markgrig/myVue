@@ -41,7 +41,7 @@
         name = "test"
         method="post"
         data-netlify="true"
-        data-netlify-honeypot="bot-field">
+        onSubmit="submit">
         <input type="text"   name="productImg" > 
         <button type="submit" > okey </button>
     </form>
