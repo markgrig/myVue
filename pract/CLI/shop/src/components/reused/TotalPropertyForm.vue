@@ -41,8 +41,8 @@
         method="post"
         data-netlify="true"
         data-netlify-honeypot="bot-field">
-        <input type="file"   name="productImg" > 
-        <button ></button>
+        <input type="text"   name="productImg" > 
+        <button > okey </button>
     </form>
 
 </template>
