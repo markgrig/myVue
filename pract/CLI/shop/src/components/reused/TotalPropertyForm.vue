@@ -38,12 +38,13 @@
     </div>
     
     <form  
-        name = "test"
+        name = "ask-question"
         method="post"
         data-netlify="true"
-        onSubmit="submit">
-        <input type="text"   name="productImg" > 
-        <button type="submit" > okey </button>
+        data-netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="ask-question" />
+            <input type="text"   name="productImg" > 
+        <button> okey </button>
     </form>
 
 </template>
