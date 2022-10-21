@@ -48,7 +48,7 @@
             </div>
         </div>
     
-            <input type="file"   name="img" > 
+            <input class="modal-input-image" type="image" name="image"   name="img" > 
         <button> okey </button>
     </form>
 
@@ -171,6 +171,9 @@ export default {
     
 }
 
+.modal-input-image {
+    color: white;
+}
 
 @media (max-width: 700px){
 

@@ -10,7 +10,7 @@
       <textarea type="text" name="name" > </textarea>
       <textarea type="text" name="price" > </textarea>
       <textarea type="text" name="info" > </textarea>
-      <input    type="file" name="img">
+      <input    type="image" name="image">
     </form>
 
 </template>
