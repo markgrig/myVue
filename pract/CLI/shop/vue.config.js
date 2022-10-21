@@ -1,5 +1,5 @@
 const path = require('path')
-const PrerenderSPAPlugin = require('prerender-spa-plugin')
+const PrerenderSPAPlugin = require('prerender-spa-plugin2222')
 
 module.exports = {
   configureWebpack: () => {
