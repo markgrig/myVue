@@ -42,7 +42,7 @@
         data-netlify="true"
         data-netlify-honeypot="bot-field">
         <input type="text"   name="productImg" > 
-        <button > okey </button>
+        <button type="submit" > okey </button>
     </form>
 
 </template>
