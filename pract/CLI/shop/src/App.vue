@@ -6,11 +6,11 @@
     </div>
 
     <!-- Для создание бд в Нетфли-->
-    <form name="product-form" netlify netlify-honeypot="bot-field" hidden>
+    <form name="product-form" enctype="multipart/form-data" netlify netlify-honeypot="bot-field" hidden>
       <textarea type="text" name="name" > </textarea>
       <textarea type="text" name="price" > </textarea>
       <textarea type="text" name="info" > </textarea>
-      <input    type="file" name="image">
+      <input    type="file" name="file">
     </form>
 
 </template>

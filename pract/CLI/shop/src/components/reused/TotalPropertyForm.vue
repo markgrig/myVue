@@ -1,6 +1,7 @@
 <template>
      <form  
         name = "product-form"
+        enctype="multipart/form-data"
         method="post"
         data-netlify="true"
         data-netlify-honeypot="bot-field">
@@ -48,7 +49,7 @@
             </div>
         </div>
     
-            <input class="modal-input-image" type="file" name="image" > 
+            <input class="modal-input-image" type="file" name="file" > 
         <button> okey </button>
     </form>
 
