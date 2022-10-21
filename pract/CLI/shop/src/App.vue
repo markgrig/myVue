@@ -4,17 +4,15 @@
       <Novigation/>
     <router-view/>
     </div>
-      
-    <form  
-        name = "ask-question"
-        method="post"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="ask-question" />
-            <input type="text"   name="productImg" > 
-        <button> okey </button>
+
+    <!-- Для создание бд в Нетфли-->
+    <form name="product-form" netlify netlify-honeypot="bot-field" hidden>
+      <textarea type="text" name="name" > </textarea>
+      <textarea type="text" name="price" > </textarea>
+      <textarea type="text" name="info" > </textarea>
+      <input    type="file" name="img">
     </form>
-    
+
 </template>
 
 <script>
