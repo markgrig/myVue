@@ -48,7 +48,7 @@
             </div>
         </div>
     
-            <input class="modal-input-image" type="image" name="image"   name="img" > 
+            <input class="modal-input-image" type="image" name="image" > 
         <button> okey </button>
     </form>
 
