@@ -26,7 +26,7 @@ const createchangerDocumentTitle = (router) => {
 createIcons("https://cdn-icons-png.flaticon.com/512/478/478045.png")
 createchangerDocumentTitle(router)
 
-const url = "https://main--markshop.netlify.app/.netlify/functions/submission-created"
+const url = "https://markshop.netlify.app/.netlify/functions/submission-created"
 const res = fetch(url, {
     method: 'GET'
 })
