@@ -12,7 +12,7 @@ const config = {
 firebase.initializeApp(config);
 const db = firebase.database();
 
-exports.handler = function(event, context, callback) {
+exports.handler = async function(event, context, callback) {
   const body = JSON.parse(event.body).payload
   var newPostKey = db.ref().child(`submissions`).push().key;
   db.ref(`submissions/${newPostKey}`).set({
