@@ -3,3 +3,8 @@
   to = "/index.html"
   status = 200
 
+[build]
+  Functions = "functions-build"
+  command = "yarn run build"
+  publish = "dist"
+  NODE_ENV = "8.11.3"
