@@ -1,15 +1,11 @@
-  {
+{
     "name": "vue-first-app",
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "clean": "rm -rf functions-build && mkdir functions-build",
-        "zip": "cd functions/submission-created && yarn install && zip -r submission-created.zip *",
-        "postzip": "mv functions/submission-created/submission-created.zip functions-build",
-        "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
-        "prebuild": "npm run clean && npm run zip",
-        "lint": "vue-cli-service lint"
+      "serve": "vue-cli-service serve",
+      "build": "vue-cli-service build",
+      "lint": "vue-cli-service lint"
     },
     "dependencies": {
       "core-js": "^3.6.5",
