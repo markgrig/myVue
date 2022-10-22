@@ -16,12 +16,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const appFire = initializeApp(firebaseConfig);
+const db = getFirestore(appFire);
 
 exports.handler = async function(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify( {
-      message: appFire
+      message: db
     })
   }
 }
