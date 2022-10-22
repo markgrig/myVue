@@ -9,7 +9,7 @@ const config = {
   appId: "1:338620385281:web:1b676faddf9906699bd800"
 }
 
-firebase.initializeApp(config);
+//firebase.initializeApp(config);
 //const db = firebase.database();
 
 exports.handler = async function(event, context, callback) {
