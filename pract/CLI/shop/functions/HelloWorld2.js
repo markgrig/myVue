@@ -21,7 +21,7 @@ const database = getDatabase(appFirebase);
 
 exports.handler = async function(event, context, callback) {
 
-  const dbRef = ref(getDatabase());
+  const dbRef = ref(database);
 
 get(child(dbRef, `productList`))
   .then((snapshot) => {
