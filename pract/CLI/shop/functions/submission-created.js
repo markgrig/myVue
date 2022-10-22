@@ -1,12 +1,12 @@
 var firebase = require("firebase");
 const config = {
-  apiKey: "AIzaSyBag7HEc8PGsjWPT30h1uLVAfeZMOw8-4Q",
-  authDomain: "markshop-fb0bd.firebaseapp.com",
-  projectId: "markshop-fb0bd",
-  storageBucket: "markshop-fb0bd.appspot.com",
-  messagingSenderId: "550872556816",
-  appId: "1:550872556816:web:11e38901397a791244b195",
-  measurementId: "G-S9J6214TZ4"
+  apiKey: "AIzaSyDEfBqICmwS3ng3fz3vWvKvhFCmQL-shYg",
+  authDomain: "markshop-d68ea.firebaseapp.com",
+  databaseURL: "https://markshop-d68ea-default-rtdb.firebaseio.com",
+  projectId: "markshop-d68ea",
+  storageBucket: "markshop-d68ea.appspot.com",
+  messagingSenderId: "338620385281",
+  appId: "1:338620385281:web:1b676faddf9906699bd800"
 }
 
 firebase.initializeApp(config);
