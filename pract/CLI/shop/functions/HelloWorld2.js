@@ -1,5 +1,10 @@
-var firebase = require("firebase");
-const config = {
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
   apiKey: "AIzaSyDEfBqICmwS3ng3fz3vWvKvhFCmQL-shYg",
   authDomain: "markshop-d68ea.firebaseapp.com",
   databaseURL: "https://markshop-d68ea-default-rtdb.firebaseio.com",
@@ -7,16 +12,16 @@ const config = {
   storageBucket: "markshop-d68ea.appspot.com",
   messagingSenderId: "338620385281",
   appId: "1:338620385281:web:1b676faddf9906699bd800"
-}
+};
 
-//firebase.initializeApp(config);
-//const db = firebase.database();
+// Initialize Firebase
+const appFire = initializeApp(firebaseConfig);
 
 exports.handler = async function(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify( {
-      message: "Hello World!"
+      message: appFire
     })
   }
 }
