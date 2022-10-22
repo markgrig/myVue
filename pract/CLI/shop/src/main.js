@@ -26,7 +26,7 @@ const createchangerDocumentTitle = (router) => {
 createIcons("https://cdn-icons-png.flaticon.com/512/478/478045.png")
 createchangerDocumentTitle(router)
 
-const url = "/.netlify/functions/submission-created"
+const url = "https://markshop-fb0bd-default-rtdb.firebaseio.com/"
 const res = fetch(url, {
     method: 'GET'
 })
