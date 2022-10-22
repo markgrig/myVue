@@ -13,7 +13,7 @@ const firebaseConfig = {
   storageBucket: "markshop-d68ea.appspot.com",
   messagingSenderId: "338620385281",
   appId: "1:338620385281:web:1b676faddf9906699bd800",
-  databaseURL: "https://DATABASE_NAME.firebaseio.com",
+  databaseURL: "https://markshop-d68ea-default-rtdb.firebaseio.com/",
 };
 
 // Initialize Firebase
