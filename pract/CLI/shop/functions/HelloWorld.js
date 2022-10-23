@@ -30,30 +30,34 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 
 }
 
+const starCountRef = ref(database)
 
-exports.handler = async function(event, context, callback) {
-
-  const starCountRef = ref(database , 'productList/ ')
-  const res = ""
-
-  onValue(starCountRef, (snapshot) => {
-    res =  snapshot.val() 
-  }, function(error) {
-    if (error) {
-      console.log('failed')
-      return callback(null, {
-        statusCode: error.status,
-        body: JSON.stringify ({
-          message:  error
+exports.handler = function(event, context, callback) {
+  
+  get(child(starCountRef)).then((snapshot) => {
+    if (snapshot.exists()) {
+      return {
+          statusCode: 200,
+          body: JSON.stringify( {
+          message:   snapshot.val()
         })
+      }
+    } else {
+      return {
+          statusCode: 200,
+          body: JSON.stringify( {
+          message:   "No data available"
+        })
+      }
+    }
+  }).catch((error) => {
+    return {
+      statusCode: 200,
+        body: JSON.stringify( {
+        message:   error
       })
     }
-    console.log('saved')
-    return callback(null, {
-      statusCode: 200,
-      body: JSON.stringify ({
-        message:  res
-      })
-    })
-  })
+  });
+
+
 }
