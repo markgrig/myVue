@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue} from "firebase/database";
+import { getDatabase, ref, set, onValue} from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,12 +19,18 @@ const firebaseConfig = {
 const appFirebase = initializeApp(firebaseConfig);
 const database =  getDatabase(appFirebase);
 
-const starCountRef = ref(database, "productList" );
-onValue(starCountRef, (snapshot) => {
-  const data = snapshot.val();
-  console.log(data);
-  updateStarCount(prodElement, data);
-});
+function writeProductData( database , productName,  productPrice,  productInfo ,  productImg) {
+  set(ref(database, 'product/' + new Data()), {
+    name: productName,
+    price: productPrice,
+    info: productInfo,
+    img: productImg,
+  })
+}
+
+writeProductData( database, "молоко" , 100 , "Своё! Свежее!", "123" )
+
+
 
 exports.handler = async function(event, context, callback) {
   return {
