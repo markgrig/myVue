@@ -38,13 +38,11 @@ async function readProductData() {
   });
 }
 
-
-
-exports.handler = function(event, context, callback) {
+exports.handler = async function(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify( {
-      message:   starCountRef
+      message:  readProductData() 
     })
   }
 }
