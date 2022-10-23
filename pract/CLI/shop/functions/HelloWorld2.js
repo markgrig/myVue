@@ -49,11 +49,17 @@ function getProductData( ) {
 exports.handler = function(event, context, callback) {
   //writeProductData( 1,  2,  3 ,  4) 
   //const result = getProductData()
-  
-  return onValue(ref(database, 'productList/1666522904303'), (snapshot) => {
-    const username = snapshot.val().name || 'Anonymous';
+  let username = "123" 
+  onValue(ref(database, 'productList/1666522904303'), (snapshot) => {
+    username = snapshot.val().name || 'Anonymous';
   }, {
     onlyOnce: true
   });
   
+  return {
+    statusCode: 200,
+    body: JSON.stringify( {
+      message: "Hello World!"
+    })
+  }
 }
