@@ -33,13 +33,11 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 
 exports.handler = async function(event, context, callback) {
 
-  const body = JSON.parse(event.body).payload
   const starCountRef = ref(database , 'productList/ ')
   const res = ""
 
   onValue(starCountRef, (snapshot) => {
     res =  snapshot.val() 
-    body
   }, function(error) {
     if (error) {
       console.log('failed')
