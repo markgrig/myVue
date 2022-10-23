@@ -30,7 +30,7 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
 
 }
 
-const starCountRef = ref(database,  `productList/1666522904303` )
+const starCountRef = ref(database)
 
 onValue(starCountRef, (snapshot) => {
   console.log( snapshot.val() )
