@@ -1,15 +1,11 @@
 // Import the functions you need from the SDKs you need
-//import { initializeApp } from "firebase/app";
-//import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, onValue} from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-
-
-var firebase = require("firebase");
-
-const config = {
+const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain:  process.env.AUTH_DOMAIN,
   databaseURL: process.env.DATA_BASE_URL,
@@ -19,29 +15,22 @@ const config = {
   appId: process.env.APP_ID,
 };
 
-firebase.initializeApp(config);
-const db = firebase.database();
+// Initialize Firebase
+const appFirebase = initializeApp(firebaseConfig);
+const database =  getFirestore(appFirebase);
 
-exports.handler = function(event, context, callback) {
-  const body = JSON.parse(event.body).payload
-  var productElement = db.ref().child(`productLst`).push().key;
-  db.ref(`productLst/${productElement}`).set({
-    body
-  }, function(error) {
-    if (error) {
-      console.log('failed')
-      return callback(null, {
-        statusCode: error.status,
-        body: JSON.stringify({
-          message: error.message,
-          error: error,
-        })
-      })
-    }
-    console.log('saved')
-    return callback(null, {
-      statusCode: 200,
-      body: "Beep, boop, you just got serverless."
+const starCountRef = ref(db, productList );
+onValue(starCountRef, (snapshot) => {
+  const data = snapshot.val();
+  console.log(data);
+  updateStarCount(prodElement, data);
+});
+
+exports.handler = async function(event, context, callback) {
+  return {
+    statusCode: 200,
+    body: JSON.stringify( {
+      message:  starCountRef 
     })
-  })
+  }
 }
