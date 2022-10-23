@@ -30,21 +30,19 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
 
 writeProductData("молоко" , 100 , "Своё! Свежее!", "123" )
 
-get(child( ref(database), `productList`)).then((snapshot) => {
-  if (snapshot.exists()) {
-    console.log(snapshot.val());
-  } else {
-    console.log("No data available");
-  }
-}).catch((error) => {
-  console.error(error);
-});
-
 exports.handler = async function(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify( {
-      message: child(ref(database), 'productList')
+      message: get(child( ref(database), `productList`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      })
     })
   }
 }
