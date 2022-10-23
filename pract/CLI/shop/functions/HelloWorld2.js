@@ -18,9 +18,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const appFirebase = initializeApp(firebaseConfig);
 const database =  getDatabase(appFirebase);
+const databaseRef = ref(database)
 
 function writeProductData( productName,  productPrice,  productInfo ,  productImg) {
-  set(ref(database, 'product/' + new Date()), {
+  set(ref(database, 'productList/' + Date().now()), {
     name: productName,
     price: productPrice,
     info: productInfo,
@@ -28,8 +29,31 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
   })
 }
 
+function getProductData( ) {
+  
+  const productList = []
+  
+  get(child(databaseRef, `productList`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      productList.push(snapshot.val());
+    } else {
+      productList.push("No data available");
+    }
+  }).catch((error) => {
+    return error
+  });
+
+  return productList
+}
 
 exports.handler = function(event, context, callback) {
-  writeProductData("молоко" , 100 , "Своё! Свежее!", "123" )
-  return database
+  writeProdutctDaa("молоко" , 100 , "Своё! Свежее!", "123" )
+  const result = getProductData()
+  
+  return {
+    statusCode: 200,
+    body: JSON.stringify( {
+      message: result
+    })
+  }
 }
