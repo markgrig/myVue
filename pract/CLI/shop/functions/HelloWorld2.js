@@ -19,11 +19,11 @@ const firebaseConfig = {
 const appFirebase = initializeApp(firebaseConfig);
 const database =  getDatabase(appFirebase);
 
-const starCountRef = ref(database, productList );
+const starCountRef = ref(database );
 onValue(starCountRef, (snapshot) => {
   const data = snapshot.val();
   console.log(data);
-  updateStarCount(prodElement, data);
+  updateStarCount(data);
 });
 
 exports.handler = async function(event, context, callback) {
