@@ -76,6 +76,8 @@ export const handler = () => {
           message:   records
         })
       }
+    }).finally(() => {
+      process.exit(0)
     })
 
 }
