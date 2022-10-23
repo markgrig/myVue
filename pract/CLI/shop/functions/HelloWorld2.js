@@ -20,7 +20,7 @@ const appFirebase = initializeApp(firebaseConfig);
 const database =  getFirestore(appFirebase);
 
 async function getCities(db) {
-  const citiesCol = collection(db, 'productList');
+  const citiesCol = collection(db);
   const citySnapshot = await getDocs(citiesCol);
   const cityList = citySnapshot.docs.map(doc => doc.data());
   return cityList;
