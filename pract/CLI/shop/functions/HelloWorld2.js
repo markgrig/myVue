@@ -20,7 +20,7 @@ const appFirebase = initializeApp(firebaseConfig);
 const database =  getDatabase(appFirebase);
 
 function writeProductData( database , productName,  productPrice,  productInfo ,  productImg) {
-  set(ref(database, 'product/' + new Data()), {
+  set(ref(database, 'product/' + new Date()), {
     name: productName,
     price: productPrice,
     info: productInfo,
