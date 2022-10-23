@@ -70,14 +70,13 @@ export const handler = () => {
           let data = element.val()
           records.push( { "key" : keyName, "data" : data })
       });
+      database.goOffline()
       return {
         statusCode: 200,
           body: JSON.stringify( {
           message:   records
         })
       }
-    }).finally(() => {
-      process.exit(0)
     })
 
 }
