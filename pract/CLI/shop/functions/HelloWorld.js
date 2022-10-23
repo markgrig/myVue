@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue , child , get} from "firebase/database";
+import fetch from "node-fetch";
 
 const firebaseConfig = {
 
@@ -60,7 +61,7 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 const starCountRef = ref(database)
 
 export const handler = async () => {
-  
+
   const POKE_API = 'https://pokeapi.co/api/v2/pokedex/kanto'
 
   const response = await fetch(POKE_API)
