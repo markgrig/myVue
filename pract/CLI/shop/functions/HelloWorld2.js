@@ -28,30 +28,8 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
   })
 }
 
-writeProductData("молоко" , 100 , "Своё! Свежее!", "123" )
-
-
 
 exports.handler = function(event, context, callback) {
-  //const body = JSON.parse(event.body).payload
-  var newPostKey = database.ref().child(`submissions`).push().key;
-  database.ref(`submissions`).set({
-    newPostKey
-  }, function(error) {
-    if (error) {
-      console.log('failed')
-      return callback(null, {
-        statusCode: error.status,
-        body: JSON.stringify({
-          message: error.message,
-          error: error,
-        })
-      })
-    }
-    console.log('saved')
-    return callback(null, {
-      statusCode: 200,
-      body: "Beep, boop, you just got serverless."
-    })
-  })
+  writeProductData("молоко" , 100 , "Своё! Свежее!", "123" )
+  return database
 }
