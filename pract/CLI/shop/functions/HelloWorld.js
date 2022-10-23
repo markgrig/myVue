@@ -72,11 +72,13 @@ const records = []
       goOffline( database )
 })
 
+
+
 export const handler = () => {
     return {
       statusCode: 200,
         body: JSON.stringify( {
-        message:   records
+        message: "123"
       })
     }
 
