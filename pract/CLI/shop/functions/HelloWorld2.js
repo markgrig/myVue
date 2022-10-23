@@ -47,7 +47,7 @@ function getProductData( ) {
 }
 
 exports.handler = function(event, context, callback) {
-  writeProductData("молоко" , 100 , "Своё! Свежее!", "123" )
+
   const result = getProductData()
   
   return {
