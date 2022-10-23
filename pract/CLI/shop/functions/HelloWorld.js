@@ -17,7 +17,7 @@ const appFirebase = initializeApp(firebaseConfig);
 const database =  getDatabase(appFirebase);
 const databaseRef = ref(database)
 
-function writeProductData( productName,  productPrice,  productInfo ,  productImg) {
+async function writeProductData( productName,  productPrice,  productInfo ,  productImg) {
 
   set(ref(database,'productList/ ' + Date.now()), {
 
@@ -31,18 +31,18 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
 }
 
 const starCountRef = ref(database , 'productList/ ')
-/*
-onValue(starCountRef, (snapshot) => {
-  console.log( snapshot.val() )
-});
-*/
+
+//onValue(starCountRef, (snapshot) => {
+  //console.log( snapshot.val() )
+//});
+
 
 
 exports.handler = function(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify( {
-      message:  ref(database , 'productList/ ')
+      message:   starCountRef
     })
   }
 }
