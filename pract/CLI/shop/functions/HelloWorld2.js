@@ -40,9 +40,7 @@ writeProductData( 2 , 2 , 2 , 2)
             records.push( { "key" : keyName, "data" : data })
       });
       console.log(records );
-      
-    }).finally(() => {
-      process.exit(0)
+      process.exit(0); 
     })
 
 
