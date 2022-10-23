@@ -32,7 +32,7 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 }
 /*
 
-  get( ref(database,`productList/` )).then((snapshot) => {
+   get(child( ref(database), `productList/ `)).then((snapshot) => {
     if (snapshot.exists()) {
       return {
           statusCode: 200,
@@ -62,30 +62,20 @@ const starCountRef = ref(database)
 
 export const handler = async () => {
 
- 
-  get(child( ref(database), `productList/ `)).then((snapshot) => {
-    if (snapshot.exists()) {
+  const dbRef = ref( database , 'productList')
+    onValue( dbRef, ( snapshot ) => {
+      let records = []
+      snapshot.forEach(element => {
+          let keyName = element.key
+          let data = element.val()
+          records.push( { "key" : keyName, "data" : data })
+      });
       return {
-          statusCode: 200,
+        statusCode: 200,
           body: JSON.stringify( {
-          message:   snapshot.val()
+          message:   records
         })
       }
-    } else {
-      return {
-          statusCode: 200,
-          body: JSON.stringify( {
-          message:   "No data available"
-        })
-      }
-    }
-  }).catch((error) => {
-    return {
-      statusCode: 200,
-        body: JSON.stringify( {
-        message:   error
-      })
-    }
-  });
+    })
 
 }
