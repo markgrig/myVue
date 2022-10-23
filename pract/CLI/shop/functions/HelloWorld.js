@@ -21,7 +21,7 @@ export const handler = async () => {
   const records = []
 
   const dbRef = ref( database , 'productList')
-    onValue( dbRef, ( snapshot ) => {
+    await onValue( dbRef, ( snapshot ) => {
       snapshot.forEach(element => {
           const keyName = element.key
           const data = element.val()
@@ -30,7 +30,7 @@ export const handler = async () => {
       console.log(records );
       goOffline( database )
     })
-    
+
     return {
       statusCode: 200,
         body: JSON.stringify( {
