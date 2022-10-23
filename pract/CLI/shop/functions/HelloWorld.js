@@ -31,18 +31,18 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
 }
 
 const starCountRef = ref(database , 'productList/ ')
-
+/*
 onValue(starCountRef, (snapshot) => {
   console.log( snapshot.val() )
 });
-
+*/
 
 
 exports.handler = function(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify( {
-      message: "Hello World!"
+      message:  ref(database , 'productList/ ')
     })
   }
 }
