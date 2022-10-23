@@ -33,8 +33,8 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 const starCountRef = ref(database)
 
 exports.handler = function(event, context, callback) {
-
-  get(ref(database,'productList/')).then((snapshot) => {
+  
+  get(child(database)).then((snapshot) => {
     if (snapshot.exists()) {
       return {
           statusCode: 200,
