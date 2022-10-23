@@ -28,5 +28,5 @@ async function getCities(db) {
 
 exports.handler = async function(event, context, callback) {
 
-    return getCities(database)
+    return 213
 }
