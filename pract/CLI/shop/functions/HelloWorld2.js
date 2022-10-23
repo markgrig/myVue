@@ -44,7 +44,7 @@ function getProductData( ) {
 }
 
 exports.handler = async function(event, context, callback) {
-
+  writeProductData( 1,  2,  3 ,  4) 
   const result = getProductData()
   
   return {
