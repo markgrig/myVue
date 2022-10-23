@@ -30,20 +30,32 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 
 }
 
-async function readProductData() {
-  const starCountRef = ref(database , 'productList/ ')
-  const res = ""
-  onValue(starCountRef, (snapshot) => {
-    res =  snapshot.val() 
-  });
-  return res
-}
 
 exports.handler = async function(event, context, callback) {
-  return {
-    statusCode: 200,
-    body: JSON.stringify( {
-      message:  readProductData() 
+
+  const body = JSON.parse(event.body).payload
+  const starCountRef = ref(database , 'productList/ ')
+  const res = ""
+
+  onValue(starCountRef, (snapshot) => {
+    res =  snapshot.val() 
+    body
+  }, function(error) {
+    if (error) {
+      console.log('failed')
+      return callback(null, {
+        statusCode: error.status,
+        body: JSON.stringify ({
+          message:  error
+        })
+      })
+    }
+    console.log('saved')
+    return callback(null, {
+      statusCode: 200,
+      body: JSON.stringify ({
+        message:  res
+      })
     })
-  }
+  })
 }
