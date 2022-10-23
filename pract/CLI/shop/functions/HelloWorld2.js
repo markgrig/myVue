@@ -31,13 +31,11 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
 
 function getProductData( ) {
   
-  const productList = []
-  
   get(child(databaseRef, `productList`)).then((snapshot) => {
     if (snapshot.exists()) {
-      productList.push(snapshot.val());
+      return snapshot.val();
     } else {
-      productList.push("No data available");
+      return" No data available"
     }
   }).catch((error) => {
     return error
@@ -46,7 +44,7 @@ function getProductData( ) {
   return productList
 }
 
-exports.handler = function(event, context, callback) {
+exports.handler = async function(event, context, callback) {
 
   const result = getProductData()
   
