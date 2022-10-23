@@ -34,8 +34,8 @@ writeProductData("молоко" , 100 , "Своё! Свежее!", "123" )
 
 exports.handler = async function(event, context, callback) {
   const body = JSON.parse(event.body).payload
-  var newPostKey = db.ref().child(`submissions`).push().key;
-  db.ref(`submissions/${newPostKey}`).set({
+  var newPostKey = database.ref().child(`submissions`).push().key;
+  database.ref(`submissions/${newPostKey}`).set({
     body
   }, function(error) {
     if (error) {
