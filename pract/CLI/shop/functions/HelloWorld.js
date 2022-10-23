@@ -62,15 +62,16 @@ const starCountRef = ref(database)
 
 export const handler = async () => {
 
-  const POKE_API = 'https://markshop-d68ea-default-rtdb.firebaseio.com/'
-
-  const response = await fetch(POKE_API)
-  const data = await response.json()
+  var starCountRef = firebase.database().ref('productList');
+  // Add ref of child if any  
+  starCountRef.on('value', function(snapshot) {
+    console.log(snapshot.val());
+  });
 
   return {
     statusCode: 200,
     body: JSON.stringify({
-      data
+      "ЛЯ!"
     })
   }
 
