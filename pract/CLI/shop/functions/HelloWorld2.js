@@ -31,17 +31,19 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
 
 function getProductData( ) {
   
-  const res = get(child(databaseRef, `productList`)).then((snapshot) => {
+  const productList = {}
+
+  get(child(databaseRef, `productList/1666522904303`)).then((snapshot) => {
     if (snapshot.exists()) {
-      return snapshot.val();
+      productList.name = snapshot.val().name;
     } else {
-      return" No data available"
+      productList.name = " No data available"
     }
   }).catch((error) => {
-    return error
+    productList.name = error
   });
 
-  return res
+  return productList
 }
 
 exports.handler = function(event, context, callback) {
