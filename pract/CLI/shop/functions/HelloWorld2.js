@@ -1,11 +1,15 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+//import { initializeApp } from "firebase/app";
+//import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
+
+
+var firebase = require("firebase");
+
+const config = {
   apiKey: process.env.API_KEY,
   authDomain:  process.env.AUTH_DOMAIN,
   databaseURL: process.env.DATA_BASE_URL,
@@ -15,22 +19,29 @@ const firebaseConfig = {
   appId: process.env.APP_ID,
 };
 
-// Initialize Firebase
-const appFirebase = initializeApp(firebaseConfig);
-const database =  getFirestore(appFirebase);
+firebase.initializeApp(config);
+const db = firebase.database();
 
-async function getCities(db) {
-  const citiesCol = collection(db);
-  const citySnapshot = await getDocs(citiesCol);
-  const cityList = citySnapshot.docs.map(doc => doc.data());
-  return cityList;
-}
-
-exports.handler = async function(event, context, callback) {
-  return {
-    statusCode: 200,
-    body: JSON.stringify( {
-      message: getCities(database)
+exports.handler = function(event, context, callback) {
+  const body = JSON.parse(event.body).payload
+  var productElement = db.ref().child(`productLst`).push().key;
+  db.ref(`productLst/${productElement}`).set({
+    body
+  }, function(error) {
+    if (error) {
+      console.log('failed')
+      return callback(null, {
+        statusCode: error.status,
+        body: JSON.stringify({
+          message: error.message,
+          error: error,
+        })
+      })
+    }
+    console.log('saved')
+    return callback(null, {
+      statusCode: 200,
+      body: "Beep, boop, you just got serverless."
     })
-  }
+  })
 }
