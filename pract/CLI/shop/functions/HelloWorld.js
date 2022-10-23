@@ -32,10 +32,11 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 
 async function readProductData() {
   const starCountRef = ref(database , 'productList/ ')
-
+  const res = ""
   onValue(starCountRef, (snapshot) => {
-    console.log( snapshot.val() )
+    res =  snapshot.val() 
   });
+  return res
 }
 
 exports.handler = async function(event, context, callback) {

@@ -28,7 +28,7 @@ const createchangerDocumentTitle = (router) => {
 createIcons("https://cdn-icons-png.flaticon.com/512/478/478045.png")
 createchangerDocumentTitle(router)
 
-const url = "/.netlify/functions/HelloWorld2"
+const url = "/.netlify/functions/HelloWorld"
 const res = fetch(url, {
     method: 'GET'
 })
