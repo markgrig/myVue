@@ -30,19 +30,36 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
 
 writeProductData("молоко" , 100 , "Своё! Свежее!", "123" )
 
-exports.handler = async function(event, context, callback) {
-  return {
-    statusCode: 200,
-    body: JSON.stringify( {
-      message: get(child( ref(database), `productList`)).then((snapshot) => {
-        if (snapshot.exists()) {
-          console.log(snapshot.val());
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error(error);
-      })
-    })
+get(child( ref(database), `productList`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    console.log(snapshot.val());
+  } else {
+    console.log("No data available");
   }
+}).catch((error) => {
+  console.error(error);
+});
+
+exports.handler = async function(event, context, callback) {
+  const body = JSON.parse(event.body).payload
+  var newPostKey = db.ref().child(`submissions`).push().key;
+  db.ref(`submissions/${newPostKey}`).set({
+    body
+  }, function(error) {
+    if (error) {
+      console.log('failed')
+      return callback(null, {
+        statusCode: error.status,
+        body: JSON.stringify({
+          message: error.message,
+          error: error,
+        })
+      })
+    }
+    console.log('saved')
+    return callback(null, {
+      statusCode: 200,
+      body: "Beep, boop, you just got serverless."
+    })
+  })
 }
