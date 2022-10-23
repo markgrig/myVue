@@ -34,7 +34,7 @@ const starCountRef = ref(database)
 
 exports.handler = function(event, context, callback) {
   
-  get(child(database)).then((snapshot) => {
+  get(child( ref(database))).then((snapshot) => {
     if (snapshot.exists()) {
       return {
           statusCode: 200,
