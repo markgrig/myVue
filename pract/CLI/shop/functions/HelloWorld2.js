@@ -31,17 +31,6 @@ writeProductData( 2 , 2 , 2 , 2)
 */
 
 
-  const dbRef = ref( database , 'productList')
-    onValue( dbRef, ( snapshot ) => {
-      const records = []
-      snapshot.forEach(element => {
-            const keyName = element.key
-            const data = element.val()
-            records.push( { "key" : keyName, "data" : data })
-      });
-      console.log(records );
-      process.exit(0); 
-    })
 
 
 
