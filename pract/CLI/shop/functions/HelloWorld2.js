@@ -27,6 +27,10 @@ async function getCities(db) {
 }
 
 exports.handler = async function(event, context, callback) {
-
-    return 213
+  return {
+    statusCode: 200,
+    body: JSON.stringify( {
+      message: cityList
+    })
+  }
 }
