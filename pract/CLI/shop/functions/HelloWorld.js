@@ -19,7 +19,7 @@ const databaseRef = ref(database)
 
 function writeProductData( productName,  productPrice,  productInfo ,  productImg) {
 
-  set(ref(database, 'productList/' + Date.now()), {
+  set(ref(database,'productList/ ' + Date.now()), {
 
     name: productName,
     price: productPrice,
@@ -30,9 +30,9 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
 
 }
 
-const starCountRef = ref(database)
+const starCountRef = ref(database , 'productList/ ')
 
-await onValue(starCountRef, (snapshot) => {
+onValue(starCountRef, (snapshot) => {
   console.log( snapshot.val() )
 });
 
