@@ -4,7 +4,7 @@ const database =  getDatabase(appFirebase);
 
 async function writeProductData( productName,  productPrice,  productInfo ,  productImg) {
 
-  set(ref(database,'productList/' + Date.now()), {
+  set(ref(database,'productList/ ' + Date.now()), {
 
     name: productName,
     price: productPrice,
@@ -15,7 +15,7 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 
 }
 
-writeProductData( 2 , 2 , 2 , 2)
+writeProductData( 2 , 2 , 2 , 22)
 /*
    get(child( ref(database), `productList/ `)).then((snapshot) => {
     if (snapshot.exists()) {
@@ -37,7 +37,7 @@ writeProductData( 2 , 2 , 2 , 2)
 
 
 
-exports.handler = async function(event, context, callback) {
+exports.handler = function(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify({
