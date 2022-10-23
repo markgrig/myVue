@@ -17,7 +17,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const appFirebase = initializeApp(firebaseConfig);
-const database =  getFirestore(appFirebase);
+const database =  getDatabase(appFirebase);
 
 const starCountRef = ref(db, productList );
 onValue(starCountRef, (snapshot) => {
