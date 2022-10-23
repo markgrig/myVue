@@ -62,7 +62,7 @@ const starCountRef = ref(database)
 
 export const handler = async () => {
 
-  const POKE_API = 'https://markshop-d68ea-default-rtdb.firebaseio.com/productList/1666521497348/img'
+  const POKE_API = 'https://markshop-d68ea-default-rtdb.firebaseio.com/'
 
   const response = await fetch(POKE_API)
   const data = await response.json()
