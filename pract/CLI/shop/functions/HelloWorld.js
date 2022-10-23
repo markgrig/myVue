@@ -62,7 +62,7 @@ const starCountRef = ref(database)
 
 export const handler = async () => {
 
-  var starCountRef = firebase.database().ref('productList');
+  var starCountRef = database.ref('productList');
   // Add ref of child if any  
   starCountRef.on('value', function(snapshot) {
     console.log(snapshot.val());
