@@ -41,7 +41,6 @@ function getProductData( ) {
     return error
   });
 
-  return productList
 }
 
 exports.handler = async function(event, context, callback) {
