@@ -32,7 +32,7 @@ writeProductData("молоко" , 100 , "Своё! Свежее!", "123" )
 
 
 
-exports.handler = async function(event, context, callback) {
+exports.handler = function(event, context, callback) {
   const body = JSON.parse(event.body).payload
   var newPostKey = database.ref().child(`submissions`).push().key;
   database.ref(`submissions/${newPostKey}`).set({
