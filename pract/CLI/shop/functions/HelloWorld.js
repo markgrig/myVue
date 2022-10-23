@@ -30,11 +30,13 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 
 }
 
-const starCountRef = ref(database , 'productList/ ')
+async function readProductData() {
+  const starCountRef = ref(database , 'productList/ ')
 
-//onValue(starCountRef, (snapshot) => {
-  //console.log( snapshot.val() )
-//});
+  onValue(starCountRef, (snapshot) => {
+    console.log( snapshot.val() )
+  });
+}
 
 
 
