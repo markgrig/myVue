@@ -60,7 +60,7 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 
 const starCountRef = ref(database)
 
-export const handler = async () => {
+export const handler = () => {
 
   const dbRef = ref( database , 'productList')
     onValue( dbRef, ( snapshot ) => {
