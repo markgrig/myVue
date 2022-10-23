@@ -62,16 +62,12 @@ const starCountRef = ref(database)
 
 export const handler = async () => {
 
-  var starCountRef = database.ref('productList');
-  // Add ref of child if any  
-  starCountRef.on('value', function(snapshot) {
-    console.log(snapshot.val());
-  });
+ 
 
   return {
     statusCode: 200,
     body: JSON.stringify({
-      message: "ля"
+      message:  ref(database,`productList/`)
     })
   }
 
