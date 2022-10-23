@@ -60,9 +60,7 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 
 const starCountRef = ref(database)
 
-export const handler = () => {
-  
-  const records = []
+const records = []
 
   const dbRef = ref( database , 'productList')
     onValue( dbRef, ( snapshot ) => {
@@ -72,8 +70,9 @@ export const handler = () => {
           records.push( { "key" : keyName, "data" : data })
       });
       goOffline( database )
-    })
+})
 
+export const handler = () => {
     return {
       statusCode: 200,
         body: JSON.stringify( {
