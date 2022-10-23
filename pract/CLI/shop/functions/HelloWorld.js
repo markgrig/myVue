@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, onValue , child , get} from "firebase/database";
+import { getDatabase, ref, set, onValue , child , get , goOffline } from "firebase/database";
 import fetch from "node-fetch";
 
 const firebaseConfig = {
@@ -70,7 +70,7 @@ export const handler = () => {
           let data = element.val()
           records.push( { "key" : keyName, "data" : data })
       });
-      database.goOffline()
+      goOffline( database )
       return {
         statusCode: 200,
           body: JSON.stringify( {
