@@ -63,14 +63,29 @@ const starCountRef = ref(database)
 export const handler = async () => {
 
  
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message:  child( ref(database,), `productList/`)
-    })
-  }
-
-
+  get(child( ref(database,), `productList/`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      return {
+          statusCode: 200,
+          body: JSON.stringify( {
+          message:   snapshot.val()
+        })
+      }
+    } else {
+      return {
+          statusCode: 200,
+          body: JSON.stringify( {
+          message:   "No data available"
+        })
+      }
+    }
+  }).catch((error) => {
+    return {
+      statusCode: 200,
+        body: JSON.stringify( {
+        message:   error
+      })
+    }
+  });
 
 }
