@@ -50,10 +50,5 @@ exports.handler = function(event, context, callback) {
   //writeProductData( 1,  2,  3 ,  4) 
   const result = getProductData()
   
-  return {
-    statusCode: 200,
-    body: JSON.stringify( {
-      message: result
-    })
-  }
+  return result
 }
