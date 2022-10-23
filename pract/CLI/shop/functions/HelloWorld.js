@@ -63,7 +63,7 @@ const starCountRef = ref(database)
 export const handler = async () => {
 
  
-  get(child( ref(database,), `productList/ `)).then((snapshot) => {
+  get(child( ref(database), `productList/ `)).then((snapshot) => {
     if (snapshot.exists()) {
       return {
           statusCode: 200,
