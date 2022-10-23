@@ -50,7 +50,7 @@ exports.handler = function(event, context, callback) {
   //writeProductData( 1,  2,  3 ,  4) 
   //const result = getProductData()
   
-  return onValue(ref(db, 'productList/1666522904303'), (snapshot) => {
+  return onValue( databaseRef, 'productList/1666522904303'), (snapshot) => {
     const username = snapshot.val().name || 'Anonymous';
   }, {
     onlyOnce: true
