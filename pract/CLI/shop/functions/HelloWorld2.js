@@ -16,7 +16,7 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
 }
 
 writeProductData( 2 , 2 , 2 , 2)
-
+/*
    get(child( ref(database), `productList/ `)).then((snapshot) => {
     if (snapshot.exists()) {
         console.log(   snapshot.val() )
@@ -28,7 +28,7 @@ writeProductData( 2 , 2 , 2 , 2)
   });
   
 
-
+*/
 
 
   const dbRef = ref( database , 'productList')
@@ -40,6 +40,9 @@ writeProductData( 2 , 2 , 2 , 2)
             records.push( { "key" : keyName, "data" : data })
       });
       console.log(records );
+      
+    }).finally(() => {
+      process.exit(0)
     })
 
 
