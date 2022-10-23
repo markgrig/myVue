@@ -29,6 +29,13 @@ function writeProductData( productName,  productPrice,  productInfo ,  productIm
   })
 }
 
+const db = getDatabase();
+const starCountRef = ref(db,  `productList/1666522904303` );
+onValue(starCountRef, (snapshot) => {
+  console.log( snapshot.val() )
+  
+});
+
 function getProductData( ) {
   
   const productList = {}
@@ -47,15 +54,6 @@ function getProductData( ) {
 }
 
 exports.handler = function(event, context, callback) {
-  //writeProductData( 1,  2,  3 ,  4) 
-  //const result = getProductData()
-  let username = "123" 
-  onValue(ref(database, 'productList/1666522904303'), (snapshot) => {
-    username = snapshot.val().name || 'Anonymous';
-  }, {
-    onlyOnce: true
-  });
-  
   return {
     statusCode: 200,
     body: JSON.stringify( {
