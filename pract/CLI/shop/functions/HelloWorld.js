@@ -29,11 +29,8 @@ async function writeProductData( productName,  productPrice,  productInfo ,  pro
   })
 
 }
+/*
 
-const starCountRef = ref(database)
-
-exports.handler = function(event, context, callback) {
-  
   get( ref(database,`productList/` )).then((snapshot) => {
     if (snapshot.exists()) {
       return {
@@ -58,6 +55,24 @@ exports.handler = function(event, context, callback) {
       })
     }
   });
+  */
+
+const starCountRef = ref(database)
+
+export const handler = async () => {
+  
+  const POKE_API = 'https://pokeapi.co/api/v2/pokedex/kanto'
+
+  const response = await fetch(POKE_API)
+  const data = await response.json()
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      data
+    })
+  }
+
 
 
 }
