@@ -8,3 +8,5 @@
   Functions = "functions"
   publish = "dist"
   NODE_ENV = "8.11.3"
+
+[[edge_functions]]
