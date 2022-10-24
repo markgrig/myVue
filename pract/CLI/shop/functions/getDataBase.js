@@ -17,24 +17,11 @@ export const handler = async () => {
   
   const appFirebase = initializeApp(firebaseConfig);
   const database =  getDatabase(appFirebase);
-
-  const records = []
-
-  const dbRef = ref( database , 'productList')
-    onValue( dbRef, ( snapshot ) => {
-      snapshot.forEach(element => {
-          const keyName = element.key
-          const data = element.val()
-          records.push( { "key" : keyName, "data" : data })
-      });
-      console.log(records );
-    
-    })
-    console.log(123);
+  
     return {
       statusCode: 200,
         body: JSON.stringify( {
-        message: records
+        message: database
       })
     }
 
