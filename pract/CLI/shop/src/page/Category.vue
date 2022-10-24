@@ -31,6 +31,7 @@
 
 <script>
 import *  as AbstactFactory from "@/factory/AbstructFactory.js"
+import ProductData  from "@/store/ProductData.js"
 import ModalForAddProduct from '@/components/nonReused/ModalForAddProduct.vue'
 import BlueButton from "../components/reused/BlueButton.vue"
 
@@ -42,7 +43,8 @@ export default {
 },
     data() {
       return {
-        nameCategory : this.$route.params.id,
+        nameCategory: this.$route.params.id,
+        productData: new ProductData,
         isCreatProduct: false,
         isMobile: Boolean( ( window.innerWidth < 850)),
         isUserWrite: false

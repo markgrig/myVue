@@ -21,16 +21,16 @@ export const handler = async () => {
   const records = []
 
   const dbRef = ref( database , 'productList')
-    await onValue( dbRef, ( snapshot ) => {
+    onValue( dbRef, ( snapshot ) => {
       snapshot.forEach(element => {
           const keyName = element.key
           const data = element.val()
           records.push( { "key" : keyName, "data" : data })
       });
       console.log(records );
-      goOffline( database )
+    
     })
-
+    console.log(123);
     return {
       statusCode: 200,
         body: JSON.stringify( {

@@ -4,7 +4,7 @@
       <Novigation/>
     <router-view/>
     </div>
-
+ 
     <!-- Для создание бд в Нетфли!-->
     <form name="product-form" enctype="multipart/form-data" netlify netlify-honeypot="bot-field" hidden>
       <textarea type="text" name="name" > </textarea>
@@ -26,7 +26,6 @@
     components: {
       Novigation
     },
-    
   }
 
 </script>
