@@ -5,7 +5,7 @@ node_modules
 # local env files
 .env.local
 .env.*.local
-store/.env.js
+src/store/.env.js
 
 # Log files
 npm-debug.log*
