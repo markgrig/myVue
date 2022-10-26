@@ -2,13 +2,26 @@
 
   <div id = "home">
     
-    <div> <img class="ligth" src="@/img/quest.jpg" 
-      @mouseover="placholderMouseoverQestionary()"
-      @mouseout="placholderMouseoverQestionary()">
-      <WhitePlacholder class ="white-placeholder" textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"> </WhitePlacholder> 
+    <div> 
+      <img 
+        class="ligth" 
+        src="@/img/quest.jpg" 
+        @mouseover="placholderMouseoverQestionary()"
+        @mouseout="placholderMouseoverQestionary()">
+
+      <WhitePlacholder 
+        v-if = "mouseoverQestionary"
+        class ="white-placeholder" 
+        textPlaceholder = "Пройдёшь опрос?">
+      </WhitePlacholder> 
+
     </div>
   
-    <span class="ligth" @:mouseover="tellAboutShop()"> {{ infoAbotShop }}</span>
+    <span 
+      class="ligth" 
+      @:mouseover="tellAboutShop()"> 
+      {{ infoAbotShop }}
+    </span>
    
   </div>
 

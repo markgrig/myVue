@@ -190,7 +190,7 @@ export default {
         userInput( property , value  ) {
             
             this.usersProduct.totalProperty[property] = value;
-            
+                
             if ( property == "name" ) {
                 this.usersProduct.totalProperty.name = this.usersProduct.checkQualityName()
             }
