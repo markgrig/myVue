@@ -6,7 +6,7 @@
       @deleteModalWindow = "deleteThisCompanent"
       :product= 'product' :isMobile = 'isMobile' 
       :isUserWrite = 'isUserWrite' :getAbstactFactory = "getAbstactFactory"
-      :modalCardWidth = "'30%'" :modalCardHeight = "'60%'"
+      :modalCardWidth = "'30%'" :modalCardHeight = "'55%'"
       :modalFormWidth = "'48%'" :modalFormHeight = "'55%'"
       :startCardMargin = "'8%  60%'" :centralCardMargin = "'8% 35%'"
       :startFormMargin = "'8% 10%'"    :centralFormMargin = "'8%  27%'"
@@ -19,9 +19,9 @@
       @deleteModalWindow = "deleteThisCompanent"
       :product= 'product' :isMobile = 'isMobile'
       :isUserWrite = 'isUserWrite' :getAbstactFactory = "getAbstactFactory"
-      :modalCardWidth = "'80%'" :modalCardHeight = "'40vh'"
-      :modalFormWidth = "'90%'" :modalFormHeight = "'40%'"
-      :startCardMargin = "'50vh 9%'" :centralCardMargin = "'30vh 9%'" 
+      :modalCardWidth = "'80%'" :modalCardHeight = "'75vw'"
+      :modalFormWidth = "'90%'" :modalFormHeight = "'75vw'"
+      :startCardMargin = "'50vh 9%'" :centralCardMargin = "'10vh 9%'" 
       :startFormMargin = "'15% 4%'" :centralFormMargin = "'25vh  4%'"> 
   </ModalForAddProduct>
 

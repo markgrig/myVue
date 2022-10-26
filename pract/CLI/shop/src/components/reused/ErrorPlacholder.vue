@@ -25,7 +25,7 @@ div {
     height: min-content;
     padding: 1vh 2vh 1vh 2vh;
     background-color: rgba(255, 58, 58, 0.75);
-    border-radius: 4vh 4vh 4vh 4vh;
+    border-radius: 2vh 4vh 4vh 4vh;
     border: solid 3px rgb(198, 25, 25);
     transition: 1s;
     box-shadow:  0 0 0.2vw 0.05vw rgb(232, 209, 120);
@@ -49,6 +49,7 @@ div {
         margin-left: 15px;
         font-size: 3.5vw;
         padding: 10px 10px 0px 2    0px;
+        border: solid 2px rgb(198, 25, 25);
         width: 80px;
     }
 }

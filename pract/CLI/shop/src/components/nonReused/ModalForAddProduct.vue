@@ -1,4 +1,9 @@
 <template>
+    
+    <div class = "overflower">
+
+
+
 
     <div  @click = "userClicked">
         <div class="black-window" ></div>
@@ -36,7 +41,9 @@
 
     </div>
 
-    <div class="modal-window product-card" 
+    <div
+     
+        class="modal-window product-card" 
         :style="{ margin : modalCardMargin, 
                   display:  modalCardDisplay,
                   width: modalCardWidth,
@@ -52,11 +59,6 @@
         <TotalPropertyForm
             :isMobile = "isMobile"
             :isUserTouched = "isUserTouched"
-
-            :nameUsersProduct="usersProduct.totalProperty.name"
-            :priceUsersProduct="usersProduct.totalProperty.price"
-            :infoUsersProduct = "usersProduct.totalProperty.info"
-
             @userTouchedTextarea = "userTouchedTextarea"
             @userInput = "userInput">
         </TotalPropertyForm>
@@ -84,6 +86,8 @@
     </div>
     </div>
     
+    </div>
+
 </template>
 
 <script>
@@ -107,6 +111,7 @@ export default {
         modalFormHeight: String,
         isMobile: Boolean,
         getAbstactFactory: Function,
+        
     },
     data() {
         return {
@@ -119,6 +124,7 @@ export default {
             isExit: false,
             isUserTouched: false,
             usersProduct: this.getAbstactFactory().createProduct(""),
+            productFormDOM: "",
             
         }
     },
@@ -135,7 +141,7 @@ export default {
                 this.modalCardMargin = this.centralCardMargin
                 this.nameDeletemodal = "демонстрационное окно"
             }
-
+          
             this.modalHide = true
             
             if (  this.modalFormMargin === this.centralFormMargin &&  this.modalCardMargin === this.centralCardMargin ) {
@@ -162,18 +168,29 @@ export default {
             this.$emit( 'deleteModalWindow')
         },
         userTouchedTextarea(status) {
+
+            if ( this.modalCardMargin !== this.centralCardMargin ) {
+                if ( !this.productFormDOM ) { this.productFormDOM  = document.querySelector( ".product-card")}
+
             this.isUserTouched = status
+
+            this.productFormDOM.style.opacity = "0" 
+            }
+         
+        
         },
         userClicked(event) {
 
             if ( event.target.tagName !== "TEXTAREA" && this.isUserTouched ) {
+
+                    this.productFormDOM.style.opacity = "1" 
                     this.isUserTouched = false
                 }
         },
         userInput( property , value  ) {
             
             this.usersProduct.totalProperty[property] = value;
-
+            
             if ( property == "name" ) {
                 this.usersProduct.totalProperty.name = this.usersProduct.checkQualityName()
             }
@@ -183,6 +200,10 @@ export default {
             if ( property === "info" ) {
                 this.usersProduct.totalProperty.info = this.usersProduct.checkQualityInfo()
             }
+            if ( property === "image" ) {
+                this.usersProduct.totalProperty.info = this.usersProduct.checkQualityImage()
+            }
+ 
         },
         
     },
@@ -226,9 +247,27 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-body {
+
+<style>
+body, html {
+    width: 100%;
+    height:  100%;
     overflow-x: hidden;
+    overflow: hidden;
+}
+
+</style>
+<style scoped>
+
+
+
+.overflower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 110%;
+    overflow: hidden;
 }
 .black-window {
     position: absolute;
@@ -236,9 +275,8 @@ body {
     top: 0;
     background-color: rgba(0, 0, 0, 0.95);
     width: 100%;
-    height: 120%;
     z-index: 1;
-   
+    height: 100%;
 }
 
 .modal-window {
@@ -294,10 +332,11 @@ body {
     font-size: 1vw;
     text-align: center;
     color: white;
-    padding: 5px;
+    padding: 0.5vw 1vw 0vw 1vw;
     left: 42vw;
     width: 15vw;
-    bottom: 2%;
+    bottom: 6vw;
+    height: 2vw;
 }
 
 .return-two-window:hover {
@@ -311,7 +350,7 @@ body {
     box-sizing: border-box;
     top: 0;
     background-color: white;
-    border-radius: 4vmax 0;
+    border-radius: 3.5vw 0;
     clip-path: polygon(0% 0%, 0% , 46% 100%, 46% 21%, 92% 21%, 92% 61%, 46% 61%, 46% 100%, 100% 100%, 100% 0%);
 
 }
@@ -366,7 +405,7 @@ body {
     }
     
     .ico-noexit, .ico-exit {
-        margin: 15vh 26.5vw;
+        margin: 30vw 26.5vw;
         width: 30vw;
    
     }
@@ -382,17 +421,20 @@ body {
     }
 
 .return-two-window {
-    font-size: 2.9vw;
+    font-size: 3.5vw;
     text-align: center;
-    left: 23%;
-    width: 50%;
-    bottom: 2%;
-    }
+    color: white;
+    padding: 0.5vw 1vw 0vw 1vw;
+    left: 15vw;
+    width: 70vw;
+    bottom: 26vw;
+    height: 5vw;
+}
 
     .cross {
-    height: 5vh;
+    height: 7vw;
     position: relative;
-    font-size: 5vh;
+    font-size: 7vw;
     bottom: -5px;
     left: calc(100% - 40px);
     overflow: visible;
@@ -400,8 +442,14 @@ body {
 }
 
 @media (max-width: 700px){
-    * {
+    
+    html, body {
         overflow: hidden;
+    }
+
+    .product-form {
+        padding: 10px;
+        border-radius: 8vw 0;
     }
 }
 </style>

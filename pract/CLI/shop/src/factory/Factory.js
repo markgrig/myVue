@@ -1,13 +1,13 @@
 
 export class FactoryProduct {
-    constructor( name = " " , info = " " ,  price = "0" ,caclObj, img)
+    constructor( name = " " , info = " " ,  price = "0" ,caclObj, image)
     {
         this.totalProperty = {
             name: name,  
             info: info,
             price: price,
             caclObj: caclObj,
-            img: img,
+            image: image,
         }
         this.error =  ""
         this.success = {
@@ -15,7 +15,7 @@ export class FactoryProduct {
             info:  { status: false, value: "" },
             price:  { status: false, value: "" },
             caclObj:  { status: false, value: "" },
-            img:  { status: false, value: "" },
+            image:  { status: false, value: "" },
         }
     }
     removeSpace(str) {
@@ -103,6 +103,81 @@ export class FactoryProduct {
         }
        
     
+    }
+    checkQualityImage() {
+       
+        const file =  this.totalProperty.image
+
+        
+        if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type)) {
+            this.success.image.value = "Разрешены только изображения"
+            this.success.image.status = false
+            return ""
+        }
+
+        
+        if (file.size > 2 * 1024 * 1024) {
+            this.success.image.value = "Файл должен быть менее 2 МБ."
+            this.success.image.status = false
+            return ""
+        }
+
+        const createPostData = async (url, fData) => { 
+            
+            let fetchResponse = await fetch(url, {
+                method: "POST",
+                body: fData
+            });
+        
+            return await fetchResponse.text();
+        };
+
+        const fData = new FormData();
+        fData.append("file_attach", file); 
+
+            createPostData("/", fData)
+                .then( (response) => {
+                    if ( !response.ok) {
+                        throw new Error("Ошибка!")
+                    }
+                    else {
+                        console.log( "Картинка сохранена!");
+                        this.success.image.value = "Картинка сохранена!"
+                        this.success.image.status = true;
+                    }
+                })
+                .catch(() => {
+
+                    console.log("Картинка  не сохранена!");
+                    this.success.image.value = "Картинка не сохранена!"
+                    this.success.image.status = false;
+
+                })
+                
+                
+    
+
+
+        /*
+        handleSubmit() {
+
+            const axiosConfig = {
+                header: { "Content-Type": "application/x-www-form-urlencoded" }
+            };
+            axios.post(
+            "/",
+                this.encode({
+                    "form-name": "ask-question",
+                    ...this.form
+                }),
+                axiosConfig
+            );
+        }*/
+
+      //  this.success.info.status = true
+       // return info
+
+        
     }
 }
 
