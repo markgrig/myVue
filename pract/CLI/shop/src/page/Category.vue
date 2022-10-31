@@ -1,9 +1,13 @@
 <template >
-  <BlueButton @click="clickCreateProduct()" textButton = "Создать товар"> </BlueButton>
+  <BlueButton 
+    @click="clickCreateProduct()" 
+    textButton = "Создать товар"> 
+  </BlueButton>
 
   <ModalForAddProduct v-if= "isCreatProduct && !isMobile" 
       
       @deleteModalWindow = "deleteThisCompanent"
+      :productData = "productData"
       :product= 'product' :isMobile = 'isMobile' 
       :isUserWrite = 'isUserWrite' :getAbstactFactory = "getAbstactFactory"
       :modalCardWidth = "'30%'" :modalCardHeight = "'55%'"
@@ -55,6 +59,8 @@ export default {
         return AbstactFactory
       },
       clickCreateProduct() {
+        //this.productData.writeProduct( { name: "123" } )
+        console.log( this.productData );
         this.nameCategory = this.$route.params.id
         this.isCreatProduct = true
       },

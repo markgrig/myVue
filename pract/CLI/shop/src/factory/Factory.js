@@ -1,12 +1,11 @@
 
 export class FactoryProduct {
-    constructor( name = " " , info = " " ,  price = "0" ,caclObj, image)
+    constructor( name = " " , info = " " ,  price = "0" , image)
     {
         this.totalProperty = {
             name: name,  
             info: info,
             price: price,
-            caclObj: caclObj,
             image: image,
         }
         this.error =  ""
@@ -14,7 +13,6 @@ export class FactoryProduct {
             name: { status: false, value: "" },
             info:  { status: false, value: "" },
             price:  { status: false, value: "" },
-            caclObj:  { status: false, value: "" },
             image:  { status: false, value: "" },
         }
     }
@@ -122,6 +120,9 @@ export class FactoryProduct {
             return ""
         }
 
+        this.success.image.status = true
+        return file
+        /*
         const createPostData = async (url, fData) => { 
             
             let fetchResponse = await fetch(url, {
@@ -154,28 +155,11 @@ export class FactoryProduct {
 
                 })
                 
-                
+            */    
     
 
 
-        /*
-        handleSubmit() {
-
-            const axiosConfig = {
-                header: { "Content-Type": "application/x-www-form-urlencoded" }
-            };
-            axios.post(
-            "/",
-                this.encode({
-                    "form-name": "ask-question",
-                    ...this.form
-                }),
-                axiosConfig
-            );
-        }*/
-
-      //  this.success.info.status = true
-       // return info
+      
 
         
     }

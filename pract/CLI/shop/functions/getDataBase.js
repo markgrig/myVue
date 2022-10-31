@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
+import { getStorage } from "firebase/storage";
 
 export const handler = async () => {
 
@@ -17,11 +18,13 @@ export const handler = async () => {
   
   const appFirebase = initializeApp(firebaseConfig);
   const database =  getDatabase(appFirebase);
-  
+  const storage = getStorage(appFirebase);
+
     return {
       statusCode: 200,
         body: JSON.stringify( {
-        message: database
+        database: database,
+        storage: storage
       })
     }
 

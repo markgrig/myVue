@@ -59,6 +59,7 @@
         <TotalPropertyForm
             :isMobile = "isMobile"
             :isUserTouched = "isUserTouched"
+            @isSuccessFillingForm = "isSuccessFillingForm"
             @userTouchedTextarea = "userTouchedTextarea"
             @userInput = "userInput">
         </TotalPropertyForm>
@@ -101,6 +102,7 @@
 export default {
     name: "ModalForAddProduct",
     props: {
+        productData: Object,
         startCardMargin: String,
         centralCardMargin: String,
         startFormMargin: String,
@@ -189,8 +191,9 @@ export default {
         },
         userInput( property , value  ) {
             
+            
             this.usersProduct.totalProperty[property] = value;
-                
+            //console.log (this.usersProduct);
             if ( property == "name" ) {
                 this.usersProduct.totalProperty.name = this.usersProduct.checkQualityName()
             }
@@ -201,10 +204,27 @@ export default {
                 this.usersProduct.totalProperty.info = this.usersProduct.checkQualityInfo()
             }
             if ( property === "image" ) {
-                this.usersProduct.totalProperty.info = this.usersProduct.checkQualityImage()
+                this.usersProduct.totalProperty.image = this.usersProduct.checkQualityImage()
             }
  
         },
+        async isSuccessFillingForm() {
+            console.log( Object.values(  this.usersProduct.success ));
+            const isSuccess = Object.values(  this.usersProduct.success ).every( (element) => {
+                return element.status === true
+            });
+            console.log(isSuccess);
+            if ( isSuccess ) { 
+
+                const urlImg =  await this.productData.uploadFile( this.usersProduct.totalProperty.image )
+                this.usersProduct.totalProperty.image = urlImg
+
+                this.productData.writeProduct( this.usersProduct.totalProperty ) 
+                this.userLeave()
+
+            }
+
+        }
         
     },
     computed: {

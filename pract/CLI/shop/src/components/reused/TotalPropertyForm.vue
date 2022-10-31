@@ -69,7 +69,7 @@
                 @input = "userInput('image', $event)">
     
             
-        <button> okey </button>
+        <button  @click = "$emit('isSuccessFillingForm')"> okey </button>
     </form>
 
 </template>
