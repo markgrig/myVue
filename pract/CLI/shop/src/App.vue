@@ -1,23 +1,12 @@
 <template>
     
         
-
       <div class = "box-background">
-      <Novigation/>
-    <router-view/>
-    </div>
+        <Novigation/>
+        <router-view/>
+      </div>
  
-    <!-- Для создание бд в Нетфли!-->
-    <form name="product-form" enctype="multipart/form-data" netlify netlify-honeypot="bot-field" hidden>
-      <textarea type="text" name="name" > </textarea>
-      <textarea type="text" name="price" > </textarea>
-      <textarea type="text" name="info" > </textarea>
-      <input    type="file" name="file">
-    </form>
-
-
-
-
+      
 </template>
 
 <script>
@@ -36,6 +25,7 @@
 </script>
 
 <style>
+
 * {
   font-family: serif;
   padding: 0;

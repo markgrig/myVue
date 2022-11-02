@@ -32,12 +32,14 @@ export default class ProductionData {
     listenNewProduct() {
 
         onValue( ref_database( this.database , 'productList') , ( snapshot ) => {
-    
+
+            this.productArray = []
+
             snapshot.forEach(element => {
 
                 const keyName = element.key
                 const data = element.val()
-                this.productArray.push( { "key" : keyName, "data" : data })
+                this.productArray.unshift( { "key" : keyName, "data" : data })
 
             });
 

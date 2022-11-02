@@ -3,12 +3,12 @@
     @click="clickCreateProduct()" 
     textButton = "Создать товар"> 
   </BlueButton>
-
+     
   <ModalForAddProduct v-if= "isCreatProduct && !isMobile" 
       
       @deleteModalWindow = "deleteThisCompanent"
       :productData = "productData"
-      :product= 'product' :isMobile = 'isMobile' 
+      :isMobile = "isMobile" 
       :isUserWrite = 'isUserWrite' :getAbstactFactory = "getAbstactFactory"
       :modalCardWidth = "'30%'" :modalCardHeight = "'55%'"
       :modalFormWidth = "'48%'" :modalFormHeight = "'55%'"
@@ -21,8 +21,8 @@
   <ModalForAddProduct v-if= "isCreatProduct && isMobile" 
      
       @deleteModalWindow = "deleteThisCompanent"
-      :product= 'product' :isMobile = 'isMobile'
-      :isUserWrite = 'isUserWrite' :getAbstactFactory = "getAbstactFactory"
+      :isMobile = "isMobile"
+      :isUserWrite = "isUserWrite" :getAbstactFactory = "getAbstactFactory"
       :modalCardWidth = "'80%'" :modalCardHeight = "'75vw'"
       :modalFormWidth = "'90%'" :modalFormHeight = "'75vw'"
       :startCardMargin = "'50vh 9%'" :centralCardMargin = "'10vh 9%'" 
@@ -44,7 +44,7 @@ export default {
     components: {
     ModalForAddProduct,
     BlueButton
-},
+    },
     data() {
       return {
         nameCategory: this.$route.params.id,

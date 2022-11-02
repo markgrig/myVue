@@ -8,7 +8,6 @@ export class FactoryProduct {
             price: price,
             image: image,
         }
-        this.error =  ""
         this.success = {
             name: { status: false, value: "" },
             info:  { status: false, value: "" },
@@ -25,35 +24,39 @@ export class FactoryProduct {
 
         if ( price === 0 ) { return "0" }
 
-        const thousant = Math.floor(((price/1000)))
+        const thousant = Math.floor(((price/1000))).toString()
         const nothousant = Math.round( ((price/1000)%1)*1000 ) || "000" 
 
         if ( thousant > 0 ) {
-            return thousant.toString() + " " + nothousant
+            return thousant + " " + nothousant.toString()
         }  else {
-            return nothousant
+            return nothousant.toString()
         }
        
     }
     
     checkQualityName() {
 
-        this.error = ""
         const name =  this.totalProperty.name
-        
+        if ( !name ) {
+            this.success.name.value = "Имя товара не может быть пустым."
+            this.success.name.status = false
+            return "Неподходящее имя"
+        }
+
         if (  Number( this.removeSpace(name) ) ) {
             this.success.name.value = "Название товара не может сосотоять из одних цифор."
             this.success.name.status = false
             return "Неподходящее имя"
         }
         
-        if ( name.length < 20 ) {
+        if ( name.length < 20 && name.length > 2 ) {
             this.success.name.status = true
             return name 
         } else {
-            this.success.name.value = "Количество символов и пробелов в названии не должно привышать 20."
+            this.success.name.value = "Количество символов и пробелов должно быть больше 2, но меньше 20."
             this.success.name.status = false
-            return "Неподходящее имя"
+            return name
         }
     }
     
@@ -61,12 +64,20 @@ export class FactoryProduct {
         
         const price = Number(this.totalProperty.price)
         
-        this.error = ""
+        
         if ( !price &&  price !== 0 ) {
             this.success.price.value = "Цена должна быть числом"
             this.success.price.status = false
             return "0"
+        } 
+
+        
+        if ( !price ) {
+            this.success.price.value = "Цена должна быть больше 0"
+            this.success.price.status = false
+            return "0"
         }
+
         if ( price > 1000000000 ) {
             this.success.price.value = "Введите число меньше миллиарда. Побойтесь Бога!"
             this.success.price.status = false
@@ -90,7 +101,14 @@ export class FactoryProduct {
     checkQualityInfo() {
          
         const info = this.totalProperty.info
-       
+        
+        
+        if (  info.length < 20 ) {
+            this.success.info.value = "Введите больше 20 печатных знаков."
+            this.success.info.status = false
+            return info
+        }
+
         if ( info.length < 1000 ) {
             this.success.info.status = true
             return info

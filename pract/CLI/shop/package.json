@@ -9,10 +9,14 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "cropperjs": "^1.5.12",
+    "croppie": "^2.6.5",
     "firebase": "^9.12.1",
     "netlify-lambda": "^2.0.15",
     "prerender-spa-plugin": "^3.4.0",
     "vue": "^3.0.0",
+    "vue-cropperjs": "^5.0.0",
+    "vue-instagram-cropper": "^1.1.5",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {

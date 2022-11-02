@@ -2,14 +2,14 @@
     
     <div class = "overflower">
 
-
-
-
-    <div  @click = "userClicked">
+        <div  @click = "userClicked">
         <div class="black-window" ></div>
 
-    <h4  class="modal-window computed-window " >
-         {{ getStatusProdaction }} {{ answerFactory }} 
+
+    <div class = "from-and-card">
+
+        <h4  class="modal-window computed-window " >
+         {{ getStatusProdaction }} 
     </h4>
 
     <div class="modal-window product-form" 
@@ -24,21 +24,24 @@
             @:click="deleteModal($event)"> &#10006; </div>
 
         <TotalPropertyView 
-            :isMobile = 'isMobile'
+            :isMobile = "isMobile"
 
             :nameUsersProduct = "usersProduct.totalProperty.name"
             :priceUsersProduct = "usersProduct.totalProperty.price"
             :infoUsersProduct = "usersProduct.totalProperty.info"
 
-            :isNameSuccess =  "usersProduct?.success.name"
-            :isPriceSuccess =  "usersProduct?.success.price"
-            :isInfoSuccess =  "usersProduct?.success.info"
+            :isNameSuccess =  "usersProduct.success.name"
+            :isPriceSuccess =  "usersProduct.success.price"
+            :isInfoSuccess =  "usersProduct.success.info"
             >
         </TotalPropertyView>
 
         <SpecificPropertyView >
         </SpecificPropertyView>
 
+        <div> 
+                <div :class = "classCalc"> {{  numberOfErrors }} </div>
+        </div>
     </div>
 
     <div
@@ -57,11 +60,16 @@
          </div>
 
         <TotalPropertyForm
+
             :isMobile = "isMobile"
             :isUserTouched = "isUserTouched"
+
             @isSuccessFillingForm = "isSuccessFillingForm"
             @userTouchedTextarea = "userTouchedTextarea"
-            @userInput = "userInput">
+            @userInput = "userInput"
+
+           >
+
         </TotalPropertyForm>
 
         <SpecificPropertyForm></SpecificPropertyForm>
@@ -86,7 +94,17 @@
             </div>
     </div>
     </div>
+
+    </div>
+
     
+
+    <div>
+        <ImageCropper src = "https://crosti.ru/patterns/00/1f/55/9f_picture_68ae6551.jpg"> </ImageCropper>
+    </div>
+    
+
+
     </div>
 
 </template>
@@ -95,12 +113,16 @@
 
 
 
+import ImageCropper from "@/components/reused/ImageCropper.vue"
 
 
 
 
 export default {
     name: "ModalForAddProduct",
+    components: {
+        ImageCropper
+    },
     props: {
         productData: Object,
         startCardMargin: String,
@@ -122,6 +144,7 @@ export default {
             modalCardDisplay: "",
             modalFormDisplay: "",
             nameDeletemodal: "",
+            classCalc: "calcValidation",
             modalHide: false,
             isExit: false,
             isUserTouched: false,
@@ -222,6 +245,9 @@ export default {
                 this.productData.writeProduct( this.usersProduct.totalProperty ) 
                 this.userLeave()
 
+            } else {
+                this.classCalc =  "calcValidation red-color"
+                setTimeout( ()=> { this.classCalc = "calcValidation" }, 2000 )
             }
 
         }
@@ -261,7 +287,15 @@ export default {
             }   
             return ""
         },
-    }
+        numberOfErrors() {
+    
+            const number = Object.values( this.usersProduct.success)
+                .filter( el => !el.status)
+                .reduce( acc=> { return acc+1 }, 0 )
+           
+            return `Число незаполненыйх полей: ${number}`
+        }
+    },
 }
 
 </script>
@@ -279,7 +313,9 @@ body, html {
 </style>
 <style scoped>
 
-
+.from-and-card {
+    opacity: 0.05    ;
+}
 
 .overflower {
     position: fixed;
@@ -295,7 +331,7 @@ body, html {
     top: 0;
     background-color: rgba(0, 0, 0, 0.95);
     width: 100%;
-    z-index: 1;
+    z-index: 0;
     height: 100%;
 }
 
@@ -382,6 +418,7 @@ body, html {
 }
 
 .product-card {
+    z-index: 1;
     top: 0;
     background-color: rgba(255, 255, 255, 0.15);
 }
@@ -408,6 +445,31 @@ body, html {
     color: red;
     left: calc(100% - 40px);
 }
+
+.calcValidation {
+    position: absolute;
+    bottom: -15vh;
+    width: 25vw;
+    left: 10vw;
+    height: 3vh;
+    text-align: center;
+    color: white;
+    font-size: 1.5vw;
+    padding: 2vh;
+}
+
+.red-color {
+    color: red;
+
+    animation: red-color 2s ease-in;
+}
+
+@keyframes red-color {
+    0%   { color:white }
+    50%  {  color:rgb(238, 58, 58); font-size: 1.51vw;  }
+    100% { color:white }
+}
+
 
 @media (max-width: 700px){
     

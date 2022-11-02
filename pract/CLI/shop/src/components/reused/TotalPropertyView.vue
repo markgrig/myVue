@@ -1,5 +1,6 @@
 <template>
     
+ <div>
     <div>
         <h3 class="product-name">  {{ nameUsersProduct }}  </h3>
         <ErrorPlacholder 
@@ -32,7 +33,8 @@
         v-if = "!isInfoSuccess.status  && isInfoSuccess.value !== ''"
         :textPlaceholder = "isInfoSuccess.value"> </ErrorPlacholder>
     
-
+    
+ </div>
 </template>
 
 <script>
@@ -46,13 +48,14 @@ export default {
         nameUsersProduct: String,
         priceUsersProduct: String,
         infoUsersProduct: String,
-        isNameSuccess: String, 
-        isPriceSuccess: String, 
-        isInfoSuccess: String, 
+        isNameSuccess: Object, 
+        isPriceSuccess: Object, 
+        isInfoSuccess: Object, 
 
     },
     components: {
-        ErrorPlacholder
+        ErrorPlacholder,
+
     }
 }
 </script>
@@ -132,7 +135,7 @@ export default {
 
 .error-name {
     font-size: 1.2vw;
-    bottom: calc( 26vw - 50px );
+    bottom: calc( 60vh - 50px );
     left:  25vw ;
     width: 13vw;
     height: max-content;
@@ -141,8 +144,8 @@ export default {
 }
 
 .error-price {
-    bottom: 26vw ;
-    left: 3vw;
+    bottom: 59vh ;
+    left: 4vw;
     font-size: 1.2vw;
     width: 15vw;
     height: max-content;
@@ -150,7 +153,7 @@ export default {
     border-radius: 2vw 2vw 2vw 0.2vw;
 }
 .error-info {
-    top: calc( 11vw + 40px );
+    top: calc(27vh + 40px );
     left: 24vw;
     font-size: 1.2vw;
     width: 15vw;
@@ -158,6 +161,7 @@ export default {
     padding: 0.5vw 1vw 0.5vw 2vw ; 
     border-radius: 0.2vw 2vw 2vw 2vw;
 }
+
 
 * {
   scrollbar-width: thin;

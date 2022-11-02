@@ -1,13 +1,6 @@
 <template>
-     <form  
-        name = "product-form"
-        enctype="multipart/form-data"
-        method="post"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-        @submit.prevent="handleSubmit">
-
-        <input type="hidden" name="form-name" value="product-form" />
+    
+    <div>
 
         <div class="flex-class" >
             <div>
@@ -48,52 +41,75 @@
                 @input = "userInput('info' ,  $event)">
             </textarea>
         </div>
-            13123
+        
         <div class="flex-class div-picture">
-            <div>
-                <img src="@/img/sell.png" alt="" class = "picture" @:click="userLoadPicture()"> 
-                <WhitePlacholder class ="white-placeholder" textPlaceholder = "Пройдёшь опрос?" v-if = "mouseoverQestionary"></WhitePlacholder>
-            </div>
             <div> 
-                <img src="@/img/sell.png" alt="" class = "picture"> 
+                <img 
+                    src="@/img/sell.png" 
+                    alt=""  
+                    class = "picture add-ico"  
+                    @click = "$emit('isSuccessFillingForm')"> 
+
+                <WhitePlacholder 
+                    class ="white-placeholder-add"
+                    textPlaceholder = "Всё уже готово?">
+                </WhitePlacholder>
             </div>
+
+            
             <div> 
-                <img src="@/img/picture.jpg" alt="" class = "picture"> 
+                <img 
+                    src="@/img/picture.jpg" 
+                    alt=""  
+                    class = "picture image-ico" 
+                    @click="userUploadImage">
+                    
+                <WhitePlacholder 
+                    class ="white-placeholder-img"
+                    textPlaceholder = "Добавьте фото тавара">
+                </WhitePlacholder>
             </div>
         </div>
     
             <input 
+                hidden
                 class="modal-input-image" 
                 type="file" 
                 name="file"
                 @input = "userInput('image', $event)">
     
-            
-        <button  @click = "$emit('isSuccessFillingForm')"> okey </button>
-    </form>
+    
+
+    
+    </div>
+
+      
+                
+
+    
 
 </template>
 
 <script scoped>
 
 import WhitePlacholder from './WhitePlacholder.vue';
+
 export default {
     name: "TotalPropertyForm",
     props: {
         isMobile: Boolean,
-        isUserTouched: Boolean,
+        isUserTouched: Boolean, 
     },
+    emits: ['userInput', 'isSuccessFillingForm' , 'userTouchedTextarea'],
     data() {
         return {
             nameUsersProduct: "" ,
             priceUsersProduct: "" ,
             infoUsersProduct: "" ,
+            
         }
     },
     methods: {
-        show() {
-            console.log(this.totalProperty);
-        },
         userTouched(event) {         
             event.target.value =  event.target.value.trimLeft()
              
@@ -118,7 +134,15 @@ export default {
             
             }
 
-        }
+        },
+        userUploadImage() {
+
+            if ( !this.inputImg) { this.inputImg = document.querySelector(".modal-input-image") }
+            this.inputImg.click()
+
+           
+            
+        },
     },
     components: { WhitePlacholder }
 }
@@ -184,7 +208,7 @@ export default {
     font-size: 1vw;
     width: 80%;
     height: 10vh;
-    min-height: 18vh;
+    min-height: 15vh;
     padding: 1.5vw 5% 1.5vw;
     margin-left: 5%;
     margin-bottom: 30%;
@@ -201,7 +225,7 @@ export default {
 
 .modal-input-info:focus {
     border: solid 2px white;
-    height: 20vh;
+    height: 16vh;
     margin-left: calc(5% - 2px);
     margin-bottom: 10%;
     transition: 0.1s;
@@ -232,6 +256,50 @@ export default {
 
 .modal-input-image {
     color: white;
+}
+
+.white-placeholder-img {
+    opacity: 0;
+    color: rgb(255, 90, 2);
+    font-weight: 500;
+    font-size: 1.2vw;
+    margin-top:  -18vh;
+    margin-left: 5.5vw;
+    text-align: center;  
+    padding: 0.5vw 0.3vw;
+    box-sizing: content-box;
+    height: 3.3vw;
+    width: 6vw;
+    border-radius: 2vw 1.6vw 1.7vw 0.2vw;
+    box-shadow: 0 0 2vw 0.1vw gray;
+    height: max-content;
+}
+
+.white-placeholder-add {
+    opacity: 0;
+    color: rgb(255, 90, 2);
+    font-weight: 500;
+    font-size: 1.2vw;
+    margin-top:  -15vh;
+    margin-left: -7.5vw;
+    text-align: center;  
+    padding: 0.5vw 0.3vw;
+    box-sizing: content-box;
+    height: 3.3vw;
+    height: max-content;
+    width: 6vw;
+    border-radius: 1.6vw  2vw  0.2vw 1.7vw;
+    box-shadow: 0 0 2vw 0.1vw gray;
+
+
+}
+
+.image-ico:hover + .white-placeholder-img {
+    opacity: 1;
+}
+
+.add-ico:hover + .white-placeholder-add {
+    opacity: 1;
 }
 
 @media (max-width: 700px){
