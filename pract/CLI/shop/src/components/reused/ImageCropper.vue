@@ -1,5 +1,5 @@
 <template>
-    <div  v-if = "!modalHide" class ="background-cropper">
+    <div  class ="background-cropper">
 
         <div class= "box-cropper">
 
@@ -8,44 +8,65 @@
                 @:click="deleteModal"> 
                     &#10006;
             </div>
-            
-            <div 
-                class = "box-product-picture"
-
-                @mouseover = "userMakePicture($event)"
-                @mouseout = "userDontMakePicture($event)"
-                @mousemove = "useMovePicture($event)"
-                @mousewheel = "userResizedPicture($event)" >
-
-                <div 
+         
+                <img
                     class = "user-product-picture"
-                    :style= "styleProductPicture">
+                    :style= "styleProductPicture"
+                    alt=""
+                    @mouseover = "userMakePicture($event)"
+                    @mouseout = "userDontMakePicture($event)"
+                    @mousemove = "userMovePicture($event)"
+                    @mousewheel = "userResizedPicture($event)" >    
+
+          
+         
+            <div class = "pannel-product-picture">
+        
+                <div class = "pannel shadow-pannel">
+                
+                    <SliderBall  
+                            v-for = "el , index in arraySlider" 
+                            :key="index" :nameSlider="el"
+                            :index = "index"
+                            @returnSetting="returnSetting"> 
+                    </SliderBall>
                     
                 </div>
+
+                
             </div>
 
+            
+          
         </div>
     </div>
 </template>
 
 <script>
+import SliderBall from "@/components/reused/SliderBall.vue"
 
 export default {
     name: "ImageCropper" ,
+    components: {
+        SliderBall
+    },
     props: {
-        src: String,
+        src: {
+            default:  "https://www.thinkwithgoogle.com/_qs/static/img/icons/data-points/consumer_goods.svg"
+
+        },
+        isHideModalPicture: Boolean
     },
     data() {
         return {
-            modalHide: false,
+            myStr: "hello",
             isMovePicture: false,
             scrollValue: 1,
-            styleProductPicture: {
-
-                    'background': `url("https://crosti.ru/patterns/00/1f/55/9f_picture_68ae6551.jpg") 
-                                    no-repeat
-                                    50% 50% / 35vw auto` , 
-                                },
+            arraySlider: [  "Свечение картинки",
+                            "Tолщина рамки" , 
+                            "Скругление углов" , 
+                            "Контрастность"],
+            koof: [ 0, 0 , 0, 0],
             mouseXY: {
                 old: {
                     x: 0,
@@ -59,12 +80,30 @@ export default {
             mouseMemberXY: {
                 x: 0,
                 y: 0
-            }
+            },
+            pixelForMove: [ 0 , 0 ],
         }
     },
-    methods: {
-        deleteModal() {    
-            this.modalHide = true
+    methods: { 
+        changeStyle() {
+            this.backgroundProductPicture['background'] = 
+                    
+                        `url(${this.src}) 
+                        no-repeat
+                        calc( 50% + ${ this.mouseVectorForPicutre[0] + "px" })
+                        calc( 50%  + ${ this.mouseVectorForPicutre[1] + "px" }) 
+                        / 
+                        calc( ${ 100 * this.scrollValue + "%" } + ${ 0 + "px" }) 
+                        auto` 
+                
+        },
+        deleteModal(event) {   
+
+            if (event.target.closest(".overflower")) {
+                this.$emit( "isHideModalPicture" , event.target.closest(".overflower"),  true)
+                this.$emit( "setStyleProductPicture" , this.styleProductPicture)
+            }
+            
         },
         userMakePicture(event) {
 
@@ -86,7 +125,7 @@ export default {
             this.isMovePicture = false
              
         },
-        useMovePicture(event) {
+        userMovePicture(event) {
 
             this.mouseXY.old.x = this.mouseXY.new.x
             this.mouseXY.old.y = this.mouseXY.new.y
@@ -94,15 +133,17 @@ export default {
             this.mouseXY.new.x = event.clientX
             this.mouseXY.new.y = event.clientY
 
-            this.isReturnPositions(event) 
-
+            
+            
+            this.pixelForMove = this.getPixelForMove(event)
+            
             if ( this.isMovePicture ) {
 
                 this.movePicture(event)
             
             }
 
-            this.isReturnPositions(event) 
+             
 
 
         },
@@ -123,81 +164,119 @@ export default {
 
             deltaY > 0 ? this.scrollValue += 0.05 : this.scrollValue -= 0.05
 
-            this.styleProductPicture = {
-            
-                'background': `url("https://crosti.ru/patterns/00/1f/55/9f_picture_68ae6551.jpg") 
-                    no-repeat
-                    calc( 50% + ${ this.mouseMemberXY.x + "px" })
-                    calc( 50% + ${ this.mouseMemberXY.y + "px" }) 
-                    / 
-                    calc(  ${ 35 * this.scrollValue + "vw" } + ${ 0 + "px" }) 
-                    auto` , 
-            }
+            this.isReturnPositions(event)
+            this.changeStyle()
 
         },
-        movePicture(event) {
-            this.mouseMemberXY.x =  this.mouseVec[0]
-                this.mouseMemberXY.y =  this.mouseVec[1]
-                
-                console.log(event);
-                console.log(  this.mouseVec );
-                this.styleProductPicture = {
-                    
-                    'background': `url("https://crosti.ru/patterns/00/1f/55/9f_picture_68ae6551.jpg") 
-                        no-repeat
-                        calc( 50% + ${ this.mouseVec[0] + "px" })
-                        calc( 50%  + ${ this.mouseVec[1] + "px" }) 
-                        / 
-                        calc( ${ 35 * this.scrollValue + "vw" } + ${ 0 + "px" }) 
-                        auto` , 
-                }
+        movePicture() {
+            
+                this.mouseMemberXY.x =  this.mouseVectorForPicutre[0]
+                this.mouseMemberXY.y =  this.mouseVectorForPicutre[1]
+
+                this.changeStyle()
         },
         getPixelForMove( event ) {
 
             const pixelForMove = []
 
             const widthBox = event.target.clientWidth
-            pixelForMove[0] = widthBox - widthBox / this.scrollValue 
+           
+            pixelForMove[0] = widthBox * ( this.scrollValue -1) / 2
             
             
-            const heightBox = event.target.scrollHeight
-            pixelForMove[1] = heightBox - heightBox / this.scrollValue 
+            const heightBox = event.target.clientHeight
+            pixelForMove[1] = heightBox*(this.scrollValue - 1) / 2
 
-            console.log( widthBox , heightBox );
+            console.log(widthBox , heightBox);
             return pixelForMove
         },
 
         isReturnPositions(event) {
 
-            const  pixelForMove = this.getPixelForMove(event)
+            this.pixelForMove = this.getPixelForMove(event)
             
-            console.log(  pixelForMove , this.mouseMemberXY.x , this.mouseMemberXY.y );
 
-            if ( this.mouseMemberXY.x > pixelForMove[0] ) {
-                this.mouseMemberXY.x =  pixelForMove[0]
+            if ( this.mouseMemberXY.x > this.pixelForMove[0] ) {
+                this.mouseMemberXY.x =  this.pixelForMove[0]
             }
 
-            if ( this.mouseMemberXY.x < -pixelForMove[0] ) {
-                this.mouseMemberXY.x =  - pixelForMove[0]
+            if ( this.mouseMemberXY.x < -this.pixelForMove[0] ) {
+                this.mouseMemberXY.x =  -this.pixelForMove[0]
             }
 
-            if ( this.mouseMemberXY.y > pixelForMove[1] ) {
-                this.mouseMemberXY.y =  pixelForMove[1]
+            if ( this.mouseMemberXY.y > this.pixelForMove[1] ) {
+                this.mouseMemberXY.y =  this.pixelForMove[1]
             }
 
-            if ( this.mouseMemberXY.y < -pixelForMove[1] ) {
-                this.mouseMemberXY.y =  - pixelForMove[1]
+            if ( this.mouseMemberXY.y < -this.pixelForMove[1] ) {
+                this.mouseMemberXY.y =  - this.pixelForMove[1]
             }
+        },
+        returnSetting(value, index) {
+
+            if ( value > 1 ) value = 1
+            if ( value < 0 ) value = 0 
+
+            this.koof[index] = value
+
         }
     },
     
     computed: {
-        mouseVec() {
-            return [
-                this.mouseMemberXY.x + this.mouseXY.new.x  - this.mouseXY.old.x , 
-                this.mouseMemberXY.y + this.mouseXY.new.y  - this.mouseXY.old.y 
+        mouseVectorForPicutre() {
+            
+            const vector =  [
+                    this.mouseXY.new.x  - this.mouseXY.old.x , 
+                    this.mouseXY.new.y  - this.mouseXY.old.y 
             ]
+
+            if ( Math.abs( this.mouseMemberXY.x + vector[0] ) <  this.pixelForMove[0] &&
+                 Math.abs( this.mouseMemberXY.y + vector[1] ) < this.pixelForMove[1]  ) {
+
+                return [
+                    this.mouseMemberXY.x + vector[0], 
+                    this.mouseMemberXY.y + vector[1] 
+                ]
+
+            }
+
+            return [ this.mouseMemberXY.x ,  this.mouseMemberXY.y ]
+
         },
+        backgroundProductPicture() {
+            
+            return {
+                'background': `url(${this.src}) 
+                no-repeat
+                50% 50% / 100% auto` 
+            }
+            
+        },
+    
+        styleProductPictureSetting() {
+            const shadowSize = Math.floor( 1.5*(this.koof[0]+0.5)*100)/100
+            const borderWidth = Math.floor( 0.6 * (this.koof[1])*100)/100
+            const borderRad = Math.floor( 15 * (this.koof[2] + 0.2)*100)/100
+            const constrast = Math.floor( 0.8 * (this.koof[3] + 1.25)*100)/100
+          //      const blur = Math.floor( 1 * (this.koof[3] + 1)*100)/100
+
+            return {
+                    "box-shadow":  `0 0 ${ shadowSize/2 }vw 0.2vw white` ,
+                    "border": `solid ${borderWidth}vw white`,
+                    "border-radius": `${borderRad}vw`,
+                    "filter": `contrast(${constrast}) drop-shadow( 0 0  ${ shadowSize/1.5 }vw orange)`,
+                   
+                
+            }
+        }, 
+        styleProductPicture() {
+
+            return {
+                ... this.backgroundProductPicture,
+                ... this.styleProductPictureSetting                        
+            }
+        }
+    
     },
     
         
@@ -233,7 +312,13 @@ export default {
     height: 40vw;
     overflow: hidden;
 }
-
+.button-crop {
+    font-size: 1.3vw;
+    background-color: beige;
+    width: 10vw;
+    display: block;
+    margin: auto;
+}
 .cross {
     height: 40px;
     position: relative;
@@ -251,42 +336,93 @@ export default {
 }
 
 .box-product-picture {
-    
-    
+    overflow: hidden;
     width: 30vw;
     height: 30vw;
-    margin: 0.5vw 15vw;
+    margin: 2vw 12vw;
+    position: relative;
 
-    background: no-repeat center center;
-    background-size: cover;
-    
     box-sizing: border-box;
     border-radius: 5vw;
-    border: solid 0.2vh rgb(235, 228, 218);
-    box-shadow:  0 0.1vw 0.6vw 0.3vw white;
-    background-color: white;  
+    border: solid 0.2vh rgb(214, 140, 37);
+    
 
+   
+}
+
+.user-product-picture {
+
+    margin: 2vw 12vw;
+    position: absolute; ;
+    width: 30vw;
+    height: 30vw;
+
+    border-radius: 5vw;
+    border: solid 0.2vh rgb(214, 140, 37);
+    
     -khtml-user-select: none;
     -o-user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
 
-}
-
-.user-product-picture {
-    width: 30vw;
-    height: 30vw;
-
-    background: no-repeat center center;
-    background-size: cover;
+  
     
-    box-sizing: border-box;
-    border-radius: 5vw;
-    border: solid 0.2vh rgb(235, 228, 218);
-    box-shadow:  0 0.1vw 0.6vw 0.3vw white;
-    background-color: white;  
+
 }
+
+
+
+
+.pannel-product-picture {
+    padding: 1vw 0;
+    position: absolute ;
+    top: 10vw;
+    left: 46vw;
+    width: 30vw;
+    height: 18vw;
+    border-radius: 2vw;
+    border: solid black;
+    box-shadow:  0 0vw 0.2vw 0.03vw white;
+    background-color: rgba(83, 255, 140, 0.6);
+}
+.pannel {
+    display: block;
+    padding: 0.4vw 1vw;
+    font-size: 2vw;
+    margin:  0.6vw auto ;
+    text-align: center;
+    width: 75%;
+}
+
+.ball {
+    position: absolute;
+    border: solid 0.1vw gold;
+    top: 0.5vw;
+    left: 0.5vw;
+    background-color: red;
+    font-size: 2vw;
+    width: 1vw;
+    height: 1vw;
+}
+
+.ball-box {
+    position: relative;
+    top: -1vw;
+    background-color: rgba(255, 0, 0, 0);
+    width: 2.25vw;
+    height: 2.25vw;
+}
+
+.line {
+    position: absolute;
+    background-color: white;
+    width: 22vw;
+    height: 0.2vw;
+    margin: 0.4vw 0;
+}
+
+
 
 @media (max-width: 700px){
     

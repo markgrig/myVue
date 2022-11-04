@@ -1,12 +1,12 @@
 
 export class FactoryProduct {
-    constructor( name = " " , info = " " ,  price = "0" , image)
+    constructor( name = " " , info = " " ,  price = "0" , file = "" )
     {
         this.totalProperty = {
             name: name,  
             info: info,
             price: price,
-            image: image,
+            image: { file: file },
         }
         this.success = {
             name: { status: false, value: "" },
@@ -122,7 +122,7 @@ export class FactoryProduct {
     }
     checkQualityImage() {
        
-        const file =  this.totalProperty.image
+        const file =  this.totalProperty.image.file
 
         
         if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type)) {
@@ -138,8 +138,19 @@ export class FactoryProduct {
             return ""
         }
 
+       
+             let reader = new FileReader();
+            reader.readAsDataURL(file);
+           
+            reader.onload = () => {
+                this.totalProperty.image.src =  reader.result
+            };
+        
+       
+
         this.success.image.status = true
         return file
+
         /*
         const createPostData = async (url, fData) => { 
             

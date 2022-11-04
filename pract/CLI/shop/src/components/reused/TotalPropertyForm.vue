@@ -56,6 +56,20 @@
                 </WhitePlacholder>
             </div>
 
+            <div> 
+                <img 
+                    src="@/img/setting.jpg" 
+                    alt=""  
+                    class = "picture add-ico"  
+                    @click = "userSetStyleImage"> 
+
+                <WhitePlacholder 
+                    class ="white-placeholder-setting-img"
+                    textPlaceholder = "Настроить картику?">
+                </WhitePlacholder>
+            </div>
+            
+
             
             <div> 
                 <img 
@@ -76,7 +90,7 @@
                 class="modal-input-image" 
                 type="file" 
                 name="file"
-                @input = "userInput('image', $event)">
+                @input = "userInput('file', $event)">
     
     
 
@@ -120,7 +134,7 @@ export default {
         },
         userInput( field, event) {
 
-            if ( field === "image") {
+            if ( field === "file") {
 
                 console.log("отправлен файл!");
               
@@ -138,11 +152,14 @@ export default {
         userUploadImage() {
 
             if ( !this.inputImg) { this.inputImg = document.querySelector(".modal-input-image") }
-            this.inputImg.click()
+                this.inputImg.click()
 
            
             
         },
+        userSetStyleImage(event){
+            this.$emit("userSetStyleImage",  event.target.closest(".overflower"), true)
+        }
     },
     components: { WhitePlacholder }
 }
@@ -241,6 +258,7 @@ export default {
     width: 11vh;
     margin: 0;
     border-radius: 10vh;
+    border: solid 0.15vw rgb(199, 81, 1);
     height: auto;
     padding: 1vh;
 }
@@ -251,7 +269,7 @@ export default {
     display: flex;
     justify-content: space-between;
     width: 30vw;
-    
+  
 }
 
 .modal-input-image {
@@ -260,11 +278,12 @@ export default {
 
 .white-placeholder-img {
     opacity: 0;
+    z-index: 500;
     color: rgb(255, 90, 2);
     font-weight: 500;
     font-size: 1.2vw;
-    margin-top:  -18vh;
-    margin-left: 5.5vw;
+    margin-top:  -19vh;
+    margin-left: 6vw;
     text-align: center;  
     padding: 0.5vw 0.3vw;
     box-sizing: content-box;
@@ -277,10 +296,11 @@ export default {
 
 .white-placeholder-add {
     opacity: 0;
+    z-index: 5000;
     color: rgb(255, 90, 2);
     font-weight: 500;
     font-size: 1.2vw;
-    margin-top:  -15vh;
+    margin-top:  -14vh;
     margin-left: -7.5vw;
     text-align: center;  
     padding: 0.5vw 0.3vw;
@@ -293,6 +313,23 @@ export default {
 
 
 }
+.white-placeholder-setting-img {
+    opacity: 0;
+    z-index: 500;
+    color: rgb(255, 90, 2);
+    font-weight: 500;
+    font-size: 1.2vw;
+    margin-top:  -21vh;
+    margin-left: -5.5vw;
+    text-align: center;  
+    padding: 0.5vw 0.3vw;
+    box-sizing: content-box;
+    height: 3.3vw;
+    height: max-content;
+    width: 6vw;
+    border-radius: 1.6vw  2vw  0.2vw 1.7vw;
+    box-shadow: 0 0 2vw 0.1vw gray;
+}
 
 .image-ico:hover + .white-placeholder-img {
     opacity: 1;
@@ -301,6 +338,11 @@ export default {
 .add-ico:hover + .white-placeholder-add {
     opacity: 1;
 }
+
+.add-ico:hover + .white-placeholder-setting-img {
+    opacity: 1;
+}
+
 
 @media (max-width: 700px){
 

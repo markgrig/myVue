@@ -10,10 +10,10 @@
       :productData = "productData"
       :isMobile = "isMobile" 
       :isUserWrite = 'isUserWrite' :getAbstactFactory = "getAbstactFactory"
-      :modalCardWidth = "'30%'" :modalCardHeight = "'55%'"
-      :modalFormWidth = "'48%'" :modalFormHeight = "'55%'"
-      :startCardMargin = "'8%  60%'" :centralCardMargin = "'8% 35%'"
-      :startFormMargin = "'8% 10%'"    :centralFormMargin = "'8%  27%'"
+      :modalCardWidth = "'30%'" :modalCardHeight = "'46%'"
+      :modalFormWidth = "'48%'" :modalFormHeight = "'55%'"    
+      :startCardMargin = "'7%  60%'" :centralCardMargin = "'7% 35%'"
+      :startFormMargin = "'7% 10%'"    :centralFormMargin = "'7%  27%'"
       >
 
   </ModalForAddProduct>

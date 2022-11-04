@@ -8,12 +8,16 @@
             v-if = "!isNameSuccess.status && isNameSuccess.value !== ''"
             :textPlaceholder = "isNameSuccess.value" >  </ErrorPlacholder>
     </div>
-    
 
+{{ srcImageUsersProduct }}
     <div class="flex-class">
-
+        
         <div>
-            <img class = "product-img" src="@/img/123.jpeg" alt="">
+            <div 
+                class = "product-img"  
+                :style = 'nowstyleProductPicture'
+                alt="">
+            </div>
             <div class="product-price"> {{ priceUsersProduct }}  руб.</div>
             <ErrorPlacholder 
                 class="error-price" 
@@ -45,17 +49,50 @@ export default {
     name: "TotalPropertyView",
     props: {
         totalProperty: Object,
+        styleProductPicture: Object,
         nameUsersProduct: String,
         priceUsersProduct: String,
         infoUsersProduct: String,
+        isHideModalPicture: Boolean,
+        srcImageUsersProduct: {
+            type: String,
+            default:  "https://www.thinkwithgoogle.com/_qs/static/img/icons/data-points/consumer_goods.svg"
+        },
+        
         isNameSuccess: Object, 
         isPriceSuccess: Object, 
-        isInfoSuccess: Object, 
+        isInfoSuccess: Object,
+       
 
     },
+    data() {
+        return {
+            
+        }
+    },
+    computed: {
+        nowstyleProductPicture() {
+            
+            if ( this.isHideModalPicture ) {
+
+                return this.styleProductPicture || this.isHideModalPicture
+            
+            }
+            
+
+            return {
+                    'background': `url(${this.srcImageUsersProduct}) 
+                    no-repeat
+                    50% 50% / 100% auto` , 
+                }
+
+            
+        }
+    },
+    
     components: {
         ErrorPlacholder,
-
+        
     }
 }
 </script>
@@ -89,9 +126,10 @@ export default {
 .product-img {
     width: 15vw;
     height: 15vw;
-    object-fit:cover;
     padding: 0.3vw;
     margin: 1vw;
+    margin-left: 3vw;
+    margin-right: 0;
 }
 .background-info{
     width: 23.2vw;

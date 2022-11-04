@@ -6,7 +6,7 @@
         <div class="black-window" ></div>
 
 
-    <div class = "from-and-card">
+    <div class = "from-and-card" >
 
         <h4  class="modal-window computed-window " >
          {{ getStatusProdaction }} 
@@ -29,10 +29,14 @@
             :nameUsersProduct = "usersProduct.totalProperty.name"
             :priceUsersProduct = "usersProduct.totalProperty.price"
             :infoUsersProduct = "usersProduct.totalProperty.info"
+            :srcImageUsersProduct = "usersProduct.totalProperty.image.src"
+            :styleProductPicture = "styleProductPicture" 
+            :isHideModalPicture = "isHideModalPicture"
 
             :isNameSuccess =  "usersProduct.success.name"
             :isPriceSuccess =  "usersProduct.success.price"
             :isInfoSuccess =  "usersProduct.success.info"
+
             >
         </TotalPropertyView>
 
@@ -67,7 +71,7 @@
             @isSuccessFillingForm = "isSuccessFillingForm"
             @userTouchedTextarea = "userTouchedTextarea"
             @userInput = "userInput"
-
+            @userSetStyleImage ="userSetStyleImage"
            >
 
         </TotalPropertyForm>
@@ -99,9 +103,15 @@
 
     
 
-    <div>
-        <ImageCropper src = "https://crosti.ru/patterns/00/1f/55/9f_picture_68ae6551.jpg"> </ImageCropper>
-    </div>
+    
+        <ImageCropper 
+        v-if = "!isHideModalPicture"
+        :src = "usersProduct.totalProperty.image.src"
+        :isHideModalPicture ="isHideModalPicture"
+        @setStyleProductPicture = "setStyleProductPicture"
+        @isHideModalPicture = "hideModalPicture"
+        > </ImageCropper>
+    
     
 
 
@@ -139,8 +149,10 @@ export default {
     },
     data() {
         return {
+            isHideModalPicture: true,
             modalCardMargin: this.startCardMargin,
             modalFormMargin: this.startFormMargin,
+            styleProductPicture: {},
             modalCardDisplay: "",
             modalFormDisplay: "",
             nameDeletemodal: "",
@@ -155,17 +167,23 @@ export default {
     },
     methods: {
         deleteModal(event) {
-            if ( event.target.closest(".product-card") ) {
-                
-                this.modalCardDisplay = "none"
-                this.modalFormMargin = this.centralFormMargin
-                this.nameDeletemodal = "oкно с вводом данных"
-            } else {
+
+            
+            if (  event.target.parentNode.className === "modal-window product-form"  ) {
     
                 this.modalFormDisplay = "none"
                 this.modalCardMargin = this.centralCardMargin
                 this.nameDeletemodal = "демонстрационное окно"
+}
+
+            if ( event.target.parentNode.className === "modal-window product-card" ) {
+                
+                this.modalCardDisplay = "none"
+                this.modalFormMargin = this.centralFormMargin
+                this.nameDeletemodal = "oкно с вводом данных"
             }
+            
+            
           
             this.modalHide = true
             
@@ -183,6 +201,25 @@ export default {
             this.modalFormDisplay = ""
             this.modalHide = false
            
+        },
+        userSetStyleImage( target, userSetStyle) {
+
+            this.isHideModalPicture = !userSetStyle
+            target.querySelector(".from-and-card").classList.remove("opacityModalEnter")
+            target.querySelector(".from-and-card").classList.add("opacityModalLeave")
+          
+        },
+        setStyleProductPicture( style ) {
+            console.log(style);
+            this.styleProductPicture= style
+        },
+        hideModalPicture( target, status) {
+
+            this.isHideModalPicture = status
+            target.querySelector(".from-and-card").classList.remove("opacityModalLeave")
+            target.querySelector(".from-and-card").classList.add("opacityModalEnter")
+            
+        
         },
         userNotLeave() {
             this.isExit = false
@@ -214,20 +251,21 @@ export default {
         },
         userInput( property , value  ) {
             
-            
-            this.usersProduct.totalProperty[property] = value;
-            //console.log (this.usersProduct);
             if ( property == "name" ) {
+                this.usersProduct.totalProperty[property] = value;
                 this.usersProduct.totalProperty.name = this.usersProduct.checkQualityName()
             }
             if ( property === "price" ) {
+                this.usersProduct.totalProperty[property] = value;
                 this.usersProduct.totalProperty.price = this.usersProduct.checkQualityPrice()
             }
             if ( property === "info" ) {
+                this.usersProduct.totalProperty[property] = value;
                 this.usersProduct.totalProperty.info = this.usersProduct.checkQualityInfo()
             }
-            if ( property === "image" ) {
-                this.usersProduct.totalProperty.image = this.usersProduct.checkQualityImage()
+            if ( property === "file" ) {
+                this.usersProduct.totalProperty.image[property] = value;
+                this.usersProduct.totalProperty.image.file = this.usersProduct.checkQualityImage()
             }
  
         },
@@ -239,7 +277,7 @@ export default {
             console.log(isSuccess);
             if ( isSuccess ) { 
 
-                const urlImg =  await this.productData.uploadFile( this.usersProduct.totalProperty.image )
+                const urlImg =  await this.productData.uploadFile( this.usersProduct.totalProperty.image.file )
                 this.usersProduct.totalProperty.image = urlImg
 
                 this.productData.writeProduct( this.usersProduct.totalProperty ) 
@@ -314,7 +352,7 @@ body, html {
 <style scoped>
 
 .from-and-card {
-    opacity: 0.05    ;
+    opacity: 1    ;
 }
 
 .overflower {
@@ -402,7 +440,7 @@ body, html {
 }
 
 .product-form {
-    padding: 10px;
+    padding-top: 4vw;
     box-sizing: border-box;
     top: 0;
     background-color: white;
@@ -418,6 +456,7 @@ body, html {
 }
 
 .product-card {
+    padding-top: 4vw;
     z-index: 1;
     top: 0;
     background-color: rgba(255, 255, 255, 0.15);
@@ -431,19 +470,20 @@ body, html {
 }
 
 .cross {
-    height: 40px;
-    position: relative;
-    font-size: 30px;
+    height: 3vw;
+    width: 5vw;
+    position: absolute;
     color: red;
-    bottom: -5px;
-    left: calc(100% - 40px);
+    font-size: 2.5vw;
+    top: -0.4vw;
+    left: calc(100% - 2.5vw);
 }
 
 .cross:hover {
-    font-size: 32px;
-    position: relative;
+    font-size: 3vw;
     color: red;
-    left: calc(100% - 40px);
+    top: -0.6vw;
+    left: calc(100% - 3vw);
 }
 
 .calcValidation {
@@ -469,6 +509,20 @@ body, html {
     50%  {  color:rgb(238, 58, 58); font-size: 1.51vw;  }
     100% { color:white }
 }
+
+
+.opacityModalLeave {
+  opacity: 0.05;
+  transition: 1.5s 
+}
+
+.opacityModalEnter {
+  opacity: 1;
+  transition: 1.5s; 
+}
+
+
+
 
 
 @media (max-width: 700px){
