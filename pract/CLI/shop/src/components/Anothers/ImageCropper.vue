@@ -1,14 +1,13 @@
 <template>
     <div  class ="background-cropper">
-
-        <div class= "box-cropper">
-
-            <div 
-                class="cross" 
-                @:click="deleteModal"> 
-                    &#10006;
-            </div>
-         
+      
+        <div class= "box-cropper flex-class">
+       
+            <RedCross 
+                :deleteModal= "deleteModal">
+            </RedCross>>
+            
+            <div class = "white-win">      {{ test }}
                 <img
                     class = "user-product-picture"
                     :style= "styleProductPicture"
@@ -16,9 +15,9 @@
                     @mouseover = "userMakePicture($event)"
                     @mouseout = "userDontMakePicture($event)"
                     @mousemove = "userMovePicture($event)"
-                    @mousewheel = "userResizedPicture($event)" >    
-
-          
+                    @mousewheel = "userResizedPicture($event)" >  
+            </div>
+                  
          
             <div class = "pannel-product-picture">
         
@@ -28,6 +27,8 @@
                             v-for = "el , index in arraySlider" 
                             :key="index" :nameSlider="el"
                             :index = "index"
+                            :sliderSartX = "sliderSartX[index]"
+
                             @returnSetting="returnSetting"> 
                     </SliderBall>
                     
@@ -43,30 +44,41 @@
 </template>
 
 <script>
-import SliderBall from "@/components/reused/SliderBall.vue"
+import { inject } from 'vue'
+
 
 export default {
     name: "ImageCropper" ,
-    components: {
-        SliderBall
+    setup() {
+        const imageSettings = inject('imageSettings')
+        const updateSettings  = inject('updateSettings')
+    
+        return {
+            imageSettings,
+            updateSettings,
+        }
     },
     props: {
         src: {
             default:  "https://www.thinkwithgoogle.com/_qs/static/img/icons/data-points/consumer_goods.svg"
 
         },
-        isHideModalPicture: Boolean
+        setting: Object
+
     },
     data() {
         return {
-            myStr: "hello",
+            widthBox: 1,
+            heightBox: 1,
             isMovePicture: false,
-            scrollValue: 1,
+            scrollValue: this.setting?.startScrollValue || 1,
             arraySlider: [  "Свечение картинки",
+                            "Свечение рамки",
                             "Tолщина рамки" , 
                             "Скругление углов" , 
                             "Контрастность"],
-            koof: [ 0, 0 , 0, 0],
+            koof: this.setting?.koofMember || [0, 0, 0, 0, 0],
+            sliderSartX: this.setting?.sliderSartXMember ||  [0, 0, 0, 0 , 0],
             mouseXY: {
                 old: {
                     x: 0,
@@ -78,36 +90,66 @@ export default {
                 }
             },
             mouseMemberXY: {
-                x: 0,
-                y: 0
+                x: this.setting?.startImgX || 0 ,
+                y: this.setting?.startImgY || 0
             },
             pixelForMove: [ 0 , 0 ],
+            backgroundProductPicture: {
+                'background':  `url(${this.src}) 
+                        no-repeat
+                        ${ 50 -  ( this.setting?.startImgX || 0 ) + "%" } 
+                        ${ 50 -  ( this.setting?.startImgY || 0)  + "%" }  
+                        / 
+                        ${ 100 * ( this.setting?.startScrollValue || 1)  + "%" } 
+                        auto`
+            },
+            memberX:  this.setting?.startImgY || 0 ,
+            memberY:  this.setting?.startImgY || 0, 
+          
         }
     },
     methods: { 
         changeStyle() {
+            this.memberX =  this.mouseVectorForPicutre[0]*100/(this.widthBox/2)
+            this.memberY =  this.mouseVectorForPicutre[1]*100/(this.heightBox/2)
+
             this.backgroundProductPicture['background'] = 
                     
                         `url(${this.src}) 
                         no-repeat
-                        calc( 50% + ${ this.mouseVectorForPicutre[0] + "px" })
-                        calc( 50%  + ${ this.mouseVectorForPicutre[1] + "px" }) 
+                        ${ 50 - this.memberX + "%" } 
+                        ${ 50 - this.memberY + "%" }  
                         / 
-                        calc( ${ 100 * this.scrollValue + "%" } + ${ 0 + "px" }) 
+                        ${ 100 * this.scrollValue + "%" } 
                         auto` 
                 
         },
         deleteModal(event) {   
-
+        
             if (event.target.closest(".overflower")) {
-                this.$emit( "isHideModalPicture" , event.target.closest(".overflower"),  true)
-                this.$emit( "setStyleProductPicture" , this.styleProductPicture)
+
+                this.mouseVectorForPicutre[0]*100/(this.widthBox/2)
+
+                const setting = {
+                    koofMember: this.koof,
+                    sliderSartXMember: this.sliderSartX ,
+                    startImgX: this.memberX, 
+                    startImgY: this.memberY ,
+                
+                    startScrollValue: this.scrollValue
+                }
+                this.updateSettings( "imageSettings" , this.styleProductPicture , setting )
+                
+                this.$emit( "hideModalPicture" , "image-cropper",  true ,  event.target.closest(".overflower") )
+
+    
+                
             }
             
         },
         userMakePicture(event) {
 
-            
+
             event.target.onmousedown = () => {
                 this.isMovePicture = true
                 return false;      
@@ -121,9 +163,7 @@ export default {
 
         },
         userDontMakePicture() {
-
             this.isMovePicture = false
-             
         },
         userMovePicture(event) {
 
@@ -151,7 +191,7 @@ export default {
         userResizedPicture(event) {
 
             const deltaY = event.deltaY
-            
+           
             if ( this.scrollValue > 2 ) {
                 this.scrollValue -= 0.05
                 return
@@ -179,15 +219,12 @@ export default {
 
             const pixelForMove = []
 
-            const widthBox = event.target.clientWidth
-           
-            pixelForMove[0] = widthBox * ( this.scrollValue -1) / 2
-            
-            
-            const heightBox = event.target.clientHeight
-            pixelForMove[1] = heightBox*(this.scrollValue - 1) / 2
+            this.widthBox = event.target.clientWidth
+            this.heightBox = event.target.clientHeight
 
-            console.log(widthBox , heightBox);
+            pixelForMove[0] = this.widthBox * ( this.scrollValue -1) / 2
+            pixelForMove[1] = this.heightBox*(this.scrollValue - 1) / 2
+
             return pixelForMove
         },
 
@@ -195,6 +232,7 @@ export default {
 
             this.pixelForMove = this.getPixelForMove(event)
             
+            console.log(this.scrollValue);
 
             if ( this.mouseMemberXY.x > this.pixelForMove[0] ) {
                 this.mouseMemberXY.x =  this.pixelForMove[0]
@@ -212,14 +250,17 @@ export default {
                 this.mouseMemberXY.y =  - this.pixelForMove[1]
             }
         },
-        returnSetting(value, index) {
+        returnSetting(value, index , sliderMemberX) {
 
             if ( value > 1 ) value = 1
             if ( value < 0 ) value = 0 
 
             this.koof[index] = value
+            this.sliderSartX[index] = sliderMemberX
+            
 
-        }
+        },
+
     },
     
     computed: {
@@ -243,28 +284,19 @@ export default {
             return [ this.mouseMemberXY.x ,  this.mouseMemberXY.y ]
 
         },
-        backgroundProductPicture() {
-            
-            return {
-                'background': `url(${this.src}) 
-                no-repeat
-                50% 50% / 100% auto` 
-            }
-            
-        },
-    
         styleProductPictureSetting() {
-            const shadowSize = Math.floor( 1.5*(this.koof[0]+0.5)*100)/100
-            const borderWidth = Math.floor( 0.6 * (this.koof[1])*100)/100
-            const borderRad = Math.floor( 15 * (this.koof[2] + 0.2)*100)/100
-            const constrast = Math.floor( 0.8 * (this.koof[3] + 1.25)*100)/100
-          //      const blur = Math.floor( 1 * (this.koof[3] + 1)*100)/100
-
+            const shadowSize = Math.floor( 6*(this.koof[0] )*100)/100
+            const shadowBordSize = Math.floor( 1*(this.koof[1] )*100)/100
+            const borderWidth = Math.floor( 1 * (this.koof[2] + 0.01)*100)/100
+            const borderRad = Math.floor( 50* (this.koof[3])*100)/100
+            const constrast = Math.floor( 0.8 * (this.koof[4] + 1.25)*100)/100
+            console.log(constrast);
             return {
-                    "box-shadow":  `0 0 ${ shadowSize/2 }vw 0.2vw white` ,
-                    "border": `solid ${borderWidth}vw white`,
-                    "border-radius": `${borderRad}vw`,
-                    "filter": `contrast(${constrast}) drop-shadow( 0 0  ${ shadowSize/1.5 }vw orange)`,
+                    
+                    "box-shadow":  `0 0 ${ shadowBordSize }vw ${ shadowBordSize + "px" } blue` ,
+                    "filter": `contrast(${constrast}) drop-shadow( 0px 0px  ${ shadowSize + "px" } blue)`,
+                    "border": `solid ${borderWidth}vw rgba(93, 150, 255, 0.1)`,
+                    "border-radius": `${borderRad}%`,
                    
                 
             }
@@ -296,69 +328,54 @@ export default {
     left: 0vw;
     background-color: rgba(93, 0, 255, 0.080);
     width: 100vw;
-    height: 110vh;
+    height: 100vh;
 }
 
 .box-cropper {
     opacity: 1;
-    border: solid 0.6vw rgba(249, 120, 84, 0.99);
-    border-radius: 2vw;
+    transition: 1s;
+   
     z-index: 3;
     position: absolute;
-    top: 5vw;
+    top: 10%;
     left: 10vw;
-    background-color: rgba(36, 92, 214, 0.28);
     width: 80vw;
-    height: 40vw;
+    height: 80%;
+
+    border: solid 0.6vw rgba(249, 120, 84, 0.99);
+    border-radius: 25px;
+    background-color: rgba(36, 92, 214, 0.28);
     overflow: hidden;
-}
-.button-crop {
-    font-size: 1.3vw;
-    background-color: beige;
-    width: 10vw;
-    display: block;
-    margin: auto;
-}
-.cross {
-    height: 40px;
-    position: relative;
-    font-size: 30px;
-    color: red;
-    bottom: -5px;
-    left: calc(100% - 40px);
+
+    touch-action: none;
+
 }
 
-.cross:hover {
-    font-size: 32px;
-    position: relative;
-    color: red;
-    left: calc(100% - 40px);
-}
-
-.box-product-picture {
-    overflow: hidden;
-    width: 30vw;
-    height: 30vw;
-    margin: 2vw 12vw;
-    position: relative;
+.white-win {
 
     box-sizing: border-box;
-    border-radius: 5vw;
-    border: solid 0.2vh rgb(214, 140, 37);
-    
 
-   
+    margin: 10% 5%;
+    width: 45%;
+    height: max-content;
+    padding: 40px;
+
+    background-color: white;
+    border: solid 0.4vw black;
+    box-shadow:  0 0 3px 1px white;
+    border-radius: 8vw 0.05vw;
 }
 
 .user-product-picture {
 
-    margin: 2vw 12vw;
-    position: absolute; ;
-    width: 30vw;
-    height: 30vw;
+    box-sizing: border-box;
 
-    border-radius: 5vw;
-    border: solid 0.2vh rgb(214, 140, 37);
+    width:  200px;
+    height:  200px;
+    display: block;
+    margin:  auto auto;
+
+    border-radius: 30px;
     
     -khtml-user-select: none;
     -o-user-select: none;
@@ -372,68 +389,86 @@ export default {
 }
 
 
-
-
 .pannel-product-picture {
-    padding: 1vw 0;
-    position: absolute ;
-    top: 10vw;
-    left: 46vw;
-    width: 30vw;
-    height: 18vw;
-    border-radius: 2vw;
+   
+    margin: auto 5%;
+    width: 40%;
+    height: max-content;
+    padding: 1%;
+
+    border-radius:  40px;
     border: solid black;
-    box-shadow:  0 0vw 0.2vw 0.03vw white;
+    box-shadow:  0 0 3px 1px white;
     background-color: rgba(83, 255, 140, 0.6);
 }
 .pannel {
     display: block;
-    padding: 0.4vw 1vw;
-    font-size: 2vw;
-    margin:  0.6vw auto ;
-    text-align: center;
     width: 75%;
-}
+    margin:  5% auto ;
 
-.ball {
-    position: absolute;
-    border: solid 0.1vw gold;
-    top: 0.5vw;
-    left: 0.5vw;
-    background-color: red;
-    font-size: 2vw;
-    width: 1vw;
-    height: 1vw;
+    font-size: 140%;
+    text-align: center;
 }
-
-.ball-box {
-    position: relative;
-    top: -1vw;
-    background-color: rgba(255, 0, 0, 0);
-    width: 2.25vw;
-    height: 2.25vw;
-}
-
-.line {
-    position: absolute;
-    background-color: white;
-    width: 22vw;
-    height: 0.2vw;
-    margin: 0.4vw 0;
-}
-
 
 
 @media (max-width: 700px){
     
-.cross {
-    height: 7vw;
-    position: relative;
-    font-size: 7vw;
-    bottom: -5px;
-    left: calc(100% - 40px);
-    overflow: visible;
-}
+    .box-cropper {
+    
+        top: 2.5%;
+        left: 0;
+        width: 97%;
+        height: 87.5%;
+        border-radius: 10px;
+        
+    }
+
+    .flex-class {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .white-win {
+
+        width: 80%;
+        height: 30%;
+        top:0;
+        margin: 10% 10%;
+
+    }
+
+        
+    .user-product-picture {
+
+  
+
+        width:  124px;
+        height:  124px;
+        display: block;
+        margin:  auto auto;
+
+        border-radius: 30px;
+
+    }
+
+ 
+    
+    .pannel-product-picture {
+    
+        width: 70%;
+        margin: 0% auto;
+        padding: 0;
+        height: max-content;
+        padding: 1%;
+        border-radius:  40px;
+         border: solid black;
+        box-shadow:  0 0 3px 1px white;
+        background-color: rgba(83, 255, 140, 0.6);
+    }
+
+
 }
 
 

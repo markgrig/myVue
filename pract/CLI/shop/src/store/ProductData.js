@@ -14,41 +14,37 @@ export default class ProductionData {
         this.#answerNetlify = this.callNetlify
         this.database =  this.#answerNetlify.database || getDataBaseForLocal() || false;
         this.storage = this.#answerNetlify.storage || getStorageForLocal() || false;
+        this.product = {}
 
-        console.log( this.storage, this.database);
+        if ( this.database ) { this.listenNewProduct() }   
 
-        this.productArray = []
-        
-        if ( this.database ) { this.listenNewProduct() }
     }
-    writeProduct( product ) {
+    writeProduct( product, category ) {
         console.log( Object.assign({}, this.database) );
 
         if ( this.database ) {
-            set( ref_database(  toRaw( this.database) ,'productList/' + Date.now()),  product )
+            set( ref_database(  toRaw( this.database) ,`productList/${category}/${Date.now()}`),  product )
         }
 
     }
     listenNewProduct() {
 
-        onValue( ref_database( this.database , 'productList') , ( snapshot ) => {
-
-            this.productArray = []
+        onValue( ref_database( this.database , `productList/`) , ( snapshot ) => {
 
             snapshot.forEach(element => {
 
                 const keyName = element.key
                 const data = element.val()
-                this.productArray.unshift( { "key" : keyName, "data" : data })
+                this.product[keyName] = data 
 
             });
 
-            console.log( "product" , this.productArray );
+            console.log( "product" , this.product );
         })
     }
-    async uploadFile(file) {
+    async uploadFile(file, category) {
         
-        const firebaseUrl =  `productImage/${Date.now()}`
+        const firebaseUrl =  `productImage/${category}/${Date.now()}`
 
         await uploadBytes( ref_storage( toRaw( this.storage ), firebaseUrl ), file)
             .then(() => {
@@ -62,7 +58,7 @@ export default class ProductionData {
             .catch((error) => {
                 console.log(error);
             });
-            console.log(imageURL);
+        
         return imageURL
     }
     

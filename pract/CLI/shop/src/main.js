@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
-import { componentArray } from './components/reused/componentsArray'
+import { componentArray } from './components/componentsArray'
+import productData from "@/store/ProductDataMixin"
 import App from './App.vue'
 import { router } from './router/router'
 
@@ -34,6 +35,7 @@ componentArray.forEach( component => {
 });
 
 app.use(router)
+app.mixin(productData)
 app.mount('#app')
 
 

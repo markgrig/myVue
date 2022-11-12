@@ -14,7 +14,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 button {
-    background-color: rgba(8, 35, 117, 0.3); 
+    font-size: 120%;
+    background-color: rgba(8, 35, 117, 0.5); 
     border: solid 0.05vw rgb(128, 101, 48);     
     padding: 1vw; 
     display: block;

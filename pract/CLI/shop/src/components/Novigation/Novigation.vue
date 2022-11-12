@@ -26,6 +26,7 @@ export default {
   },
   methods: {
     changeCategory( name, urlName) {
+      
       const url = '/category/' + urlName;
       this.$router.push({ path: url })
       this.nameCategory = name
@@ -46,12 +47,12 @@ export default {
 .navigator {
   display: flex;
   align-items: center;
-  padding: 30px;
+  padding: 1vw;
  
   margin: auto;
 }
 h2 {
-  padding: 10px 0px 0px 0px;
+  padding: 1vw 0px 0px 0px;
   text-align: center;
   color: rgb(251, 246, 246);
   font-size: 2vw;
@@ -63,20 +64,21 @@ h2 {
   text-align: center;
   font-size: 1.5vw;
   width: 20vw;
-  height: 3vw;
+  height: auto;
   color: rgba(0, 0, 255, 0.7);
   background-color: rgba(105, 235, 240, 0.765);
-  border: solid;
+  border: solid 0.15vw;
 
-  padding: 10px 0px 0px 0px;
+  padding: 1vw 0px;
   border-radius: 1vw;
 
 }
 @media (max-width: 700px){
   .navigator div:nth-child(2) {
-    height: 12vw;
+    height: 11vw;
   }
 }
+
 
 @media (max-width: 700px){
   .navigator {
@@ -85,10 +87,12 @@ h2 {
   }
   .novigation-element {
     display: block;
-    margin: 10px;
-    width: 40vw;
+    margin: 1vw;
+    width: 50vw;
+    padding: 1vh 10vw;
     height: 6vw;
-    font-size: 3.5vw;
+    font-size: 2.1vh;
+    border: solid 0.65vw;
   }
 
   h2 {

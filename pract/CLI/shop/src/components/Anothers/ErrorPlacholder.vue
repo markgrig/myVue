@@ -1,5 +1,5 @@
 <template>
-    <div> {{ textPlaceholder }} </div>
+    <div @click="hideError($event)" > {{ textPlaceholder }} </div>
 </template>
 
 <script>
@@ -7,6 +7,12 @@ export default {
     name: "ErrorPlacholder" ,
     props: {
         textPlaceholder: String,
+    },
+    methods: {
+        hideError(event) {
+            console.log(event);
+            event.target.style.display = "none"
+        }
     }
 }
 </script>
@@ -14,23 +20,30 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 div {
-    font-size: 2.5vh;
-    padding: 20px;
+    
     position: absolute;
-    color: white;
-    bottom:  0px;
-    left: 0;
-    width: fit-content;
-    margin-right: 10vh;
+
+    width: fit-content;  
     height: min-content;
-    padding: 1vh 2vh 1vh 2vh;
+
+    bottom: 50%;
+    left:  50%;
+    width: 150px;
+    height: max-content;
+    padding: 10px;
+    border-radius: 30px 30px 30px 5px;
+
+    color: white;
     background-color: rgba(255, 58, 58, 0.75);
-    border-radius: 2vh 4vh 4vh 4vh;
     border: solid 3px rgb(198, 25, 25);
     transition: 1s;
     box-shadow:  0 0 0.2vw 0.05vw rgb(232, 209, 120);
     animation: show 1s;
+
+    font-size: 14px;
 } 
+
+
 @keyframes show {
     0% { 
         opacity: 0;
@@ -47,8 +60,8 @@ div {
         margin: 0;
         margin-top: -160px;
         margin-left: 15px;
-        font-size: 3.5vw;
-        padding: 10px 10px 0px 2    0px;
+        font-size: 10px;
+        padding: 10px;
         border: solid 2px rgb(198, 25, 25);
         width: 80px;
     }

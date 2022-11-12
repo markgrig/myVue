@@ -9,10 +9,10 @@
     <div class = "from-and-card" >
 
         <h4  class="modal-window computed-window " >
-         {{ getStatusProdaction }} 
-    </h4>
+         {{ getStatusProdaction }}  
+        </h4>
 
-    <div class="modal-window product-form" 
+    <div class="modal-window rproduct-cad" 
         :style="{ 
                 margin: modalFormMargin , 
                 display: modalFormDisplay,
@@ -21,7 +21,8 @@
                 }">
 
         <div class="cross" 
-            @:click="deleteModal($event)"> &#10006; </div>
+            @:click="deleteModal($event)"> &#10006; 
+        </div>
 
         <TotalPropertyView 
             :isMobile = "isMobile"
@@ -32,11 +33,11 @@
             :srcImageUsersProduct = "usersProduct.totalProperty.image.src"
             :styleProductPicture = "styleProductPicture" 
             :isHideModalPicture = "isHideModalPicture"
+            :isStyleChange = "isStyleChange"
 
             :isNameSuccess =  "usersProduct.success.name"
             :isPriceSuccess =  "usersProduct.success.price"
             :isInfoSuccess =  "usersProduct.success.info"
-
             >
         </TotalPropertyView>
 
@@ -50,7 +51,7 @@
 
     <div
      
-        class="modal-window product-card" 
+        class="modal-window product-form" 
         :style="{ margin : modalCardMargin, 
                   display:  modalCardDisplay,
                   width: modalCardWidth,
@@ -66,7 +67,7 @@
         <TotalPropertyForm
 
             :isMobile = "isMobile"
-            :isUserTouched = "isUserTouched"
+            :isUserTouched = "isUserTouched" q
 
             @isSuccessFillingForm = "isSuccessFillingForm"
             @userTouchedTextarea = "userTouchedTextarea"
@@ -101,16 +102,26 @@
 
     </div>
 
-    
+
 
     
         <ImageCropper 
-        v-if = "!isHideModalPicture"
-        :src = "usersProduct.totalProperty.image.src"
-        :isHideModalPicture ="isHideModalPicture"
-        @setStyleProductPicture = "setStyleProductPicture"
-        @isHideModalPicture = "hideModalPicture"
-        > </ImageCropper>
+
+            v-if = "!isHideModalPicture"
+            
+                :src = "usersProduct.totalProperty.image.src"
+                :koofMember = "koofMember"
+                :sliderSartXMember = "sliderSartXMember"
+                :startImgX = "startImgX"
+                :startImgY = "startImgY"
+                :startScrollValue = "startScrollValueImg"
+
+                :isHideModalPicture ="isHideModalPicture"
+
+                @setStyleProductPicture = "setStyleProductPicture"
+                @hideModalPicture = "hideModalPicture">
+                
+        </ImageCropper>
     
     
 
@@ -121,18 +132,8 @@
 
 <script>
 
-
-
-import ImageCropper from "@/components/reused/ImageCropper.vue"
-
-
-
-
 export default {
     name: "ModalForAddProduct",
-    components: {
-        ImageCropper
-    },
     props: {
         productData: Object,
         startCardMargin: String,
@@ -150,6 +151,7 @@ export default {
     data() {
         return {
             isHideModalPicture: true,
+            isStyleChange: false,
             modalCardMargin: this.startCardMargin,
             modalFormMargin: this.startFormMargin,
             styleProductPicture: {},
@@ -162,6 +164,11 @@ export default {
             isUserTouched: false,
             usersProduct: this.getAbstactFactory().createProduct(""),
             productFormDOM: "",
+            koofMember: 0,
+            sliderSartX: 0,
+            startImgX: 0,
+            startImgY: 0,
+            startScrollValueImg: 1
             
         }
     },
@@ -169,14 +176,14 @@ export default {
         deleteModal(event) {
 
             
-            if (  event.target.parentNode.className === "modal-window product-form"  ) {
+            if (  event.target.parentNode.className === "modal-window product-card"  ) {
     
                 this.modalFormDisplay = "none"
                 this.modalCardMargin = this.centralCardMargin
                 this.nameDeletemodal = "демонстрационное окно"
 }
 
-            if ( event.target.parentNode.className === "modal-window product-card" ) {
+            if ( event.target.parentNode.className === "modal-window product-form" ) {
                 
                 this.modalCardDisplay = "none"
                 this.modalFormMargin = this.centralFormMargin
@@ -202,19 +209,22 @@ export default {
             this.modalHide = false
            
         },
-        userSetStyleImage( target, userSetStyle) {
 
-            this.isHideModalPicture = !userSetStyle
-            target.querySelector(".from-and-card").classList.remove("opacityModalEnter")
-            target.querySelector(".from-and-card").classList.add("opacityModalLeave")
-          
-        },
-        setStyleProductPicture( style ) {
-            console.log(style);
-            this.styleProductPicture= style
+        setStyleProductPicture( style , koof , sliderStartX , memberX, memberY, scrollValueImg   ) {
+            
+            this.styleProductPicture = style
+            this.koofMember = koof
+            this.sliderSartXMember = sliderStartX
+            this.startImgX =  memberX
+            this.startImgY = memberY
+            this.startScrollValueImg = scrollValueImg
+            
+            this.isStyleChange = true
+            
         },
         hideModalPicture( target, status) {
-
+            
+            
             this.isHideModalPicture = status
             target.querySelector(".from-and-card").classList.remove("opacityModalLeave")
             target.querySelector(".from-and-card").classList.add("opacityModalEnter")
@@ -232,7 +242,7 @@ export default {
         userTouchedTextarea(status) {
 
             if ( this.modalCardMargin !== this.centralCardMargin ) {
-                if ( !this.productFormDOM ) { this.productFormDOM  = document.querySelector( ".product-card")}
+                if ( !this.productFormDOM ) { this.productFormDOM  = document.querySelector( ".product-form")}
 
             this.isUserTouched = status
 
@@ -265,16 +275,20 @@ export default {
             }
             if ( property === "file" ) {
                 this.usersProduct.totalProperty.image[property] = value;
+               
                 this.usersProduct.totalProperty.image.file = this.usersProduct.checkQualityImage()
+                this.styleProductPicture = this.newStyleProductPicture()
+
+                this.isStyleChange = false
             }
  
         },
         async isSuccessFillingForm() {
-            console.log( Object.values(  this.usersProduct.success ));
+            
             const isSuccess = Object.values(  this.usersProduct.success ).every( (element) => {
                 return element.status === true
             });
-            console.log(isSuccess);
+            
             if ( isSuccess ) { 
 
                 const urlImg =  await this.productData.uploadFile( this.usersProduct.totalProperty.image.file )
@@ -288,6 +302,16 @@ export default {
                 setTimeout( ()=> { this.classCalc = "calcValidation" }, 2000 )
             }
 
+        },
+        newStyleProductPicture() {
+            
+            return {
+                    'background': `url(${this.usersProduct.totalProperty.image.src}) 
+                    no-repeat
+                    50% 50% / 100% auto` , 
+                }
+
+            
         }
         
     },
@@ -309,8 +333,7 @@ export default {
 
             if ( this.isMobile ) { 
                 const pannelPictures = document.querySelector(".div-picture")
-                console.log(pannelPictures);
-            
+                
 
                 if ( this.modalFormMargin === this.centralFormMargin ||   this.modalCardMargin === this.centralCardMargin ) {
                     if ( pannelPictures ) {
@@ -332,7 +355,8 @@ export default {
                 .reduce( acc=> { return acc+1 }, 0 )
            
             return `Число незаполненыйх полей: ${number}`
-        }
+        },
+        
     },
 }
 
@@ -373,40 +397,6 @@ body, html {
     height: 100%;
 }
 
-.modal-window {
-    z-index: 2;
-    position: absolute;
-    border-radius: 10px;
-    border: solid 3px rgb(234, 194, 114);
-    box-shadow: 0px 1px 5px 1px rgba(255, 255, 255, 0.343);
-
-}
-
-.icons{
-    
-    width: 60%;
-    margin-left: 20%;
-    top: 20px;
-    box-shadow: none;
-    border: none;
-}
-.icons h3 {
-    margin-top: -60px;
-    text-align: center;
-    font-size: 140%;
-    width: 80%;
-    margin-left: 12%;
-    color: white;
-}
-.ico-noexit, .ico-exit {
-   margin: 100px 0px;
-   width: 20vw;
-   height: auto;
-   
-}
-.ico-noexit:hover, .ico-exit:hover {
-  animation: light 1.5s infinite;
-}
 
 .computed-window {
     font-size: 1.2vw;
@@ -439,7 +429,7 @@ body, html {
     box-shadow: 0px 0px 10px 2px rgb(136, 133, 133);
 }
 
-.product-form {
+.product-card {
     padding-top: 4vw;
     box-sizing: border-box;
     top: 0;
@@ -449,20 +439,20 @@ body, html {
 
 }
 
-.product-form:hover {
+.product-card:hover {
 
     transition: 0.7s;
     box-shadow: 0px 0px 10px 2px rgb(136, 133, 133);
 }
 
-.product-card {
+.product-form {
     padding-top: 4vw;
     z-index: 1;
     top: 0;
     background-color: rgba(255, 255, 255, 0.15);
 }
 
-.product-card:hover {
+.product-form:hover {
 
     transition: 0.7s;
     border-radius: 12px;
@@ -521,10 +511,9 @@ body, html {
   transition: 1.5s; 
 }
 
-
-
-
-
+.move-to-centr {
+    transition: 1s;
+}
 @media (max-width: 700px){
     
     .flex-class{
@@ -583,7 +572,7 @@ body, html {
         overflow: hidden;
     }
 
-    .product-form {
+    .product-card {
         padding: 10px;
         border-radius: 8vw 0;
     }

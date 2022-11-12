@@ -1,72 +1,68 @@
 <template >
-  <BlueButton 
+  
+  <BlueButton class="but-create"
     @click="clickCreateProduct()" 
     textButton = "Создать товар"> 
   </BlueButton>
      
-  <ModalForAddProduct v-if= "isCreatProduct && !isMobile" 
-      
-      @deleteModalWindow = "deleteThisCompanent"
-      :productData = "productData"
-      :isMobile = "isMobile" 
-      :isUserWrite = 'isUserWrite' :getAbstactFactory = "getAbstactFactory"
-      :modalCardWidth = "'30%'" :modalCardHeight = "'46%'"
-      :modalFormWidth = "'48%'" :modalFormHeight = "'55%'"    
-      :startCardMargin = "'7%  60%'" :centralCardMargin = "'7% 35%'"
-      :startFormMargin = "'7% 10%'"    :centralFormMargin = "'7%  27%'"
-      >
-
-  </ModalForAddProduct>
-
-  <ModalForAddProduct v-if= "isCreatProduct && isMobile" 
-     
-      @deleteModalWindow = "deleteThisCompanent"
-      :isMobile = "isMobile"
-      :isUserWrite = "isUserWrite" :getAbstactFactory = "getAbstactFactory"
-      :modalCardWidth = "'80%'" :modalCardHeight = "'75vw'"
-      :modalFormWidth = "'90%'" :modalFormHeight = "'75vw'"
-      :startCardMargin = "'50vh 9%'" :centralCardMargin = "'10vh 9%'" 
-      :startFormMargin = "'15% 4%'" :centralFormMargin = "'25vh  4%'"> 
-  </ModalForAddProduct>
-
+  <ProductMaker v-if= "isCreatProduct"
   
+      :isMobile = "isMobile"
+      @deleteProductMaker = "deleteProductMaker"
+      :nameCategory = "nameCategory">
+
+  </ProductMaker>
+
+ <div class = "box-product">
+    <div
+      v-for=" el, key in product[nameCategory]" :key ="key">
+
+        <div class = "view-card">
+          <ProductCard
+            :usersProduct = "el"
+            :isCategoryList = "true">
+          </ProductCard>
+        </div>
+        
+    </div>  
+  </div>
 
 </template>
 
 <script>
-import *  as AbstactFactory from "@/factory/AbstructFactory.js"
-import ProductData  from "@/store/ProductData.js"
-import ModalForAddProduct from '@/components/nonReused/ModalForAddProduct.vue'
-import BlueButton from "../components/reused/BlueButton.vue"
 
 export default {
     name: "Category",
-    components: {
-    ModalForAddProduct,
-    BlueButton
-    },
     data() {
       return {
-        nameCategory: this.$route.params.id,
-        productData: new ProductData,
         isCreatProduct: false,
         isMobile: Boolean( ( window.innerWidth < 850)),
         isUserWrite: false
       }
     },
     methods: {
-      getAbstactFactory() {
-        return AbstactFactory
-      },
-      clickCreateProduct() {
-        //this.productData.writeProduct( { name: "123" } )
-        console.log( this.productData );
+      clickCreateProduct() {  
+
         this.nameCategory = this.$route.params.id
         this.isCreatProduct = true
       },
-      deleteThisCompanent() {
+      deleteProductMaker() {
         this.isCreatProduct = false
       },
+    },
+    computed: {
+        nameCategory() {
+          if ( !this.$route.params.id ) {
+            return 
+          }
+          return this.$route.params.id
+        },
+    },
+    watch:{
+      nameCategory() {
+          console.log(123);
+        
+      }
     }
 }
 
@@ -74,8 +70,51 @@ export default {
 
 <style>
 
+.box-product{
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content: left;
+  padding: 2.5vh 0;
+}
+
+.view-card {
+    position: relative;
+    width: 30vw;
+    aspect-ratio: 8 / 5;
+    margin-left: 2.2vw;
+    margin-bottom: 1.1vw;
+}
+
+
+.view-card > div {
+    width: 30vw;
+    aspect-ratio: 8 / 5;
+    margin: 0 0%;
+    font-size: 80%;
+}
+
+
+.but-create{
+  position: absolute;
+  top: -20vh;
+  right: 6px;
+}
 h1{
   text-align: center;
 }
+
+@media (max-width: 700px){
+
+
+  .view-card {
+    width: 94vw;
+  }
+
+  .view-card > div {
+      width: 94vw;
+  }
+}
+
 
 </style>

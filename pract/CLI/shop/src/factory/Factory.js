@@ -6,14 +6,16 @@ export class FactoryProduct {
             name: name,  
             info: info,
             price: price,
-            image: { file: file },
+            image: { file: file, src: "https://www.thinkwithgoogle.com/_qs/static/img/icons/data-points/consumer_goods.svg" , style: {} },
+
+            success: {
+                name: { status: false, value: "" },
+                info:  { status: false, value: "" },
+                price:  { status: false, value: "" },
+                image:  { status: false, value: "" },
+            }
         }
-        this.success = {
-            name: { status: false, value: "" },
-            info:  { status: false, value: "" },
-            price:  { status: false, value: "" },
-            image:  { status: false, value: "" },
-        }
+        
     }
     removeSpace(str) {
         if ( str  )  {
@@ -39,24 +41,24 @@ export class FactoryProduct {
 
         const name =  this.totalProperty.name
         if ( !name ) {
-            this.success.name.value = "Имя товара не может быть пустым."
-            this.success.name.status = false
+            this.totalProperty.success.name.value = "Имя товара не может быть пустым."
+            this.totalProperty.success.name.status = false
             return "Неподходящее имя"
         }
 
         if (  Number( this.removeSpace(name) ) ) {
-            this.success.name.value = "Название товара не может сосотоять из одних цифор."
-            this.success.name.status = false
+            this.totalProperty.success.name.value = "Название товара не может сосотоять из одних цифор."
+            this.totalProperty.success.name.status = false
             return "Неподходящее имя"
         }
         
         if ( name.length < 20 && name.length > 2 ) {
-            this.success.name.status = true
+            this.totalProperty.success.name.status = true
             return name 
         } else {
-            this.success.name.value = "Количество символов и пробелов должно быть больше 2, но меньше 20."
-            this.success.name.status = false
-            return name
+            this.totalProperty.success.name.value = "Количество символов и пробелов должно быть больше 2, но меньше 20."
+            this.totalProperty.success.name.status = false
+            return "Неподходящее имя"
         }
     }
     
@@ -66,35 +68,35 @@ export class FactoryProduct {
         
         
         if ( !price &&  price !== 0 ) {
-            this.success.price.value = "Цена должна быть числом"
-            this.success.price.status = false
+            this.totalProperty.success.price.value = "Цена должна быть числом"
+            this.totalProperty.success.price.status = false
             return "0"
         } 
 
         
         if ( !price ) {
-            this.success.price.value = "Цена должна быть больше 0"
-            this.success.price.status = false
+            this.totalProperty.success.price.value = "Цена должна быть больше 0"
+            this.totalProperty.success.price.status = false
             return "0"
         }
 
         if ( price > 1000000000 ) {
-            this.success.price.value = "Введите число меньше миллиарда. Побойтесь Бога!"
-            this.success.price.status = false
+            this.totalProperty.success.price.value = "Введите число меньше миллиарда. Побойтесь Бога!"
+            this.totalProperty.success.price.status = false
             return "0"
         }
         if (  price > 1000000  ) {
             const billions = Math.round((price/100000))/10
             
-            this.success.price.status = true
+            this.totalProperty.success.price.status = true
             return billions.toString() + " млн."
         }
        
         if (  price >= 0  ) {
-            this.success.price.status = true
+            this.totalProperty.success.price.status = true
             return this.separateThousands(price)
         } else {
-            this.success.price.value = "Введите положительное число!"
+            this.totalProperty.success.price.value = "Введите положительное число!"
             return "0"
         }
     }
@@ -104,17 +106,17 @@ export class FactoryProduct {
         
         
         if (  info.length < 20 ) {
-            this.success.info.value = "Введите больше 20 печатных знаков."
-            this.success.info.status = false
+            this.totalProperty.success.info.value = "Введите больше 20 печатных знаков."
+            this.totalProperty.success.info.status = false
             return info
         }
 
         if ( info.length < 1000 ) {
-            this.success.info.status = true
+            this.totalProperty.success.info.status = true
             return info
         } else {
-            this.success.info.value = "Количество символов и пробелов в описании не должно привышать 1000."
-            this.success.info.status = false
+            this.totalProperty.success.info.value = "Количество символов и пробелов в описании не должно привышать 1000."
+            this.totalProperty.success.info.status = false
             return "Неподходящее описание..."
         }
        
@@ -126,29 +128,22 @@ export class FactoryProduct {
 
         
         if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type)) {
-            this.success.image.value = "Разрешены только изображения"
-            this.success.image.status = false
+            this.totalProperty.success.image.value = "Разрешены только изображения"
+            this.totalProperty.success.image.status = false
             return ""
         }
 
         
         if (file.size > 2 * 1024 * 1024) {
-            this.success.image.value = "Файл должен быть менее 2 МБ."
-            this.success.image.status = false
+            this.totalProperty.success.image.value = "Файл должен быть менее 2 МБ."
+            this.totalProperty.success.image.status = false
             return ""
         }
 
-       
-             let reader = new FileReader();
-            reader.readAsDataURL(file);
-           
-            reader.onload = () => {
-                this.totalProperty.image.src =  reader.result
-            };
-        
-       
+            this.totalProperty.image.src = URL.createObjectURL(file);
 
-        this.success.image.status = true
+
+        this.totalProperty.success.image.status = true
         return file
 
         /*
@@ -172,15 +167,15 @@ export class FactoryProduct {
                     }
                     else {
                         console.log( "Картинка сохранена!");
-                        this.success.image.value = "Картинка сохранена!"
-                        this.success.image.status = true;
+                        this.totalProperty.success.image.value = "Картинка сохранена!"
+                        this.totalProperty.success.image.status = true;
                     }
                 })
                 .catch(() => {
 
                     console.log("Картинка  не сохранена!");
-                    this.success.image.value = "Картинка не сохранена!"
-                    this.success.image.status = false;
+                    this.totalProperty.success.image.value = "Картинка не сохранена!"
+                    this.totalProperty.success.image.status = false;
 
                 })
                 
@@ -192,6 +187,7 @@ export class FactoryProduct {
 
         
     }
+
 }
 
 export class FactoryVideoProduct extends  FactoryProduct {

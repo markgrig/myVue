@@ -2,33 +2,38 @@
 
   <div id = "home">
     
-    <div> 
+    <div class = "image-box"> 
+
       <img 
-        class="ligth" 
+        class="image-quest ligth" 
         src="@/img/quest.jpg" 
         @mouseover="placholderMouseoverQestionary()"
         @mouseout="placholderMouseoverQestionary()">
 
       <WhitePlacholder 
         v-if = "mouseoverQestionary"
-        class ="white-placeholder" 
+        class ="white-placeholder-quest" 
         textPlaceholder = "Пройдёшь опрос?">
       </WhitePlacholder> 
 
     </div>
   
-    <span 
-      class="ligth" 
-      @:mouseover="tellAboutShop()"> 
-      {{ infoAbotShop }}
-    </span>
+    <div class="span-box">
+
+        <span 
+        class="text-welcome ligth" 
+        @:mouseover="tellAboutShop()"> 
+        {{ infoAbotShop }}
+      </span>
+
+    </div>
+    
    
   </div>
 
 </template>
 
 <script>
-import WhitePlacholder from "../components/reused/WhitePlacholder.vue";
 
 
 
@@ -58,8 +63,7 @@ export default {
         
         return this.mouseoverQestionary = !this.mouseoverQestionary
       }
-    },
-    components: { WhitePlacholder }
+    }
 }
 </script>
 
@@ -67,19 +71,29 @@ export default {
 #home {
   display: flex;
   justify-content: center;
-  padding: 50px;
-  margin: 10vh;
+  align-items: center;
+  padding: 5vw;
 }
 img {
-  position: relative;
   margin: 0;
   box-sizing: border-box;
-  border-radius: 30px;
-  border: solid 0.2vh rgb(156, 101, 19);
-  height: 250px;
-  margin: 20px 0;
+  border-radius: 2vw;
+  border: solid 0.5vh rgb(243, 240, 50);
   box-shadow:  0 1px 5px 1px white;
   opacity: 1;
+}
+
+.image-quest{
+  width: 70%;
+  margin: 15% 15%;
+
+}
+
+.image-box {
+  position: relative;
+  box-sizing: border-box;
+  width: 30%;
+  height: max-content;
 }
 
 .ligth:hover {
@@ -96,38 +110,41 @@ img {
     box-shadow:  0 1px 5px 1px white;
   }
 }
-span {
+.span-box {
+  width: 40vw;
+  height: max-content;
+}
+
+.text-welcome {
+  box-sizing: border-box;
   text-align: center;
-  font-size: 120%;
+  font-size: 1.4vw;
   font-weight: 500;
   display: block;
-  width: 30%;
-  padding: 40px;
-  margin: 50px ;
-  height: 20vh;
-  color: rgba(0, 0, 0, 0.876) ;
-  background-color: rgba(245, 245, 220, 0.4);
+  width: 80%;
+  padding: 2vw 2vw;
+  height: min-content;
+  margin: 15% 10%;
+  color: rgba(0, 0, 0, 1) ;
+  background-color: rgba(255, 255, 239, 0.6);
   overflow: auto ;
-  border: solid 3px black;
+  border: solid 0.5vh black;
   border-radius: 5px;
 }
 
-span:hover {
-  margin-top: 20px;
+.text-welcome:hover {
   color: black;
-  height: calc(20vh + 40px);
-  background-color: rgba(255, 255, 239, 0.5);
+  background-color: rgba(255, 255, 239, 0.7);
   transition: 1s;
 }
-span:focus {
-  font-size: 100%;
-  margin-top: 20px;
-  color: black;
-  height: calc(20vh + 40px);
-  background-color: rgba(255, 255, 239, 0.5);
-  transition: 1s;  
+.white-placeholder-quest {
+  font-size: 1.3vw;
+  width: 20%;
+  height: max-content;
+  position: absolute;
+  left: -25%;
+  bottom: 45%;
 }
-
 @media (max-width: 700px){
   #home {
     display: flex;
@@ -135,24 +152,32 @@ span:focus {
     padding: 0px;
     margin: 0px;
   }
-  span {
-    font-size: 18px;
-    padding: 10px 20px;
-    width: 70%;
-    margin: auto;
-    height: 25vh;
+  .image-box {
+    box-sizing: border-box;
+    width: 50%;
+    height: max-content;
   }
-  img {
-    width: 120px;
-    margin: 20px calc(50% - 65px);
-    height: auto;
-  }
-  span:hover {
-  margin-top: 0px;
-  padding: 20px;
-  height: calc(24vh + 20px);
 
-}
+  .image-quest {
+    border-radius: 50%;
+    width: 100%;
+    margin: 0;
+    margin-top: 6vh;
+  }
+
+  .span-box {
+    margin-top: 6vh;
+    box-sizing: border-box;
+    width: 80%;
+    height: max-content;
+  }
+  .text-welcome {
+    font-size: 2.2vh;
+    padding: 2vh 4vw;
+    width: 100%;
+    margin: auto;
+  }
+
 
 }
 </style>
