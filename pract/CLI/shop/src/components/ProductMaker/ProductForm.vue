@@ -7,15 +7,7 @@
         </RedCross>
 
         <TotalPropertyForm
-
-            :isMobile = "isMobile"
-            :isUserTouched = "isUserTouched" 
-
-            @isSuccessFillingForm = "$emit('isSuccessFillingForm')"
-            @userTouchedTextarea = "userTouchedTextarea"
-            @userInput = "userInput"
-           >
-
+            @isSuccessFillingForm = "$emit('isSuccessFillingForm')">
         </TotalPropertyForm>
 
         <SpecificPropertyForm>
@@ -31,9 +23,6 @@
 
 export default {
     name: "ProductForm",
-    props: {
-      
-    },
     data() {
         return {
                 isHideForm: false
@@ -58,9 +47,11 @@ export default {
     z-index: 3;
     position: absolute;
     box-sizing: border-box;
-    width: 70%;
+
     aspect-ratio: 1 / 1;
-    margin: 20% 15%;
+    width: 70%;
+    margin: 20% 0%; 
+    margin-left: 15%;
 
     background-color: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
@@ -70,12 +61,15 @@ export default {
 
 @media ( max-width: 700px) {
     .product-form {
+    
+        aspect-ratio: 100 / 90 ;
+        width: 58%;
+
+        margin: 0; 
+        margin-left: 21%;
+        margin-top: 35vw;
         padding-top: 1%;
-        width: 70%;
-        /* height: 80%; */ 
-        margin: 0 15%;
-        margin-top: 26vw;
-        height: 60vw;
+
     }
 }
 

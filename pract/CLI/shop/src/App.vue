@@ -38,13 +38,12 @@ import WhiteFooter from "@/components/Anothers/WhiteFooter.vue"
 .total-box{
   
   box-sizing:content-box;
-  padding: 0vh 0;
   min-height: 100vh;
-
 }
 
 
 * {
+  
   font-family: serif;
   padding: 0;
   margin: 0;
@@ -72,6 +71,7 @@ import WhiteFooter from "@/components/Anothers/WhiteFooter.vue"
 }
 
 body{
+  
 
    background-image: -webkit-image-set(
     url("./img/background1920w.jpg")  4x,

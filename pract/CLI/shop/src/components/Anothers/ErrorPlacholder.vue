@@ -10,8 +10,7 @@ export default {
     },
     methods: {
         hideError(event) {
-            console.log(event);
-            event.target.style.display = "none"
+           event.target.style.display = "none"
         }
     }
 }
@@ -20,14 +19,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 div {
-    
+    z-index: 10;
     position: absolute;
 
     width: fit-content;  
     height: min-content;
 
-    bottom: 50%;
-    left:  50%;
     width: 150px;
     height: max-content;
     padding: 10px;

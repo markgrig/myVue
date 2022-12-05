@@ -1,6 +1,6 @@
 <template>
 
-    <div class="product-price"> {{ priceUsersProduct }}  руб.
+    <div :class = "classList['product-price']"> {{ priceUsersProduct }}  руб.
 
     <div class="error">
         <ErrorPlacholder 
@@ -24,6 +24,17 @@ export default {
         isPriceSuccess: Boolean,
         valueError: String
     },
+    data() {
+        return {
+            nameCategory: this.$route.params.id,
+        }
+    },
+    computed: {
+        classList() {
+                   return { "product-price": `product-price ${this.nameCategory}`           
+                }
+        },
+    }
 }
 </script>
 
@@ -49,7 +60,7 @@ export default {
     background-color: #b60f0fb4;
 
 
-    font-size: 180%;
+    font-size: 140%;
 }
 
 .error-price {
@@ -61,7 +72,7 @@ export default {
 @media (max-width: 700px){
   
     .product-price {
-        font-size: 18px;
+        font-size: 12px;
     }
 
 }

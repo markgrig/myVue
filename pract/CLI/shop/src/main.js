@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { componentArray } from './components/componentsArray'
-import productData from "@/store/ProductDataMixin"
+import productData from "@/mixins/ProductDataMixin"
 import App from './App.vue'
 import { router } from './router/router'
 

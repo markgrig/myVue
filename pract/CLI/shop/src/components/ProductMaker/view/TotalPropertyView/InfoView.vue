@@ -1,20 +1,25 @@
 <template>
 
-    <div class = "background-info error">
+    <div>
+        <div :class = "classList['background-info']">
             
-        <h3 class = "product-info-topic"> Описание: </h3>
-        <div class = "product-info"> {{ infoUsersProduct }}
-        
-        </div>  
-
-        <ErrorPlacholder  
-                class = "error-info" 
-                    v-if = "!isInfoSuccess  && valueError !== ''"
-                    :textPlaceholder = "valueError"> 
-            </ErrorPlacholder>
-
+            <h3 class = "product-info-topic"> Описание: </h3>
+            <div :class = "classList['product-info']"> {{ infoUsersProduct }}
+                
+                <ErrorPlacholder  
+                    class = "error-info" 
+                        v-if = "!isInfoSuccess  && valueError !== ''"
+                        :textPlaceholder = "valueError"> 
+                </ErrorPlacholder>       
+    
+            </div>  
+    
+            
+        </div>
+    
+     
     </div>
-
+   
     
 </template>
 
@@ -25,8 +30,23 @@ export default {
     props: {
         infoUsersProduct: String,
         isInfoSuccess: Boolean,
-        valueError: String
+        valueError: String,
+        isShowInfo: Boolean
     },
+    data() {
+        return {
+            nameCategory: this.$route.params.id,
+        }
+    },
+    computed: {
+        classList() {
+                return { "background-info": `background-info error back-${this.nameCategory}`,
+                          "product-info": `product-info info-${this.nameCategory}` 
+                    
+                }
+
+        },
+    }
 }
 </script>
 
@@ -35,29 +55,71 @@ export default {
 
 .error{
     position: relative;
+    width: 100%;
 }
 .background-info{
     position: absolute;
-    margin:  0;
-    right: 5%;
-    top: 25%;
-    width: 46%;
-
-    min-height: 30%;
+    box-sizing: border-box;
     height: min-content;
-    border-radius: 5px; 
-    padding:  1% 4%;
 
+    margin:  0; 
+    padding:  1% 4%;
+    
+    border-radius: 5px;
     word-break: break-word;
     background-color: rgba(192, 192, 192, 0.163);
-    border: solid 1px   black
+    border: solid 1px   black;
+
 }
+
+.back-video {
+    right: 0%;
+    left: 5%;
+    top: 20%;
+    width: 90%;
+}
+
+.back-music_instrument {
+    right: 5%;
+    top: 25%;
+    width: 50%;
+    min-height: 30%;
+}
+
+.back-clothes {
+    opacity: 1;
+
+    right: 10%;
+    top: 20%;
+
+    aspect-ratio: 80 / 110;
+    width: 80%;
+
+    backface-visibility: hidden;
+    transition: 1s;
+    transform: rotateY(180deg);
+}
+.back-clothes  .error-info {
+    opacity: 0;
+}
+
+/* это часть неявно связана с product-card-clothes в ProductCard */
+.product-card-clothes:hover .back-clothes {
+    transform: rotateY(360deg);
+}
+
+.product-card-clothes:hover .error-info {
+    opacity: 1;
+}
+
+
+
 .product-info{
     
-    height: min-content;
-    max-height: 10pc;
+    height: fit-content;
+   
     margin: 0  -7% 0  0% ;
-    padding: 2% 5% 0 0%;
+    padding: 2% 5% 2% 0%;
     
 
     text-align: justify ;
@@ -67,12 +129,33 @@ export default {
     text-indent: 30px; 
     font-size: 140%;
 }
+
+.info-video{
+    
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+
+    font-size: 130%;
+    padding: 1% 5% 3% 0%;
+
+    max-height: 1ch;
+}
+
+.info-music_instrument{
+    aspect-ratio: 7/3;
+}
+
+.info-clothes{
+    max-height: 27ch;
+}
+
 .product-info-topic {
 
-    height: 1.2vw;
-    
+    height: 24px;
+
     text-align: center;
-    padding-bottom: 10px;
+
     color: rgb(246, 234, 234);
     text-indent: 0px;
 
@@ -85,13 +168,16 @@ export default {
 
 .error-info {
     position: absolute;
-
-    bottom: 0%;
-    top: 80%;
-    left: 30%;
-    padding-left: 20px;
+    
+    
+    bottom: -18%;
+    left:  20%;
+    
+    padding-left: 30px;
 
     height: max-content;
+    width: fit-content;
+
     border-radius: 5px 30px 30px 30px;
 }
 
@@ -124,13 +210,17 @@ export default {
 
 @media (max-width: 700px){
 
-   
-    .error-info {
-        position: absolute;
-        top: 300%;;
-        left: 10%;
-   
+    .info-video{
+    
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+
+    font-size: 130%;
+    padding: 0% 5% 0% 0%;
+
     }
+    
 
     .product-info{
         height: min-content;
@@ -139,8 +229,8 @@ export default {
     }
 
     .product-info-topic{
-        font-size: 16px;
-        height: 16px;
+        font-size: 14px;
+        height: 14px;
         padding: 2px;
     }
 

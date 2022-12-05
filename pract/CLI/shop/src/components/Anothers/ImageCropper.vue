@@ -7,7 +7,7 @@
                 :deleteModal= "deleteModal">
             </RedCross>>
             
-            <div class = "white-win">      {{ test }}
+            <div class = "white-win">      
                 <img
                     class = "user-product-picture"
                     :style= "styleProductPicture"
@@ -44,27 +44,17 @@
 </template>
 
 <script>
-import { inject } from 'vue'
-
 
 export default {
     name: "ImageCropper" ,
-    setup() {
-        const imageSettings = inject('imageSettings')
-        const updateSettings  = inject('updateSettings')
-    
-        return {
-            imageSettings,
-            updateSettings,
-        }
-    },
+
     props: {
         src: {
             default:  "https://www.thinkwithgoogle.com/_qs/static/img/icons/data-points/consumer_goods.svg"
 
         },
-        setting: Object
-
+        setting: Object,
+        aspectRatioImage: String
     },
     data() {
         return {
@@ -126,25 +116,25 @@ export default {
         },
         deleteModal(event) {   
         
-            if (event.target.closest(".overflower")) {
+            console.log(event);
 
-                this.mouseVectorForPicutre[0]*100/(this.widthBox/2)
+            
+            this.mouseVectorForPicutre[0]*100/(this.widthBox/2)
 
-                const setting = {
-                    koofMember: this.koof,
-                    sliderSartXMember: this.sliderSartX ,
-                    startImgX: this.memberX, 
-                    startImgY: this.memberY ,
-                
-                    startScrollValue: this.scrollValue
-                }
-                this.updateSettings( "imageSettings" , this.styleProductPicture , setting )
-                
-                this.$emit( "hideModalPicture" , "image-cropper",  true ,  event.target.closest(".overflower") )
-
+            const setting = {
+                koofMember: this.koof,
+                sliderSartXMember: this.sliderSartX ,
+                startImgX: this.memberX, 
+                startImgY: this.memberY ,
+            
+                startScrollValue: this.scrollValue
+            }
+            this.$emit( "returnSettings" , "imageSettings" , setting, "image", this.styleProductPicture  )
+            
+            this.$emit( "hideModalPicture" , "imageSettings", event.target)
     
                 
-            }
+            
             
         },
         userMakePicture(event) {
@@ -250,7 +240,7 @@ export default {
                 this.mouseMemberXY.y =  - this.pixelForMove[1]
             }
         },
-        returnSetting(value, index , sliderMemberX) {
+        returnSetting(sliderMemberX, value, index ) {
 
             if ( value > 1 ) value = 1
             if ( value < 0 ) value = 0 
@@ -290,13 +280,14 @@ export default {
             const borderWidth = Math.floor( 1 * (this.koof[2] + 0.01)*100)/100
             const borderRad = Math.floor( 50* (this.koof[3])*100)/100
             const constrast = Math.floor( 0.8 * (this.koof[4] + 1.25)*100)/100
-            console.log(constrast);
+            
             return {
                     
                     "box-shadow":  `0 0 ${ shadowBordSize }vw ${ shadowBordSize + "px" } blue` ,
                     "filter": `contrast(${constrast}) drop-shadow( 0px 0px  ${ shadowSize + "px" } blue)`,
                     "border": `solid ${borderWidth}vw rgba(93, 150, 255, 0.1)`,
                     "border-radius": `${borderRad}%`,
+                    "aspect-ratio": `${this.aspectRatioImage}`
                    
                 
             }
@@ -323,7 +314,7 @@ export default {
 .background-cropper {
     opacity: 1;
     z-index: 3;
-    position: absolute;
+    position: fixed;
     top: 0vw;
     left: 0vw;
     background-color: rgba(93, 0, 255, 0.080);
@@ -371,7 +362,6 @@ export default {
     box-sizing: border-box;
 
     width:  200px;
-    height:  200px;
     display: block;
     margin:  auto auto;
 
@@ -402,7 +392,10 @@ export default {
     background-color: rgba(83, 255, 140, 0.6);
 }
 .pannel {
+    position: relative;
     display: block;
+
+    aspect-ratio: 1/1;
     width: 75%;
     margin:  5% auto ;
 
@@ -433,9 +426,8 @@ export default {
     .white-win {
 
         width: 80%;
-        height: 30%;
         top:0;
-        margin: 10% 10%;
+        margin: 5% 10%;
 
     }
 

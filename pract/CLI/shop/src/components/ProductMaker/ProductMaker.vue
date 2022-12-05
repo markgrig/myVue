@@ -6,9 +6,10 @@
 
             <div class = 'overflower-product-card'
                 v-if = "!isHide.card" >
-
+        
                 <ProductCard
                     :isHideCard = "isHide.card"
+                    :aspectRatioImage = "aspectRatioImage"
                     @hideModal= "hideModal"
                     :usersProduct = "productMaker.usersProduct">
                 </ProductCard>
@@ -43,18 +44,9 @@
          <div class="black-window" ></div>
 
         <h4 class ='modal-window computed-window'>
-                {{ getStatusProdaction }}  
+                {{ getStatusProdaction }}      
         </h4>
 
-
-        <ImageCropper 
-
-                v-if = "productMaker.imageSettings.isOpenSetting"   
-                    :setting = "productMaker.imageSettings.settingMember" 
-                    :src = "productMaker.usersProduct.totalProperty.image.src"
-                    @hideModalPicture = "hideModal">
-                
-        </ImageCropper>
     
         <TestExit
 
@@ -64,7 +56,30 @@
             
         </TestExit>
         
-    
+
+
+        <ImageCropper
+
+            v-if = "productMaker.imageSettings.isOpen"   
+                :setting = "productMaker.imageSettings.data" 
+                :aspectRatioImage = "aspectRatioImage"
+                :src = "productMaker.usersProduct.totalProperty.image.src"
+                @returnSettings =  "updateMaker"
+                @hideModalPicture = "closeNewModal">
+
+        </ImageCropper>
+
+        <CustomForm
+            v-if = "productMaker.additionalForm.isOpen"
+                :typeProperty = "'specificProperty'"
+                
+                :arrayInput = "productMaker.additionalForm.data"
+                :nameProperty = "productMaker.additionalForm.name"
+                @hideModalPicture = "closeNewModal"
+                @userInput = "updateUsersProduct">
+
+        </CustomForm>
+        
     </div>
 
 
@@ -78,16 +93,25 @@ export default {
     name: "ProductMaker",
     setup() {
         const productMaker =  reactive( { 
-            usersProduct: AbstactFactory.createProduct(""),
+            usersProduct:  reactive( AbstactFactory.createProduct("")),
             imageSettings: { 
-                    style: {},
-                    settingMember: {},
-                    isOpenSetting: false,
-                    isNewImage: true
-            } 
+                isOpen: false,
+                data: {},
+                name: "image",
+                
+                isNewImage: true,
+                style: {},
+
+            },
+            additionalForm: {
+                isOpen: false,
+                data: [],
+                name: "form",
+            },
+           
         })
 
-        const updateUsersProduct = (inputedValue, typeProperty,  field) => { 
+        const updateUsersProduct = (inputedValue, typeProperty,  field, subfield) => { 
 
             if ( field == "name" ) {
 
@@ -112,46 +136,94 @@ export default {
                 productMaker.imageSettings.isNewImage = true
             }
 
+            if ( field === "audio" ) {
+                
+                productMaker.usersProduct[typeProperty][field]["file"] = inputedValue;
+                productMaker.usersProduct[typeProperty][field]["src"] =  productMaker.usersProduct.checkQualityAudio()
+                
+            }
+
+            if ( field === "video" ) {
+                
+                productMaker.usersProduct[typeProperty][field]["src"] = inputedValue;
+                productMaker.usersProduct[typeProperty][field]["src"] =  productMaker.usersProduct.checkQualityVideo()
+                
+            }
+
+            if ( field === "contact" ) {
+                
+                productMaker.usersProduct[typeProperty][field][subfield] = inputedValue;
+                productMaker.usersProduct[typeProperty][field] = productMaker.usersProduct.checkQualityContact(subfield)
+               
+            }
+            
         }
 
         
-        const updateSettings = (field, style, settingMember) =>  {
-            productMaker.usersProduct.totalProperty.image.style = style
-            productMaker[field].style = style 
-            productMaker[field].settingMember = settingMember
-            productMaker[field].isOpenSetting  = false
-        }
-
-        const openSettings = (field, target) =>  {
-
+        const updateMaker = (field, data, name, param) =>  {
             
+            
+            productMaker[field].data = data 
+            productMaker[field].name = name 
 
-            if ( target.closest(".from-and-card") ) {
-                
-                target.closest(".from-and-card").classList.remove("opacityModalEnter")
-                target.closest(".from-and-card").classList.add("opacityModalLeave")
-
+            if ( field === "imageSettings" ) {
+ 
+                productMaker.usersProduct.totalProperty.image.style = param
+                productMaker[field].style = param
+            
             }
-
-            setTimeout(()=> {
-                productMaker[field].isOpenSetting  = true 
-            }, 50)
+            
         }
 
-        provide('usersProduct', productMaker.usersProduct)
+        const openNewModal = (field, target) =>  {
+
+            productMaker[field].isOpen  = true 
+
+            const formAndCard = target.closest(".from-and-card")
+            formAndCard.classList.remove("opacityModalEnter")
+            formAndCard.classList.add("opacityModalLeave")
+            
+            
+        }
+
+        const closeNewModal = (field, target) =>  {
+            
+            productMaker[field].isOpen  = false 
+
+            const formAndCard = target.closest(".overflower").querySelector(".from-and-card")
+            formAndCard.classList.remove("opacityModalLeave")
+            formAndCard.classList.add("opacityModalEnter")
+
+            if ( field === "imageSettings" ) {
+                productMaker.imageSettings.isNewImage = false
+            }
+            
+        }
+
+        provide('productMaker', productMaker)
         provide('updateUsersProduct', updateUsersProduct)
 
         provide('imageSettings', productMaker.imageSettings)
-        provide('updateSettings', updateSettings)
-        provide('openSettings', openSettings)
+        provide('additionalForm', productMaker.additionalForm)
+        provide('updateMaker', updateMaker)
 
-        return { productMaker }
+        provide('openNewModal', openNewModal)
+        provide('closeNewModal', closeNewModal)
 
+        return { 
+            productMaker,
+            updateUsersProduct,
+            updateMaker,
+            closeNewModal,
+        }
+
+    },
+    mounted() {
+        this.productMaker.usersProduct =  AbstactFactory.createProduct(this.$route.params.id)
     },
     props: {
         productData: String,
         nameCategory: String,
-        isMobile: Boolean,
     },
     data() {
         return {
@@ -172,7 +244,7 @@ export default {
             this.isHide.card = false
 
         },
-        hideModal( nameModal, status , target ){
+        hideModal( nameModal, status ){
 
              if ( nameModal === "card" && status === true) {
                 this.isHide.card = true    
@@ -187,16 +259,7 @@ export default {
             if (  this.isHide.form &&  this.isHide.card) {
                 this.isExit = true
             }
-
-            if ( nameModal === "image-cropper" && status === true) {
-                this.isHide.imageCropper = true
-                
-                this.productMaker.imageSettings.isNewImage = false
-        
-                target.querySelector(".from-and-card").classList.remove("opacityModalLeave")
-                target.querySelector(".from-and-card").classList.add("opacityModalEnter")
-                
-            }
+       
         },
         async isSuccessFillingForm() {
 
@@ -208,18 +271,26 @@ export default {
             
             if ( isSuccess ) { 
 
-                const urlImg =  await this.uploadFile( this.productMaker.usersProduct.totalProperty.image.file, this.nameCategory )
+                const urlImg =  await this.uploadFile( this.productMaker.usersProduct.totalProperty.image.file, "productImage", this.nameCategory )
             
                 if (  this.productMaker.imageSettings.style.backgroud ) {
+
                     this.productMaker.imageSettings.style.background = this.productMaker.imageSettings.style.background
                     .replace(this.productMaker.usersProduct.totalProperty.image.src,  urlImg)
+
                 } else {
                     this.productMaker.imageSettings.style.background = `url(${urlImg}) no-repeat 50% 50% / 100% auto`
                 }
 
                 this.productMaker.usersProduct.totalProperty.image.style = this.productMaker.imageSettings.style  || {}
-                
-                this.writeProduct( this.productMaker.usersProduct , this.nameCategory ) 
+
+                if (  this.productMaker.usersProduct?.audio === true ) {
+
+                    const urlAudio =  await this.uploadFile( this.productMaker.usersProduct.specificProperty.audio.file, "productAudio", this.nameCategory )
+                    this.productMaker.usersProduct.specificProperty.audio.url = urlAudio
+                }
+
+                this.writeProduct( this.productMaker.usersProduct ,  this.nameCategory ) 
                 this.userLeave()
 
             } else {
@@ -239,8 +310,27 @@ export default {
         
     },
     computed: {
+        aspectRatioImage() {
+             switch (this.nameCategory) {
+                case "video":
+
+                    return '720 / 480'
+                
+                case "music_instrument":
+                
+                    return '1/1'
+
+                case "clothes":
+                
+                    return '80 / 110'
+             
+                default:
+
+                    return '1/1'
+             }
+        },
         getStatusProdaction() {
-            if ( this.productMaker.imageSettings.isOpenSetting ) {
+            if ( this.productMaker.imageSettings.isOpen ) {
                 return ""
             }
             if (   this.isHide.card && this.isHide.form ) {
@@ -372,7 +462,8 @@ body, html {
     z-index: 4;
     width: 80%;
     left: 10%;
-    top: 10%;
+    top: 6vw;
+    font-size: 90%;
 
 
     text-align: center;

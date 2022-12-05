@@ -1,6 +1,6 @@
 
 export class FactoryProduct {
-    constructor( name = " " , info = " " ,  price = "0" , file = "" )
+    constructor( name = " " , info = " " ,  price = "0" , file = "", contact = { email: "" , phone: "" } )
     {
         this.totalProperty = {
             name: name,  
@@ -13,6 +13,20 @@ export class FactoryProduct {
                 info:  { status: false, value: "" },
                 price:  { status: false, value: "" },
                 image:  { status: false, value: "" },
+            }
+        }
+        this.specificProperty = {
+            contact: contact, 
+            success: {
+                contact: { 
+                    status: {
+                        phone: false,
+                        email: false
+                    }, 
+                    value: {
+                        phone: "",
+                        email: ""
+                    } },
             }
         }
         
@@ -81,7 +95,7 @@ export class FactoryProduct {
         }
 
         if ( price > 1000000000 ) {
-            this.totalProperty.success.price.value = "Введите число меньше миллиарда. Побойтесь Бога!"
+            this.totalProperty.success.price.value = "Введите число меньше миллиарда. "
             this.totalProperty.success.price.status = false
             return "0"
         }
@@ -188,24 +202,152 @@ export class FactoryProduct {
         
     }
 
+    checkQualityContact( subfield ) {
+
+        const contact = this.specificProperty.contact
+
+        const regEMail = /^[\w-.]+@[\w-]+.[a-z]{2,4}$/i;
+        const regPhone =  /^\b\d{1}[-.]?\d{3}[-.]?\d{3}[-.]?\d{2}[-.]?\d{2}\b$/;
+
+        switch (subfield) {
+            case "email":
+                
+                if (  regEMail.test( contact.email ) ) {
+            
+                    this.specificProperty.success.contact.status.email = true
+                    this.specificProperty.success.contact.value.email = ""
+        
+                } else {
+                   
+                    this.specificProperty.success.contact.status.email = false
+                    this.specificProperty.success.contact.value.email = "Почта должна содержать символ @ и правильное окончание"
+        
+                    contact.email = ""
+                }
+
+                break;
+            
+        case "phone":
+
+                if (  regPhone.test( contact.phone ) ) {
+
+                    this.specificProperty.success.contact.status.phone = true
+                    this.specificProperty.success.contact.value.phone = ""
+                    
+                } else {
+                    this.specificProperty.success.contact.status.phone = false
+                    this.specificProperty.success.contact.value.phone = "Введите в следующих форматах: 89127629211, 8-912-762-92-11"
+                
+                    contact.phone = ""
+                
+                }
+
+                break;
+        
+            default:
+                break;
+        }
+       
+        return contact
+
+        
+    }
+
 }
 
 export class FactoryVideoProduct extends  FactoryProduct {
-    constructor( url ) {
+    constructor() {
         super()
-        this.specificPropetry = {
-            nameSpecificPropetry: "video",
-            url: url
+        this.video = true
+        this.specificProperty = {
+
+            ...this. specificProperty,
+            video: {
+                file: "",
+                url: ""
+            },
+            success: {
+
+                ...this. specificProperty.success,
+                video: { status: false, value: "" },
+            }
+
         }
     }
+
+    checkQualityVideo() {
+
+        
+        const url = this.specificProperty.video.src; 
+
+        const isValidUrl = url1=> {
+            try { 
+                return Boolean(new URL(url1)); 
+            }
+            catch(e){ 
+                return false; 
+            }
+        }
+
+
+        console.log(  isValidUrl(url) && url.includes("https://www.youtube.com/embed/") );
+        if ( isValidUrl(url) && url.includes("https://www.youtube.com/embed/"))  {
+            this.specificProperty.success.video.status = true
+            this.specificProperty.success.video.value = ""
+            return url  
+        }  
+
+        this.specificProperty.success.video.status = false
+        this.specificProperty.success.video.value = "Неподходящая ссылка на видео ютуб"
+        return ""
+  
+    }
+    
 }
 
 export class FactoryMusicInstrumentProduct extends  FactoryProduct {
-    constructor( url ) {
+    constructor() {
         super()
-        this.specificPropetry = {
-            nameSpecificPropetry: "music_instrument",
-            url: url
+        this.audio = true
+        this.specificProperty = {
+
+            ...this. specificProperty,
+            audio: {
+                file: "",
+                url: ""
+            },
+            success: {
+
+                ...this. specificProperty.success,
+                audio: { status: false, value: "" },
+            }
         }
+       
+    }
+    checkQualityAudio() {
+       
+        const file =  this.specificProperty.audio.file
+
+        
+        if (!["audio/mpeg", "audio/mp3", "audio/mp4"].includes(file.type)) {
+            this.specificProperty.success.audio.value = "Разрешены только mp3, mp4, mpeg"
+            this.specificProperty.success.audio.status = false
+            return ""
+        }
+
+        
+        if (file.size > 50 * 1024 * 1024) {
+            this.specificProperty.success.audio.value = "Файл должен быть менее 50 МБ."
+            this.specificProperty.success.audio.status = false
+            return ""
+        }
+
+            this.specificProperty.audio.url = URL.createObjectURL(file);
+
+
+        this.specificProperty.success.audio.status = true
+        return file
+
+        
     }
 }

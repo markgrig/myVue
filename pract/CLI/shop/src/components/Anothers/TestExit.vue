@@ -4,11 +4,11 @@
             <div class = "flex-class">
                 <div>
                     <img class ="ico-exit" src="@/img/exit.jpg" alt=""  @click ="userLeave()">
-                    <h3> Да, я уверен  </h3>
+                    <h3> Да  </h3>
                 </div>
                 <div>
                     <img class ="ico-noexit" src="@/img/noExit.jpg" alt="" @click ="userNotLeave()">
-                    <h3> Нет, я добавлю</h3>
+                    <h3> Нет </h3>
                 </div>
             </div>
     </div>
@@ -48,14 +48,14 @@ export default {
     
     width: 60%;
     margin-left: 20%;
-    top: 20px;
+    top: 10%;
     box-shadow: none;
     border: none;
 }
 .icons h3 {
     margin-top: -60px;
     text-align: center;
-    font-size: 140%;
+    font-size: 180%;
     width: 80%;
     margin-left: 12%;
     color: white;
@@ -79,7 +79,7 @@ export default {
     .icons{
         width: 80vw;
         margin-left: 8vw;
-        top: 20px;
+        top: 0;
         box-shadow: none;
         border: none;
     }

@@ -14,22 +14,20 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 button {
-    font-size: 120%;
-    background-color: rgba(8, 35, 117, 0.5); 
-    border: solid 0.05vw rgb(128, 101, 48);     
-    padding: 1vw; 
+    font-size: 100%;
+    background-color: rgba(49, 97, 240, 0.8); 
+    border: solid 2px rgba(0, 0, 0, 0.323);      
     display: block;
     margin: auto;
     color: white;
-    border-radius: 1vw;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: calc( 0.7vh + 0.7vw );
-    height: fit-content;
+    border-radius: 16px;
+    margin-top: 1.5%;
+    padding: calc(0.6vw + 0.6vh);
+
 }
 button:hover {
-    box-shadow: 0 0 6px 3px rgba(78, 77, 77, 0.315);
-    background-color: rgba(8, 35, 117, 0.3); 
-    border: solid 0.05vw rgb(236, 212, 164);
+    box-shadow: 0 0 10px 2px rgba(16, 151, 248, 0.744);
+    background-color: rgba(49, 97, 220, 0.8); 
+ 
 }
 </style>

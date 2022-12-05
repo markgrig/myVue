@@ -6,44 +6,48 @@
   </BlueButton>
      
   <ProductMaker v-if= "isCreatProduct"
-  
-      :isMobile = "isMobile"
       @deleteProductMaker = "deleteProductMaker"
       :nameCategory = "nameCategory">
 
   </ProductMaker>
-
- <div class = "box-product">
+  
+  <div class = "box-product">
     <div
       v-for=" el, key in product[nameCategory]" :key ="key">
 
-        <div class = "view-card">
+        <div :class = "classList['view-card']">
           <ProductCard
             :usersProduct = "el"
             :isCategoryList = "true">
           </ProductCard>
         </div>
         
-    </div>  
+    </div> 
+    
+   
   </div>
+  
+  <div>
+
+  </div>
+  <div ref = "observer" class="observer"></div>
 
 </template>
 
 <script>
+import productData from "@/mixins/ProductDataMixin"
 
 export default {
     name: "Category",
+    mixins: [productData],
     data() {
       return {
         isCreatProduct: false,
-        isMobile: Boolean( ( window.innerWidth < 850)),
-        isUserWrite: false
+        isUserWrite: false,
       }
     },
     methods: {
       clickCreateProduct() {  
-
-        this.nameCategory = this.$route.params.id
         this.isCreatProduct = true
       },
       deleteProductMaker() {
@@ -52,18 +56,14 @@ export default {
     },
     computed: {
         nameCategory() {
-          if ( !this.$route.params.id ) {
-            return 
-          }
+          this.listenNewProduct()
           return this.$route.params.id
         },
+        classList() {
+              return { "view-card": `view-card vc-${this.nameCategory}`}    
+               
+        },
     },
-    watch:{
-      nameCategory() {
-          console.log(123);
-        
-      }
-    }
 }
 
 </script>
@@ -79,27 +79,39 @@ export default {
 }
 
 .view-card {
+    z-index: 0;
     position: relative;
-    width: 30vw;
+    margin-bottom: 10%;
+}
+.vc-video {
+    width: 45vw;
+    aspect-ratio: 8 / 8;
+    margin-left: 26vw;
+
+}
+
+
+.vc-music_instrument {
+    width: 45vw;
     aspect-ratio: 8 / 5;
-    margin-left: 2.2vw;
-    margin-bottom: 1.1vw;
+    margin-left: 2.5vw;
+}
+
+.vc-clothes {
+    width: 30vw;
+    aspect-ratio: 4 / 6;
+    margin-left: 2vw; 
 }
 
 
 .view-card > div {
-    width: 30vw;
-    aspect-ratio: 8 / 5;
+    width: 100%;
     margin: 0 0%;
-    font-size: 80%;
 }
 
 
-.but-create{
-  position: absolute;
-  top: -20vh;
-  right: 6px;
-}
+
+
 h1{
   text-align: center;
 }
@@ -107,14 +119,29 @@ h1{
 @media (max-width: 700px){
 
 
-  .view-card {
+  .vc-video {
     width: 94vw;
+    font-size: 150%;
   }
 
-  .view-card > div {
-      width: 94vw;
+  .vc-music_instrument {
+    width: 94vw;
+    font-size: 110%;
   }
+  
+
+  .vc-clothes {
+    width: 80vw;
+    margin-left: 8vw;
+
+    font-size: 180%;
+  }
+
+
 }
 
-
+.observer {
+  height: 30px;
+  background-color: green;
+}
 </style>

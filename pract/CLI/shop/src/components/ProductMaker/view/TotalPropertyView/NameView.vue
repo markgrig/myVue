@@ -1,7 +1,7 @@
 <template>
 
     <div class ="error" >
-        <h3 class="product-name">  {{ nameUsersProduct }}    </h3>
+        <h3 :class = "classList['product-name']">  {{ nameUsersProduct }}    </h3>
         <ErrorPlacholder 
             class="error-name" 
             v-if = "!isNameSuccess && valueError !== ''"
@@ -21,6 +21,17 @@ export default {
         valueError: String,
         productData: Object
     },
+    data() {
+        return {
+            nameCategory: this.$route.params.id,
+        }
+    },
+    computed: {
+        classList() {
+                   return { "product-name": `product-name ${this.nameCategory}`           
+                }
+        },
+    }
 }
 </script>
 
@@ -32,19 +43,47 @@ export default {
 }
 
 .product-name {
-    font-size: 140%;
-    width: 50%;
+
     height: 5%;
-    margin-top: 8%;
-    margin-left: 25%;
+
     text-align: center;
     color: black;
 
-    font-size: 120%;
+    font-size: 140%;
+}
+
+.video {
+
+    width: 50%;
+
+    margin-left: 25%;
+    margin-top: 12%;
+
+    font-size: 130%;
+}
+
+.music_instrument {
+
+    width: 50%;
+
+    margin-left: 25%;
+    margin-top: 8%;
+
+}
+
+.clothes {
+
+    width: 90%;
+    
+    margin-left: 5%;
+    margin-top: 18%;
 }
 
 
-
+.error-name {
+    bottom: 50%;
+    left:  50%;
+}
 
 
 @media (max-width: 700px){
@@ -55,10 +94,18 @@ export default {
         padding-right: 0;
     }
 
-    .product-name {
+    .music_instrument{
         font-size: 95%;
-        width: 80%;
-        margin:  8% auto;
+    }
+
+    .video{
+        font-size: 60%;
+    }
+
+
+    .clothes {
+        font-size: 65%;
+        margin-top: 18%;
     }
 
 }
