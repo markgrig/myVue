@@ -49,7 +49,7 @@ export default {
     data() {
         return {
                 isHideCard: false,
-                nameCategory: this.$route.params.id,
+                typeCard: this.$route.params.id,
                 userClick: {
                     img: false
                 }
@@ -69,11 +69,11 @@ export default {
     },
     computed: {
         classList() {
-                   return { "product-card": `card product-card-${this.nameCategory}`           
+                   return { "product-card": `card product-card-${this.typeCard}`           
                 }
         },
         onVideo() {
-            if ( this.userClick.img && (this.nameCategory === "video") ) {
+            if ( this.userClick.img && (this.typeCard === "video") ) {
                 return true
             }
 
@@ -106,7 +106,7 @@ export default {
     box-shadow: 0px 0px 10px 2px rgb(136, 133, 133);
 }
 
-.product-card-video {
+.product-card-videoCard {
 
     aspect-ratio: 8 / 8;
     width: 60%;
@@ -115,7 +115,7 @@ export default {
 
 }
 
-.product-card-music_instrument {
+.product-card-audioCard {
     
     aspect-ratio: 8 / 5;
     width: 80%;
@@ -125,7 +125,7 @@ export default {
 }
 
 /* с product-card-clothes неявно связанны back-clothes (InfoView) и image-clothes(ImageView)*/
-.product-card-clothes {
+.product-card-longCard {
 
     aspect-ratio: 4 / 6;
     width: 40%;

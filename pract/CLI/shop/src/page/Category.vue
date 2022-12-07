@@ -7,13 +7,13 @@
      
   <ProductMaker v-if= "isCreatProduct"
       @deleteProductMaker = "deleteProductMaker"
-      :nameCategory = "nameCategory">
+      :typeCard = "typeCard">
 
   </ProductMaker>
   
   <div class = "box-product">
     <div
-      v-for=" el, key in product[nameCategory]" :key ="key">
+      v-for=" el, key in product[typeCard]" :key ="key">
 
         <div :class = "classList['view-card']">
           <ProductCard
@@ -55,12 +55,19 @@ export default {
       },
     },
     computed: {
-        nameCategory() {
+        typeCard() {
           this.listenNewProduct()
-          return this.$route.params.id
+
+          const category = {
+            'video': 'videoCard',
+            'music_instrument': 'audioCard',
+            'clothes': 'longCard'
+          }
+
+          return category[this.$route.params.id]
         },
         classList() {
-              return { "view-card": `view-card vc-${this.nameCategory}`}    
+              return { "view-card": `view-card vc-${this.typeCard}`}    
                
         },
     },

@@ -8,6 +8,7 @@
                 v-if = "!isHide.card" >
         
                 <ProductCard
+                    :typeCard = "typeCard"
                     :isHideCard = "isHide.card"
                     :aspectRatioImage = "aspectRatioImage"
                     @hideModal= "hideModal"
@@ -21,6 +22,7 @@
                 v-if = "!isHide.form" >
 
                 <ProductForm
+                    :typeCard = "typeCard"
                     :isHideForm = "isHide.form"
                     @hideModal= "hideModal"
                     @isSuccessFillingForm = "isSuccessFillingForm">
@@ -44,7 +46,7 @@
          <div class="black-window" ></div>
 
         <h4 class ='modal-window computed-window'>
-                {{ getStatusProdaction }}      
+                {{ getStatusProdaction }}   
         </h4>
 
     
@@ -91,9 +93,13 @@ import *  as AbstactFactory from "@/factory/AbstructFactory.js"
 
 export default {
     name: "ProductMaker",
-    setup() {
+    props: {
+        productData: String,
+        typeCard: String,
+    },
+    setup(props) {
         const productMaker =  reactive( { 
-            usersProduct:  reactive( AbstactFactory.createProduct("")),
+            usersProduct:  reactive( AbstactFactory.createProduct(props.typeCard)),
             imageSettings: { 
                 isOpen: false,
                 data: {},
@@ -111,52 +117,29 @@ export default {
            
         })
 
+       
         const updateUsersProduct = (inputedValue, typeProperty,  field, subfield) => { 
 
-            if ( field == "name" ) {
-
+            if ( field === "name" ||  field === "price" ||  field === "info"  ) {
+                
                 productMaker.usersProduct[typeProperty][field] = inputedValue;
-                productMaker.usersProduct[typeProperty][field] = productMaker.usersProduct.checkQualityName()
-            }
-            if ( field === "price" ) {
-
-                productMaker.usersProduct[typeProperty][field]  = inputedValue;
-                productMaker.usersProduct[typeProperty][field]  = productMaker.usersProduct.checkQualityPrice()
-            }
-            if ( field === "info" ) {
-
-                productMaker.usersProduct[typeProperty][field]  = inputedValue;
-                productMaker.usersProduct[typeProperty][field]  = productMaker.usersProduct.checkQualityInfo()
+                productMaker.usersProduct[typeProperty][field] = productMaker.usersProduct.checkQuality(field)
             }
 
-            if ( field === "file" ) {
-
-                productMaker.usersProduct[typeProperty].image[field] = inputedValue;
-                productMaker.usersProduct[typeProperty].image[field] =  productMaker.usersProduct.checkQualityImage()
-                productMaker.imageSettings.isNewImage = true
-            }
-
-            if ( field === "audio" ) {
-                
-                productMaker.usersProduct[typeProperty][field]["file"] = inputedValue;
-                productMaker.usersProduct[typeProperty][field]["src"] =  productMaker.usersProduct.checkQualityAudio()
-                
-            }
-
-            if ( field === "video" ) {
-                
-                productMaker.usersProduct[typeProperty][field]["src"] = inputedValue;
-                productMaker.usersProduct[typeProperty][field]["src"] =  productMaker.usersProduct.checkQualityVideo()
-                
-            }
-
-            if ( field === "contact" ) {
+            if ( field === "image" ||  field === "audio" ||  field === "video"  ) {
                 
                 productMaker.usersProduct[typeProperty][field][subfield] = inputedValue;
-                productMaker.usersProduct[typeProperty][field] = productMaker.usersProduct.checkQualityContact(subfield)
-               
+                productMaker.usersProduct[typeProperty][field].src =  productMaker.usersProduct.checkQuality(field)
+
+                if (field === "image" ) { productMaker.imageSettings.isNewImage = true }
             }
-            
+
+
+
+            if ( field === "contact") {
+                productMaker.usersProduct[typeProperty][field][subfield] = inputedValue;
+                productMaker.usersProduct[typeProperty][field] = productMaker.usersProduct.checkQuality(field, subfield)
+            }            
         }
 
         
@@ -221,10 +204,6 @@ export default {
     mounted() {
         this.productMaker.usersProduct =  AbstactFactory.createProduct(this.$route.params.id)
     },
-    props: {
-        productData: String,
-        nameCategory: String,
-    },
     data() {
         return {
             isHide: {
@@ -271,7 +250,7 @@ export default {
             
             if ( isSuccess ) { 
 
-                const urlImg =  await this.uploadFile( this.productMaker.usersProduct.totalProperty.image.file, "productImage", this.nameCategory )
+                const urlImg =  await this.uploadFile( this.productMaker.usersProduct.totalProperty.image.file, "productImage", this.typeCard )
             
                 if (  this.productMaker.imageSettings.style.backgroud ) {
 
@@ -286,11 +265,11 @@ export default {
 
                 if (  this.productMaker.usersProduct?.audio === true ) {
 
-                    const urlAudio =  await this.uploadFile( this.productMaker.usersProduct.specificProperty.audio.file, "productAudio", this.nameCategory )
+                    const urlAudio =  await this.uploadFile( this.productMaker.usersProduct.specificProperty.audio.file, "productAudio", this.typeCard )
                     this.productMaker.usersProduct.specificProperty.audio.url = urlAudio
                 }
 
-                this.writeProduct( this.productMaker.usersProduct ,  this.nameCategory ) 
+                this.writeProduct( this.productMaker.usersProduct ,  this.typeCard ) 
                 this.userLeave()
 
             } else {
@@ -311,7 +290,7 @@ export default {
     },
     computed: {
         aspectRatioImage() {
-             switch (this.nameCategory) {
+             switch (this.typeCard) {
                 case "video":
 
                     return '720 / 480'

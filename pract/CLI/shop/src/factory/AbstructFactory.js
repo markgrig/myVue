@@ -1,15 +1,21 @@
-import { FactoryProduct, FactoryVideoProduct, FactoryMusicInstrumentProduct } from "./Factory"
+import { FactoryProduct, FactoryMediaProduct } from "./Factory"
 
 
-export const createProduct = (category = "" , dataProduct = "" ) => {
+export const createProduct = (nameCard = "" ) => {
 
-        if ( category.trim() === "music_instrument" )  {
-            return new FactoryMusicInstrumentProduct(dataProduct )
-        }
+        const key = nameCard.trim()
 
-        if ( category.trim() === "video" ) {
-            return new FactoryVideoProduct(dataProduct)
-        }
+        switch (key) {
+            case  "videoCard":
+                return new FactoryMediaProduct("video" )
+            
+            case  "audioCard":
+                    return new FactoryMediaProduct("audio" )
         
-        return new FactoryProduct(dataProduct)
+            default:
+                return new FactoryProduct()  // "ordinaryCard"
+        }
+      
+        
+        
     }

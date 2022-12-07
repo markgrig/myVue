@@ -1,13 +1,13 @@
 <template>
     <div>
         <AudioView
-            v-if = "nameCategoty === 'music_instrument' && isShowPlayer.audio" 
-            :audioUrl = "specificProperty?.audio?.url">
+            v-if = "typeCard === 'audioCard' && isShowPlayer.audio" 
+            :audioUrl = "specificProperty?.audio?.src">
 
         </AudioView>
         
         <VideoView
-            v-if = "nameCategoty === 'video' && isShowPlayer.video" 
+            v-if = "typeCard === 'videoCard' && isShowPlayer.video" 
                 :isCategoryList = "isCategoryList" 
                 :videoUrl = "specificProperty?.video?.src"
                 :usersStyle = "totalProperty.image.style"
@@ -27,12 +27,8 @@ export default {
         specificProperty: Object,
         onVideo: Boolean,
         aspectRatioImage: String,
+        typeCard: String,
         isCategoryList: Boolean,
-    },
-    data() {
-            return {
-                nameCategoty: this.$route.params.id,   
-        }
     },
     methods: {
         offVideo() {
@@ -42,7 +38,7 @@ export default {
     computed: {
         isShowPlayer() {
                 return {
-                    audio: this.specificProperty?.audio?.url || false,
+                    audio: this.specificProperty?.audio?.src || false,
                     video: this.specificProperty?.video?.src || false
                 }
             }
@@ -66,16 +62,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-button {
-    background-color: rgba(0, 0, 255, 0.465);       
-    padding: 10px; 
-    display: block;
-    margin: auto;
-    color: white;
-    border-radius: 12px;
-    margin-top: 20px;
-}
-button:hover {
-    box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.315);
-}
+
 </style>

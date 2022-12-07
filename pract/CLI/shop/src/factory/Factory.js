@@ -1,7 +1,8 @@
 
 export class FactoryProduct {
-    constructor( name = " " , info = " " ,  price = "0" , file = "", contact = { email: "" , phone: "" } )
+    constructor( type = "ordinary", name = " " , info = " " ,  price = "0" , file = "", contact = { email: "" , phone: "" } )
     {
+        this.type = type
         this.totalProperty = {
             name: name,  
             info: info,
@@ -29,8 +30,169 @@ export class FactoryProduct {
                     } },
             }
         }
+
+        this.checkQualityFun = {
+            name: ()=> {
+
+                const name =  this.totalProperty.name
+
+                if ( !name ) {
+                    this.totalProperty.success.name.value = "Имя товара не может быть пустым."
+                    this.totalProperty.success.name.status = false
+                    return "Неподходящее имя"
+                }
         
+                if (  Number( this.removeSpace(name) ) ) {
+                    this.totalProperty.success.name.value = "Название товара не может сосотоять из одних цифор."
+                    this.totalProperty.success.name.status = false
+                    return "Неподходящее имя"
+                }
+                
+                if ( name.length < 20 && name.length > 2 ) {
+                    this.totalProperty.success.name.status = true
+                    return name 
+                } else {
+                    this.totalProperty.success.name.value = "Количество символов и пробелов должно быть больше 2, но меньше 20."
+                    this.totalProperty.success.name.status = false
+                    return "Неподходящее имя"
+                }
+
+            },
+
+        price: ()=> {
+            
+            const price = Number(this.totalProperty.price)   
+        
+            if ( !price &&  price !== 0 ) {
+                this.totalProperty.success.price.value = "Цена должна быть числом"
+                this.totalProperty.success.price.status = false
+                return "0"
+            } 
+    
+            
+            if ( !price ) {
+                this.totalProperty.success.price.value = "Цена должна быть больше 0"
+                this.totalProperty.success.price.status = false
+                return "0"
+            }
+    
+            if ( price > 1000000000 ) {
+                this.totalProperty.success.price.value = "Введите число меньше миллиарда. "
+                this.totalProperty.success.price.status = false
+                return "0"
+            }
+            if (  price > 1000000  ) {
+                const billions = Math.round((price/100000))/10
+                
+                this.totalProperty.success.price.status = true
+                return billions.toString() + " млн."
+            }
+           
+            if (  price >= 0  ) {
+                this.totalProperty.success.price.status = true
+                return this.separateThousands(price)
+            } else {
+                this.totalProperty.success.price.value = "Введите положительное число!"
+                return "0"
+            }
+
+        },
+
+        info: ()=> {
+            
+            const info = this.totalProperty.info
+        
+        
+            if (  info.length < 20 ) {
+                this.totalProperty.success.info.value = "Введите больше 20 печатных знаков."
+                this.totalProperty.success.info.status = false
+                return info
+            }
+
+            if ( info.length < 1000 ) {
+                this.totalProperty.success.info.status = true
+                return info
+            } else {
+                this.totalProperty.success.info.value = "Количество символов и пробелов в описании не должно привышать 1000."
+                this.totalProperty.success.info.status = false
+                return "Неподходящее описание..."
+            }
+
+        },
+
+        image:  ()=> {
+            const file =  this.totalProperty.image.file
+        
+            if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type)) {
+                this.totalProperty.success.image.value = "Разрешены только изображения"
+                this.totalProperty.success.image.status = false
+                return ""
+            }
+
+            
+            if (file.size > 2 * 1024 * 1024) {
+                this.totalProperty.success.image.value = "Файл должен быть менее 2 МБ."
+                this.totalProperty.success.image.status = false
+                return ""
+            }
+
+            this.totalProperty.success.image.status = true
+            return URL.createObjectURL(file)
+        },
+        
+        contact: ( subfield ) => {
+
+            const contact = this.specificProperty.contact
+    
+            const regEMail = /^[\w-.]+@[\w-]+.[a-z]{2,4}$/i;
+            const regPhone =  /^\b\d{1}[-.]?\d{3}[-.]?\d{3}[-.]?\d{2}[-.]?\d{2}\b$/;
+    
+            switch (subfield) {
+                case "email":
+                    
+                    if (  regEMail.test( contact.email ) ) {
+                
+                        this.specificProperty.success.contact.status.email = true
+                        this.specificProperty.success.contact.value.email = ""
+            
+                    } else {
+                       
+                        this.specificProperty.success.contact.status.email = false
+                        this.specificProperty.success.contact.value.email = "Почта должна содержать символ @ и правильное окончание"
+            
+                        contact.email = ""
+                    }
+    
+                    break;
+                
+            case "phone":
+    
+                    if (  regPhone.test( contact.phone ) ) {
+    
+                        this.specificProperty.success.contact.status.phone = true
+                        this.specificProperty.success.contact.value.phone = ""
+                        
+                    } else {
+                        this.specificProperty.success.contact.status.phone = false
+                        this.specificProperty.success.contact.value.phone = "Введите в следующих форматах: 89127629211, 8-912-762-92-11"
+                    
+                        contact.phone = ""
+                    
+                    }
+    
+                    break;
+            
+                default:
+                    break;
+            }
+           
+            return contact
+    
+            
+            }
+        }
     }
+
     removeSpace(str) {
         if ( str  )  {
             return str.replace(" ",'')
@@ -51,116 +213,11 @@ export class FactoryProduct {
        
     }
     
-    checkQualityName() {
-
-        const name =  this.totalProperty.name
-        if ( !name ) {
-            this.totalProperty.success.name.value = "Имя товара не может быть пустым."
-            this.totalProperty.success.name.status = false
-            return "Неподходящее имя"
-        }
-
-        if (  Number( this.removeSpace(name) ) ) {
-            this.totalProperty.success.name.value = "Название товара не может сосотоять из одних цифор."
-            this.totalProperty.success.name.status = false
-            return "Неподходящее имя"
-        }
-        
-        if ( name.length < 20 && name.length > 2 ) {
-            this.totalProperty.success.name.status = true
-            return name 
-        } else {
-            this.totalProperty.success.name.value = "Количество символов и пробелов должно быть больше 2, но меньше 20."
-            this.totalProperty.success.name.status = false
-            return "Неподходящее имя"
-        }
+    checkQuality(field , subfield) {
+        return this.checkQualityFun[field](subfield)
     }
-    
-    checkQualityPrice() {
-        
-        const price = Number(this.totalProperty.price)
-        
-        
-        if ( !price &&  price !== 0 ) {
-            this.totalProperty.success.price.value = "Цена должна быть числом"
-            this.totalProperty.success.price.status = false
-            return "0"
-        } 
 
-        
-        if ( !price ) {
-            this.totalProperty.success.price.value = "Цена должна быть больше 0"
-            this.totalProperty.success.price.status = false
-            return "0"
-        }
-
-        if ( price > 1000000000 ) {
-            this.totalProperty.success.price.value = "Введите число меньше миллиарда. "
-            this.totalProperty.success.price.status = false
-            return "0"
-        }
-        if (  price > 1000000  ) {
-            const billions = Math.round((price/100000))/10
-            
-            this.totalProperty.success.price.status = true
-            return billions.toString() + " млн."
-        }
-       
-        if (  price >= 0  ) {
-            this.totalProperty.success.price.status = true
-            return this.separateThousands(price)
-        } else {
-            this.totalProperty.success.price.value = "Введите положительное число!"
-            return "0"
-        }
-    }
-    checkQualityInfo() {
-         
-        const info = this.totalProperty.info
-        
-        
-        if (  info.length < 20 ) {
-            this.totalProperty.success.info.value = "Введите больше 20 печатных знаков."
-            this.totalProperty.success.info.status = false
-            return info
-        }
-
-        if ( info.length < 1000 ) {
-            this.totalProperty.success.info.status = true
-            return info
-        } else {
-            this.totalProperty.success.info.value = "Количество символов и пробелов в описании не должно привышать 1000."
-            this.totalProperty.success.info.status = false
-            return "Неподходящее описание..."
-        }
-       
-    
-    }
-    checkQualityImage() {
-       
-        const file =  this.totalProperty.image.file
-
-        
-        if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type)) {
-            this.totalProperty.success.image.value = "Разрешены только изображения"
-            this.totalProperty.success.image.status = false
-            return ""
-        }
-
-        
-        if (file.size > 2 * 1024 * 1024) {
-            this.totalProperty.success.image.value = "Файл должен быть менее 2 МБ."
-            this.totalProperty.success.image.status = false
-            return ""
-        }
-
-            this.totalProperty.image.src = URL.createObjectURL(file);
-
-
-        this.totalProperty.success.image.status = true
-        return file
-
-        /*
+    /*
         const createPostData = async (url, fData) => { 
             
             let fetchResponse = await fetch(url, {
@@ -194,121 +251,15 @@ export class FactoryProduct {
                 })
                 
             */    
-    
 
 
-      
-
-        
-    }
-
-    checkQualityContact( subfield ) {
-
-        const contact = this.specificProperty.contact
-
-        const regEMail = /^[\w-.]+@[\w-]+.[a-z]{2,4}$/i;
-        const regPhone =  /^\b\d{1}[-.]?\d{3}[-.]?\d{3}[-.]?\d{2}[-.]?\d{2}\b$/;
-
-        switch (subfield) {
-            case "email":
-                
-                if (  regEMail.test( contact.email ) ) {
-            
-                    this.specificProperty.success.contact.status.email = true
-                    this.specificProperty.success.contact.value.email = ""
-        
-                } else {
-                   
-                    this.specificProperty.success.contact.status.email = false
-                    this.specificProperty.success.contact.value.email = "Почта должна содержать символ @ и правильное окончание"
-        
-                    contact.email = ""
-                }
-
-                break;
-            
-        case "phone":
-
-                if (  regPhone.test( contact.phone ) ) {
-
-                    this.specificProperty.success.contact.status.phone = true
-                    this.specificProperty.success.contact.value.phone = ""
-                    
-                } else {
-                    this.specificProperty.success.contact.status.phone = false
-                    this.specificProperty.success.contact.value.phone = "Введите в следующих форматах: 89127629211, 8-912-762-92-11"
-                
-                    contact.phone = ""
-                
-                }
-
-                break;
-        
-            default:
-                break;
-        }
-       
-        return contact
-
-        
-    }
 
 }
 
-export class FactoryVideoProduct extends  FactoryProduct {
-    constructor() {
+export class FactoryMediaProduct extends  FactoryProduct {
+    constructor(type = "media") {
         super()
-        this.video = true
-        this.specificProperty = {
-
-            ...this. specificProperty,
-            video: {
-                file: "",
-                url: ""
-            },
-            success: {
-
-                ...this. specificProperty.success,
-                video: { status: false, value: "" },
-            }
-
-        }
-    }
-
-    checkQualityVideo() {
-
-        
-        const url = this.specificProperty.video.src; 
-
-        const isValidUrl = url1=> {
-            try { 
-                return Boolean(new URL(url1)); 
-            }
-            catch(e){ 
-                return false; 
-            }
-        }
-
-
-        console.log(  isValidUrl(url) && url.includes("https://www.youtube.com/embed/") );
-        if ( isValidUrl(url) && url.includes("https://www.youtube.com/embed/"))  {
-            this.specificProperty.success.video.status = true
-            this.specificProperty.success.video.value = ""
-            return url  
-        }  
-
-        this.specificProperty.success.video.status = false
-        this.specificProperty.success.video.value = "Неподходящая ссылка на видео ютуб"
-        return ""
-  
-    }
-    
-}
-
-export class FactoryMusicInstrumentProduct extends  FactoryProduct {
-    constructor() {
-        super()
-        this.audio = true
+        this.type = type
         this.specificProperty = {
 
             ...this. specificProperty,
@@ -316,38 +267,71 @@ export class FactoryMusicInstrumentProduct extends  FactoryProduct {
                 file: "",
                 url: ""
             },
+            video: {
+                file: "",
+                url: ""
+            },
             success: {
 
                 ...this. specificProperty.success,
                 audio: { status: false, value: "" },
+                video: { status: false, value: "" },
             }
         }
-       
-    }
-    checkQualityAudio() {
-       
-        const file =  this.specificProperty.audio.file
+    
+    this.checkQualityFun = {
+        ...this.checkQualityFun,
+            audio: ()=> {
 
+                const file =  this.specificProperty.audio.file
+
+                if (!["audio/mpeg", "audio/mp3", "audio/mp4"].includes(file.type)) {
+                    this.specificProperty.success.audio.value = "Разрешены только mp3, mp4, mpeg"
+                    this.specificProperty.success.audio.status = false
+                    return ""
+                }
         
-        if (!["audio/mpeg", "audio/mp3", "audio/mp4"].includes(file.type)) {
-            this.specificProperty.success.audio.value = "Разрешены только mp3, mp4, mpeg"
-            this.specificProperty.success.audio.status = false
-            return ""
+                
+                if (file.size > 50 * 1024 * 1024) {
+                    this.specificProperty.success.audio.value = "Файл должен быть менее 50 МБ."
+                    this.specificProperty.success.audio.status = false
+                    return ""
+                }
+                
+        
+                this.specificProperty.success.audio.status = true
+                return  URL.createObjectURL(file)
+            },
+
+            video: () => {
+
+                const url = this.specificProperty.video.src; 
+    
+                const isValidUrl = url1=> {
+                    try { 
+                        return Boolean(new URL(url1)); 
+                    }
+                    catch(e){ 
+                        return false; 
+                    }
+                }
+        
+                if ( isValidUrl(url) && url.includes("https://www.youtube.com/embed/"))  {
+                    this.specificProperty.success.video.status = true
+                    this.specificProperty.success.video.value = ""
+                    return url  
+                }  
+        
+                this.specificProperty.success.video.status = false
+                this.specificProperty.success.video.value = "Неподходящая ссылка на видео ютуб"
+                return ""
+    
+            }
         }
 
-        
-        if (file.size > 50 * 1024 * 1024) {
-            this.specificProperty.success.audio.value = "Файл должен быть менее 50 МБ."
-            this.specificProperty.success.audio.status = false
-            return ""
-        }
+       
 
-            this.specificProperty.audio.url = URL.createObjectURL(file);
-
-
-        this.specificProperty.success.audio.status = true
-        return file
-
-        
     }
+
+    
 }

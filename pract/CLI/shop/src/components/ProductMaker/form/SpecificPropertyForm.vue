@@ -16,7 +16,7 @@
 
     
     <div 
-        v-if = "nameCategory === 'music_instrument'"
+        v-if = "typeCard === 'audioCard'"
         class = "div-pannel left-div-pannel "> 
 
         <CustomIco
@@ -30,12 +30,12 @@
                 class="modal-input-audio" 
                 type="file" 
                 name="file"
-                @input = "userInput('audio', $event)">
+                @input = "userInput('audio', 'file', $event)">
 
     </div>
 
     <div 
-        v-if = "nameCategory === 'video'"
+        v-if = "typeCard === 'videoCard'"
         class = "div-pannel left-div-pannel "> 
 
         <CustomIco
@@ -56,6 +56,9 @@ import { inject } from 'vue'
 
 export default {
     name: "SpecificPropertyForm",
+    props: {
+        typeCard: String,
+    },
     setup() {
         const productMaker = inject('productMaker')
         
@@ -74,7 +77,6 @@ export default {
    
     data() {
         return {
-            nameCategory: this.$route.params.id,
             src: {
                 addContact: require('@/img/contact.jpg'),
                 addAudio: require('@/img/muz_key.jpg'),
@@ -120,7 +122,7 @@ export default {
                     [ 
                         { 
                             topic: "url видео",
-                            nameValue: "video",  
+                            nameValue: "src",  
                             inputValue: this.productMaker.usersProduct.specificProperty?.video?.src ,
                             error: {
                                 status: this.productMaker.usersProduct.specificProperty.success.video?.status || false ,
@@ -163,8 +165,7 @@ export default {
         }
     },
     methods: {
-        userInput( field, event) {
-
+        userInput( field, subfield, event) {
             
                 let inputedValue
 
@@ -174,7 +175,7 @@ export default {
                     inputedValue = event.target.value.trim()
                 }
 
-                this.updateUsersProduct( inputedValue , "specificProperty",  field)
+                this.updateUsersProduct( inputedValue , "specificProperty",  field, subfield)
 
         },
         userUploadAudio() {

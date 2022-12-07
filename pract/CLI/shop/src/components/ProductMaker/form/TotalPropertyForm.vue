@@ -78,7 +78,7 @@
                 class="modal-input-image" 
                 type="file" 
                 name="file"
-                @input = "userInput('file', $event)">
+                @input = "userInput('image', 'file', $event)">
     
                 
 
@@ -128,18 +128,18 @@ export default {
         }
     },
     methods: {
-        userInput( field, event) {
+        userInput( field, subfield, event) {
 
             
             let inputedValue
             
-            if ( field === "file" ) {
+            if ( field === "image" ) {
                 inputedValue = event.target.files[0]
             } else {          
                 inputedValue = event.target.value.trim()
             }
             
-            this.updateUsersProduct( inputedValue , "totalProperty",  field)
+            this.updateUsersProduct( inputedValue , "totalProperty",  field , subfield)
 
         },
         userUploadImage() {

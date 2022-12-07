@@ -10,7 +10,8 @@
             @isSuccessFillingForm = "$emit('isSuccessFillingForm')">
         </TotalPropertyForm>
 
-        <SpecificPropertyForm>
+        <SpecificPropertyForm
+            :typeCard = "typeCard">
             
         </SpecificPropertyForm>
 
@@ -66,7 +67,7 @@ export default {
         width: 58%;
 
         margin: 0; 
-        margin-left: 21%;
+        margin-left: 25%;
         margin-top: 35vw;
         padding-top: 1%;
 
