@@ -3,6 +3,8 @@ import { componentArray } from './components/componentsArray'
 import productData from "@/mixins/ProductDataMixin"
 import App from './App.vue'
 import { router } from './router/router'
+import { store } from './vuex/vuex'
+
 
 const createIcons = (iconsUrl) => {
     const link = document.createElement("link")
@@ -35,6 +37,7 @@ componentArray.forEach( component => {
 });
 
 app.use(router)
+app.use(store)
 app.mixin(productData)
 app.mount('#app')
 

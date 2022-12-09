@@ -1,20 +1,22 @@
 <template>
     
-    <div class="card-img">
-        <div 
-            :class = "classList['product-img'] + ' error' "  
-            :style = 'styleProductPicture'
-            @click = "userClickImg"
-            alt="">
+<div :class = "classList['card-img']">
+    <div 
+        :class = "classList['product-img']"  
+        :style = 'styleProductPicture'
+        @click = "userClickImg"
+        alt="">
                 
-            <ErrorPlacholder 
-                class="error-img" 
-                v-if = "!isImageSuccess && valueError !== ''"
-                    :textPlaceholder = "valueError" > 
-            </ErrorPlacholder>
-            
-        </div>
+        <ErrorPlacholder 
+            class="error-img" 
+            v-if = "!isImageSuccess && valueError !== ''"
+                :textPlaceholder = "valueError" > 
+        </ErrorPlacholder>
+        
     </div>
+</div>
+       
+    
 
 </template>
 
@@ -52,22 +54,28 @@ export default {
         valueError: String,
         usersStyle: Object,
         isShowImage: Boolean,
-        aspectRatioImage: String
-    },
-    data() { 
-        return {
-                nameCategory: this.$route.params.id,
-        }
+        aspectRatioImage: String,
+        typeCard: String,
+        isPage: Boolean,
     },
     computed: {
         classList() {
-                return { "product-img": `product-img image-${this.nameCategory}`}    
+            if  ( this.isPage ) { 
+                return { 
+                    "product-img": `image-page`,
+                    "card-img": `card-page add-setting-card-page-${this.typeCard}`
+                }
+            }
+                
+            return { "product-img": `product-img image-${this.typeCard}`}    
                
         },
         styleProductPicture() {
 
             if ( !this.imageSettings?.isNewImage === true ) {
-                return this.usersStyle  
+                return { ...this.usersStyle,
+                        "aspect-ratio": `${this.aspectRatioImage}`
+                    } 
             }
            
             return {
@@ -90,6 +98,26 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.card-page {
+    position: relative;
+    width: 80%;
+    left: 5%;
+}
+
+.image-page {
+    box-sizing: border-box;
+    position: static;
+    border-radius: 5px;
+    border: solid 2px black;
+}
+
+.add-setting-card-page-longCard{
+    width: 50%;
+}
+
+.add-setting-card-page-audioCard{
+    width: 60%;
+}
 .error{
     position: relative;
 }
@@ -114,7 +142,7 @@ export default {
 }
 
 
-.image-video {
+.image-videoCard {
 
     left: 5%;
     top: 36.5%;
@@ -125,7 +153,7 @@ export default {
     opacity: 1;
 }
 
-.image-music_instrument {
+.image-audioCard {
    
     left: 5%;
     top: 25%;
@@ -134,7 +162,7 @@ export default {
     width: 30%;
 }
 
-.image-clothes {
+.image-longCard {
 
     left: 10%;
     top: 20%;
@@ -147,16 +175,29 @@ export default {
     transform: rotateY(0deg);
 }
 
-.image-clothes .error-img {
+.image-page {
+
+    left: 10%;
+    top: 20%;
+
+    aspect-ratio: 80 / 110;
+    width: 80%;
+
+    backface-visibility: hidden;
+    transition: 1s;
+    transform: rotateY(0deg);
+}
+
+.image-longCard .error-img {
     opacity: 0;
 }
 
-/* это часть неявно связана с product-card-clothes в ProductCard */
-.product-card-clothes:hover .image-clothes {
+/* это часть неявно связана с product-card-longCard в ProductCard */
+.product-card-longCard:hover .image-longCard {
     transform: rotateY(180deg);
 }
 
-.product-card-clothes:hover .error-img {
+.product-card-longCard:hover .error-img {
     opacity: 1;
 }
 

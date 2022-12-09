@@ -24,6 +24,9 @@
 
 export default {
     name: "ProductForm",
+    props: {
+        typeCard: String,
+    },
     data() {
         return {
                 isHideForm: false

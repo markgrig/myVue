@@ -1,4 +1,4 @@
-import { ref as ref_database, query, limitToLast, set , onValue, off //limitToFirst 
+import { ref as ref_database, query, limitToLast, set , onValue, off , child, get //limitToFirst 
  } from "firebase/database"
 import { ref as ref_storage, uploadBytes , getDownloadURL } from "firebase/storage"
 import { toRaw } from 'vue';
@@ -14,8 +14,8 @@ export default {
     data() {
         return  {
             answerNetlify: "",
-            product: {
-                "video" : {},
+            productsByСategory: {
+                "video_courses" : {},
                 "music_instrument" : {},
                 "clothes": {}
             }, 
@@ -23,18 +23,74 @@ export default {
             database: getDataBaseForLocal(),
             storage:  getStorageForLocal(),
             productLimit: {
-                "video" : 1,
+                "video_courses" : 1,
                 "music_instrument" : 2,
                 "clothes": 3,
                 "mobile": 3
             },
             productIterator: {
-                "video" : 1,
+                "video_courses" : 1,
                 "music_instrument" : 2,
                 "clothes": 3
             },
-            listnerDataBase: {}
+            listnerDataBase: {},
+            isExitGet: false,
+            isFind: true
         }
+    },
+    computed: {
+        nameCategory() {
+            return this.$route.params.id
+          },
+        idProduct() {
+            return this.$route.params.idProduct
+        },
+        isError() {
+          switch (true) {
+            case this.isNotCategory:
+              return true
+            case this.isNotProduct:
+              return true
+            default:
+              return false
+          }
+        },
+        textError() {
+          switch (true) {
+            case this.isNotCategory:
+                if ( this .nameCategory ) {
+                    return `В url сайта на месте, в ктором должна указываться категория вы указали: ${this.nameCategory }. К сожалению, такой категории товаров в нашем магазине нет.`
+                }
+                return `В url сайта на месте, в ктором должна указываться категория вы ничего не указали.
+                        Выбирете категорию на верхней панели или укажите существующую категорию.`
+            case (this.isNotProduct && Boolean(this.idProduct) && this.isExitGet) :
+                return `В категории ${this.nameCategory}  нет товара с id = ${this.idProduct}`
+            case (this.isNotProduct && Boolean(this.idProduct) && !this.isExitGet) :
+                return `Ищу товар`
+            case this.isFind:
+                return `Загрузка товаров ${this.nameCategory}`
+            case this.isNotProduct:
+                return `В категории ${this.nameCategory}  пока нет товаров. Будьте первым!`
+            default:
+                return ""
+          }
+        },
+        isNotCategory() {
+  
+          if ( !this.productsByСategory[this.nameCategory] ) {
+            return true
+          } else {
+            return false
+          }
+  
+        },
+        isNotProduct() {
+          if ( Object.keys( this.productsByСategory[this.nameCategory]).length === 0 ) {
+            return true
+          }
+          return false
+        },
+       
     },
     methods: {
         writeProduct( product, category ) {
@@ -48,11 +104,15 @@ export default {
     
         },
         listenNewProduct() {
-
+            
+            this.isFind = true
+            
             Object.keys( this.productLimit ).forEach(
                 ( el ) => {
+                   
                     if ( el === this.nameCategory ) {
-
+                        
+                   
                         let productLimit 
                         this.isModile  ? productLimit = this.productLimit["mobile"] : productLimit = this.productLimit[el]  
 
@@ -60,18 +120,21 @@ export default {
                                                 limitToLast(productLimit),
                                             );
 
+                       
                         onValue( productListRef , ( snapshot ) => {
-    
+                        
+                        
                             snapshot.forEach(element => {
-    
+                            
                             const keyName = element.key
                             const data = element.val()
-                            this.product[el][keyName] = data
-            
-                        });
+                            
+                            this.productsByСategory[el][keyName] = data
+                             
+                            });
 
-                        this.isModile  ? this.productLimit["mobile"] += 1 : this.productLimit[el] += this.productIterator[el]
-
+                            this.isModile  ? this.productLimit["mobile"] += 1 : this.productLimit[el] += this.productIterator[el]
+                            this.isFind = false
             })
                     } 
                     if ( el !== this.nameCategory ) {
@@ -84,6 +147,31 @@ export default {
             )
 
         
+        },
+        getNewProduct(productId) {
+            
+            const productRef = ref_database( toRaw(this.database))
+
+            get( child( productRef , `productList/${this.nameCategory}/${productId}`) )
+                .then((snapshot) => {
+
+                    if (snapshot.exists()) {
+
+                        const data = snapshot.val();    
+                        this.productsByСategory[this.nameCategory][productId] = data
+
+                    } 
+
+                    this.isExitGet = true
+
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(()=>{
+                    this.isExitGet = true
+                })
+
         },
         async uploadFile(file, property, category) {
 
@@ -134,7 +222,7 @@ export default {
             }
             
             const callback = ( entaries ) => {
-                console.log(entaries);
+
                 if (entaries[0].isIntersecting ) {
                     this.listenNewProduct()
                 }

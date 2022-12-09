@@ -30,7 +30,7 @@
                 class="modal-input-audio" 
                 type="file" 
                 name="file"
-                @input = "userInput('audio', 'file', $event)">
+                @input = "userInput($event, 'audio', 'file')">
 
     </div>
 
@@ -165,7 +165,7 @@ export default {
         }
     },
     methods: {
-        userInput( field, subfield, event) {
+        userInput( event, field, subfield) {
             
                 let inputedValue
 

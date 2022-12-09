@@ -1,9 +1,9 @@
 <template>
     
-    <div class="card-audio">
+    <div :class="classList['card-audio']">
         
         <div 
-            class = 'product-audio error'  
+            :class="classList['product-audio']"
             alt="">
                 <AudioPlayer 
                 
@@ -23,8 +23,24 @@ export default {
     props: {
         deleteModal: Function,
         audioUrl: String,
+        isPage: Boolean,
     },
-    
+    computed:{
+        classList() {
+            if  ( this.isPage ) { 
+                return { 
+                        "card-audio": `card-audio-page`,
+                        "product-audio": `product-audio-page`
+                    }   
+            }
+                
+            return  { 
+                        "card-audio": `card-audio`,
+                        "product-audio": `product-audio error`
+                    }    
+               
+        },
+    }    
 }
 </script>
 
@@ -34,15 +50,31 @@ export default {
 .card-audio {
     position: absolute;
     bottom: 3%;
-    left: 5%;
+    left: 0%;
 
+    width: 100%;
+
+}
+
+.product-audio {
+    position: relative;
     aspect-ratio: 16/2;
     width: 90%;
+    margin: 1% 5%;
+}
 
+.card-audio-page{
+    position: static;
+    width: 100%;
 }
-.priduct-audio {
+
+.product-audio-page {
     position: relative;
+    aspect-ratio: 20/2;
+    width: 98%;
+    margin: 5% 1%;
 }
+
 
 
 @media (max-width: 700px){

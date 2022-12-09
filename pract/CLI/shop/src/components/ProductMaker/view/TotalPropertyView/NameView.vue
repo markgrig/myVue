@@ -1,7 +1,7 @@
 <template>
 
     <div class ="error" >
-        <h3 :class = "classList['product-name']">  {{ nameUsersProduct }}    </h3>
+        <div :class = "classList['product-name']"> {{ nameUsersProduct }}    </div>
         <ErrorPlacholder 
             class="error-name" 
             v-if = "!isNameSuccess && valueError !== ''"
@@ -19,7 +19,9 @@ export default {
         nameUsersProduct: String,
         isNameSuccess: Boolean,
         valueError: String,
-        productData: Object
+        productData: Object,
+        isPage: Boolean,
+        typeCard: Object
     },
     data() {
         return {
@@ -28,8 +30,14 @@ export default {
     },
     computed: {
         classList() {
-                   return { "product-name": `product-name ${this.nameCategory}`           
+
+            if  ( this.isPage ) { 
+                return { 
+                    "product-name": `name-page`,
                 }
+            }
+                return { "product-name": `product-name ${this.typeCard}`           
+            }
         },
     }
 }
@@ -37,6 +45,28 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.name-page {
+    box-sizing: border-box;
+    position: static;
+    margin-top: 3%;
+    margin-bottom: 5%;
+    width: 100%;
+    padding: 4%;
+    height: auto;
+
+    text-align: center;
+    color: rgb(0, 174, 255);
+    background-color: rgba(53, 241, 24, 0.45);
+    border-radius: 10px;
+    border: solid 2px rgb(48, 154, 9);
+
+    font-size: 150%;
+}
+
+.topic-page{
+    text-align: center;
+}
 
 .error{
     position: relative;
@@ -52,7 +82,7 @@ export default {
     font-size: 140%;
 }
 
-.video {
+.videoCard {
 
     width: 50%;
 
@@ -62,7 +92,7 @@ export default {
     font-size: 130%;
 }
 
-.music_instrument {
+.audioCard {
 
     width: 50%;
 
@@ -71,7 +101,7 @@ export default {
 
 }
 
-.clothes {
+.longCard {
 
     width: 90%;
     
@@ -94,16 +124,16 @@ export default {
         padding-right: 0;
     }
 
-    .music_instrument{
+    .audioCard{
         font-size: 95%;
     }
 
-    .video{
+    .videoCard{
         font-size: 60%;
     }
 
 
-    .clothes {
+    .longCard {
         font-size: 65%;
         margin-top: 18%;
     }

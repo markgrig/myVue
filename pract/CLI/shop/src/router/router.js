@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory } from "vue-router"
 import Welcome from "@/page/Welcome"
 import Category from "@/page/Category"
+import Product from "@/page/Product"
 
 const pages = [
     {
@@ -12,22 +13,29 @@ const pages = [
         }
     },
     {
-        path: '/category/:id',
-        name: "buy",
+        path: '/category/',
+        name: "allcategory",
         component: Category,
         meta: {
             title: 'Buy',
         }
-    },  
+    },
     {
-        path: '/category/',
+        path: '/category/:id',
         name: "category",
         component: Category,
         meta: {
-            title: 'Category',
+            title: 'Buy',
         }
-    },  
-    
+    },
+    {
+        path: '/category/:id/product/:idProduct',
+        name: "product",
+        component: Product,
+        meta: {
+            title: 'Buy',
+        }
+    },
     
 ]
 

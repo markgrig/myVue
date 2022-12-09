@@ -55,7 +55,7 @@ export default {
             event.target.value = event.target.value.trimLeft()
             this.newInputValue = event.target.value
 
-            this.$emit( 'userInput' , this.nameValue, event )
+            this.$emit( 'userInput' , event , this.nameValue, )
         }
     }
 }

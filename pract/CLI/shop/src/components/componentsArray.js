@@ -13,6 +13,7 @@ import InfoView from "@/components/ProductMaker/view/TotalPropertyView/InfoView.
 import ImageView from "@/components/ProductMaker/view/TotalPropertyView/ImageView.vue"
 import AudioView from "@/components/ProductMaker/view/SpecificPropertyView/AudioView.vue"
 import VideoView from "@/components/ProductMaker/view/SpecificPropertyView/VideoView.vue"
+import ConactView from "@/components/ProductMaker/view/SpecificPropertyView/ConactView.vue"
 
 
 import BlueButton from "@/components/Anothers/BlueButton.vue"
@@ -28,7 +29,7 @@ import CustomInput from "@/components/Anothers/CustomInput.vue"
 import CustomForm from "@/components/Anothers/CustomForm.vue"
 import AudioPlayer from "@/components/Anothers/AudioPlayer.vue"
 import UserGuid from "@/components/Anothers/UserGuid.vue"
-
+import ErrorCard from "@/components/Anothers/ErrorCard.vue"
 
 export const componentArray = [
     ProductMaker,
@@ -47,7 +48,8 @@ export const componentArray = [
 
     AudioView,
     VideoView,
-    
+    ConactView,
+
     TestExit,
     RedCross,
     BlueButton,
@@ -60,6 +62,7 @@ export const componentArray = [
     CustomInput,
     CustomForm,
     AudioPlayer,
-    UserGuid
+    UserGuid,
+    ErrorCard
     
 ]

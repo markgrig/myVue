@@ -2,6 +2,7 @@
 
  <div>
     <NameView
+        :typeCard = "typeCard"
         :nameUsersProduct = "totalProperty.name"
         :isNameSuccess = "totalProperty.success.name.status"
         :valueError = "totalProperty.success.name.value"    
@@ -16,15 +17,21 @@
     </PriceView>
 
     <InfoView
+        :typeCard = "typeCard"
+        :isCategoryList = "isCategoryList" 
+        :srcImageUsersProduct = "totalProperty.image.src"
         :infoUsersProduct = "totalProperty.info"
+        :aspectRatioImage = "aspectRatioImage"
+        
         :isInfoSuccess = "totalProperty.success.info.status"
+        :usersStyle = "totalProperty.image.style"
         :valueError = "totalProperty.success.info.value">
     </InfoView>
 
     
 
     <ImageView
-
+        :typeCard = "typeCard"
         :isCategoryList = "isCategoryList" 
         :srcImageUsersProduct = "totalProperty.image.src"
         :usersStyle = "totalProperty.image.style"
@@ -47,12 +54,13 @@ export default {
         totalProperty: Object,
         aspectRatioImage: String,
         isCategoryList: Boolean,
+        typeCard: String,
     },
     methods: {
         userClickImg() {
             this.$emit('userClickImg');
         }
-    }
+    },
 }
 </script>
 

@@ -1,30 +1,40 @@
 <template >
-  
+ 
   <BlueButton class="but-create"
     @click="clickCreateProduct()" 
     textButton = "Создать товар"> 
   </BlueButton>
-     
+
   <ProductMaker v-if= "isCreatProduct"
       @deleteProductMaker = "deleteProductMaker"
+      :store = 'this.$store'
+      :nameCategory = "nameCategory"
       :typeCard = "typeCard">
 
   </ProductMaker>
   
+  
   <div class = "box-product">
     <div
-      v-for=" el, key in product[typeCard]" :key ="key">
+      v-for=" el, key in productsByСategory[nameCategory]" :key ="key">
 
         <div :class = "classList['view-card']">
           <ProductCard
+            :typeCard = "typeCard"
+            :keyProduct  = "key" 
             :usersProduct = "el"
             :isCategoryList = "true">
           </ProductCard>
         </div>
         
     </div> 
-    
-   
+
+  
+      <ErrorCard
+        :textError = "textError"
+        v-if = "isError">
+      </ErrorCard>
+     
   </div>
   
   <div>
@@ -36,13 +46,14 @@
 
 <script>
 import productData from "@/mixins/ProductDataMixin"
+import { constants } from '@/components/Novigation/constants.js'
 
 export default {
     name: "Category",
     mixins: [productData],
     data() {
       return {
-        isCreatProduct: false,
+        isCreatProduct: this.$store.state.isReturnMaker[this.$route.params.id],
         isUserWrite: false,
       }
     },
@@ -55,22 +66,20 @@ export default {
       },
     },
     computed: {
-        typeCard() {
-          this.listenNewProduct()
-
-          const category = {
-            'video': 'videoCard',
-            'music_instrument': 'audioCard',
-            'clothes': 'longCard'
-          }
-
-          return category[this.$route.params.id]
-        },
-        classList() {
-              return { "view-card": `view-card vc-${this.typeCard}`}    
-               
-        },
+      typeCard() {
+        if ( this.isNotCategory ) return ""
+        return constants.category[this.nameCategory].card 
+      },
+      classList() {
+            return { "view-card": `view-card vc-${this.typeCard}`}    
+              
+      },
     },
+    watch: {
+      nameCategory() {
+        this.listenNewProduct()
+      }
+    }
 }
 
 </script>
@@ -90,7 +99,7 @@ export default {
     position: relative;
     margin-bottom: 10%;
 }
-.vc-video {
+.vc-videoCard {
     width: 45vw;
     aspect-ratio: 8 / 8;
     margin-left: 26vw;
@@ -98,13 +107,13 @@ export default {
 }
 
 
-.vc-music_instrument {
+.vc-audioCard {
     width: 45vw;
     aspect-ratio: 8 / 5;
     margin-left: 2.5vw;
 }
 
-.vc-clothes {
+.vc-longCard  {
     width: 30vw;
     aspect-ratio: 4 / 6;
     margin-left: 2vw; 
@@ -116,9 +125,6 @@ export default {
     margin: 0 0%;
 }
 
-
-
-
 h1{
   text-align: center;
 }
@@ -126,18 +132,18 @@ h1{
 @media (max-width: 700px){
 
 
-  .vc-video {
+  .vc-videoCard {
     width: 94vw;
     font-size: 150%;
   }
 
-  .vc-music_instrument {
+  .vc-audioCard {
     width: 94vw;
     font-size: 110%;
   }
   
 
-  .vc-clothes {
+  .vc-longCard  {
     width: 80vw;
     margin-left: 8vw;
 

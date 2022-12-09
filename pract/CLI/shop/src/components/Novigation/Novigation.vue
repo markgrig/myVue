@@ -14,25 +14,25 @@
 </template>
 
 <script>
-import { constant } from '@/factory/constants.js'
+import { constants } from '@/components/Novigation/constants.js'
 
 export default {
   name: 'NovigationElement',
   data () {
   return {
-    categores: constant.category,
+    categores: Object.values( constants.category ),
     nameCategory: "",
   }
   },
   methods: {
     changeCategory( name, urlName) {
-      
-      const url = '/category/' + urlName;
+     
+      const url = `/category/${urlName}`
       this.$router.push({ path: url })
-      this.nameCategory = name
+    //  this.nameCategory = name
      },
     findUrl(urlInpute) {
-        console.log(urlInpute);
+        //console.log(urlInpute);
         this.categores.forEach(element => {
             if ( urlInpute?.trim() === element.urlName?.trim() ) { this.nameCategory = element.name }
         });

@@ -52,7 +52,7 @@ export default {
             this.$emit( "hideModalPicture" , "additionalForm", event.target)
 
         },
-        userInput( nameInput, event ) {
+        userInput(  event , nameInput) {
             
             this.$emit( 'userInput' , event.target.value ,  this.typeProperty , this.nameProperty, nameInput )
         }

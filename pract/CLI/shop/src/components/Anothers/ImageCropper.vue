@@ -62,13 +62,13 @@ export default {
             heightBox: 1,
             isMovePicture: false,
             scrollValue: this.setting?.startScrollValue || 1,
-            arraySlider: [  "Свечение картинки",
+            arraySlider: [  
                             "Свечение рамки",
                             "Tолщина рамки" , 
                             "Скругление углов" , 
                             "Контрастность"],
-            koof: this.setting?.koofMember || [0, 0, 0, 0, 0],
-            sliderSartX: this.setting?.sliderSartXMember ||  [0, 0, 0, 0 , 0],
+            koof: this.setting?.koofMember || [0, 0, 0, 0],
+            sliderSartX: this.setting?.sliderSartXMember ||  [0, 0, 0, 0 ],
             mouseXY: {
                 old: {
                     x: 0,
@@ -275,16 +275,15 @@ export default {
 
         },
         styleProductPictureSetting() {
-            const shadowSize = Math.floor( 6*(this.koof[0] )*100)/100
-            const shadowBordSize = Math.floor( 1*(this.koof[1] )*100)/100
-            const borderWidth = Math.floor( 1 * (this.koof[2] + 0.01)*100)/100
-            const borderRad = Math.floor( 50* (this.koof[3])*100)/100
-            const constrast = Math.floor( 0.8 * (this.koof[4] + 1.25)*100)/100
+            const shadowBordSize = Math.floor( 1*(this.koof[0] )*100)/100
+            const borderWidth = Math.floor( 1 * (this.koof[1] + 0.01)*100)/100
+            const borderRad = Math.floor( 15* (this.koof[2])*100)/100
+            const constrast = Math.floor( 0.8 * (this.koof[3] + 1.25)*100)/100
             
             return {
                     
                     "box-shadow":  `0 0 ${ shadowBordSize }vw ${ shadowBordSize + "px" } blue` ,
-                    "filter": `contrast(${constrast}) drop-shadow( 0px 0px  ${ shadowSize + "px" } blue)`,
+                    "filter": `contrast(${constrast})`,
                     "border": `solid ${borderWidth}vw rgba(93, 150, 255, 0.1)`,
                     "border-radius": `${borderRad}%`,
                     "aspect-ratio": `${this.aspectRatioImage}`
@@ -392,12 +391,14 @@ export default {
     background-color: rgba(83, 255, 140, 0.6);
 }
 .pannel {
+   
     position: relative;
     display: block;
-
+    box-sizing: border-box;
+    padding-top: 10%;
     aspect-ratio: 1/1;
     width: 75%;
-    margin:  5% auto ;
+    margin:  0 auto ;
 
     font-size: 140%;
     text-align: center;

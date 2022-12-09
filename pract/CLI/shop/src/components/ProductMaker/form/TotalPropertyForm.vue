@@ -78,7 +78,7 @@
                 class="modal-input-image" 
                 type="file" 
                 name="file"
-                @input = "userInput('image', 'file', $event)">
+                @input = "userInput($event, 'image', 'file')">
     
                 
 
@@ -128,9 +128,8 @@ export default {
         }
     },
     methods: {
-        userInput( field, subfield, event) {
+        userInput( event, field, subfield) {
 
-            
             let inputedValue
             
             if ( field === "image" ) {

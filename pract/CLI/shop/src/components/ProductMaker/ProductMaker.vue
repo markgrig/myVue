@@ -3,12 +3,13 @@
     <div class = "overflower"   @click = "userClicked">
 
         <div class = 'from-and-card' >
-
+            
             <div class = 'overflower-product-card'
                 v-if = "!isHide.card" >
         
                 <ProductCard
                     :typeCard = "typeCard"
+                    keyProduct  = 'newProduct' 
                     :isHideCard = "isHide.card"
                     :aspectRatioImage = "aspectRatioImage"
                     @hideModal= "hideModal"
@@ -29,7 +30,7 @@
                 </ProductForm>
                 
                 <div class= "div-calc"> 
-                    <div :class = "classCalc"> {{ numberOfErrors }} </div>
+                    <div :class = "classCalc"> {{ getNumberOfErrors }} </div>
                 </div>
             </div>
 
@@ -38,7 +39,7 @@
 
                 v-show="( isHide.card || isHide.form ) && !isExit"
                     @click ="returnModal()"> 
-                    Вернуть {{ nameDeletemodal }} 
+                    Вернуть {{ nameDeletemodal }}  
             </div>
 
         </div>
@@ -46,7 +47,7 @@
          <div class="black-window" ></div>
 
         <h4 class ='modal-window computed-window'>
-                {{ getStatusProdaction }}   
+            {{ getStatusProdaction }}   
         </h4>
 
     
@@ -96,10 +97,21 @@ export default {
     props: {
         productData: String,
         typeCard: String,
+        store: Object,
+        nameCategory: String
     },
     setup(props) {
+
+        let product = {}
+        
+        if ( props.store.state.isReturnMaker[props.nameCategory] ) {
+            product = reactive(  props.store.state.product[props.nameCategory])
+        } else {
+            product = reactive( AbstactFactory.createProduct(props.typeCard))
+        }
+        
         const productMaker =  reactive( { 
-            usersProduct:  reactive( AbstactFactory.createProduct(props.typeCard)),
+            usersProduct: reactive( product),
             imageSettings: { 
                 isOpen: false,
                 data: {},
@@ -117,6 +129,7 @@ export default {
            
         })
 
+        console.log(productMaker.usersProduct);
        
         const updateUsersProduct = (inputedValue, typeProperty,  field, subfield) => { 
 
@@ -175,7 +188,7 @@ export default {
 
             const formAndCard = target.closest(".overflower").querySelector(".from-and-card")
             formAndCard.classList.remove("opacityModalLeave")
-            formAndCard.classList.add("opacityModalEnter")
+            formAndCard.classList.add("opacityModalEnter")  
 
             if ( field === "imageSettings" ) {
                 productMaker.imageSettings.isNewImage = false
@@ -202,7 +215,7 @@ export default {
 
     },
     mounted() {
-        this.productMaker.usersProduct =  AbstactFactory.createProduct(this.$route.params.id)
+        //this.productMaker.usersProduct =  AbstactFactory.createProduct(this.typeCard)
     },
     data() {
         return {
@@ -213,6 +226,7 @@ export default {
             nameDeletemodal: "",
             isExit: false,
             classCalc: "calcValidation",
+            numberOfErrors:  Object.keys(this.productMaker.usersProduct.totalProperty.success).length,
             productDataObject: this.productData
         }
     },
@@ -241,6 +255,14 @@ export default {
        
         },
         async isSuccessFillingForm() {
+            
+            const number = Object.values( this.productMaker.usersProduct.totalProperty.success)
+                .filter( el => !el.status)
+                .reduce( acc=> { return acc+1 }, 0 )
+            
+            this.numberOfErrors = number
+
+            console.log( this.numberOfErrors );
 
             const isSuccess = Object
                                     .values(  this.productMaker.usersProduct.totalProperty.success )
@@ -261,15 +283,19 @@ export default {
                     this.productMaker.imageSettings.style.background = `url(${urlImg}) no-repeat 50% 50% / 100% auto`
                 }
 
+                this.productMaker.usersProduct.totalProperty.image.src = urlImg
                 this.productMaker.usersProduct.totalProperty.image.style = this.productMaker.imageSettings.style  || {}
 
                 if (  this.productMaker.usersProduct?.audio === true ) {
 
                     const urlAudio =  await this.uploadFile( this.productMaker.usersProduct.specificProperty.audio.file, "productAudio", this.typeCard )
-                    this.productMaker.usersProduct.specificProperty.audio.url = urlAudio
+                    this.productMaker.usersProduct.specificProperty.audio.src = urlAudio
                 }
 
-                this.writeProduct( this.productMaker.usersProduct ,  this.typeCard ) 
+                delete this.productMaker.usersProduct.checkQualityFun;
+            
+                console.log(this.productMaker.usersProduct);
+                this.writeProduct( this.productMaker.usersProduct , this.$route.params.id ) 
                 this.userLeave()
 
             } else {
@@ -291,20 +317,19 @@ export default {
     computed: {
         aspectRatioImage() {
              switch (this.typeCard) {
-                case "video":
+                case "videoCard":
 
                     return '720 / 480'
                 
-                case "music_instrument":
+                case "audioCard":
                 
                     return '1/1'
 
-                case "clothes":
+                case "longCard":
                 
                     return '80 / 110'
              
                 default:
-
                     return '1/1'
              }
         },
@@ -323,13 +348,8 @@ export default {
             }
             return "Сейчас вы можите наблюдать за карточкой и заполнять её"
             },
-        numberOfErrors() {
-            
-            const number = Object.values( this.productMaker.usersProduct.totalProperty.success)
-                .filter( el => !el.status)
-                .reduce( acc=> { return acc+1 }, 0 )
-        
-            return `Число незаполненыйх полей: ${number}`
+        getNumberOfErrors() {        
+            return `Число незаполненыйх полей: ${this.numberOfErrors}`
         },
     }
 }
@@ -458,7 +478,7 @@ body, html {
 
 @keyframes red-color {
     0%   { color:white }
-    50%  {  color:rgb(238, 58, 58); font-size: 1.51vw;  }
+    50%  {  color:rgb(238, 58, 58); font-size: 95%;  }
     100% { color:white }
 }
 

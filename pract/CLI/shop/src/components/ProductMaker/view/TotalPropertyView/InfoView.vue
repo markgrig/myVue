@@ -1,7 +1,9 @@
 <template>
-
+ 
     <div>
-        <div :class = "classList['background-info']">
+        <div 
+            :class = "classList['background-info']"
+            :style = 'styleProductPictureBorder'>
             
             <h3 class = "product-info-topic"> Описание: </h3>
             <div :class = "classList['product-info']"> {{ infoUsersProduct }}
@@ -24,34 +26,129 @@
 </template>
 
 <script>
+import { inject } from 'vue';
 
 export default {
     name: "InfoView",
     props: {
+        srcImageUsersProduct: {
+            type: String,
+            default:  "https://www.thinkwithgoogle.com/_qs/static/img/icons/data-points/consumer_goods.svg"
+        },
+        aspectRatioImage: String,
+        isCategoryList: Boolean,
         infoUsersProduct: String,
         isInfoSuccess: Boolean,
         valueError: String,
-        isShowInfo: Boolean
+        usersStyle: Object,
+        isShowInfo: Boolean,
+        typeCard: String,
+        isPage: Boolean,
     },
-    data() {
-        return {
-            nameCategory: this.$route.params.id,
+    setup(props) {
+
+        const isCreatProduct = !props.isCategoryList
+
+        if ( isCreatProduct ) {
+
+            const imageSettings = inject("imageSettings")
+            return { imageSettings }
+        
+        } else {
+
+            const imageSettings = {}
+            return { imageSettings }
+
         }
+
+
     },
     computed: {
         classList() {
-                return { "background-info": `background-info error back-${this.nameCategory}`,
-                          "product-info": `product-info info-${this.nameCategory}` 
-                    
-                }
+
+            if  ( this.isPage ) {
+                return { 
+                    "background-info": `background-info-page`,
+                    "product-info": `product-info` 
+                } 
+            }
+
+            return { "background-info": `background-info error back-${this.typeCard}`,
+                        "product-info": `product-info info-${this.typeCard}` 
+                
+            }
 
         },
+        styleProductPicture() {
+
+            if ( !this.imageSettings?.isNewImage === true ) {
+                return { ...this.usersStyle,
+                        "aspect-ratio": `${this.aspectRatioImage}`
+                    } 
+            }
+
+            return {
+                    'background': `url(${this.srcImageUsersProduct}) 
+                    no-repeat
+                    50% 50% / 100% auto` ,
+                    "aspect-ratio": `${this.aspectRatioImage}`,  
+                }
+
+            },
+        
+        styleProductPictureBorder() {
+
+            if ( this.styleProductPicture.background && !this.isPage && (this.typeCard === "longCard")) {
+                return {
+                ...this.styleProductPicture,
+                'background': this.styleProductPicture.background.replace( `url(${this.srcImageUsersProduct})`,  ""),
+                
+                }
+            }
+            return {}
+        }
     }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.background-info-page {
+    box-sizing: border-box;
+    position: static;
+
+    box-sizing: border-box;
+    height: min-content;
+    max-height: 300px;
+
+    margin:  0; 
+    padding:  2% 4%;
+
+    border-radius: 16px;
+    background-color: rgba(192, 192, 192, 0.163);
+    border: solid 2px   black;
+    word-break: break-word;
+}
+
+
+.product-info{
+    
+    height: fit-content;
+   
+    margin: 0  -7% 0  0% ;
+    padding: 2% 5% 2% 0%;
+    
+
+    text-align: justify ;
+    text-indent: 10px;
+
+    overflow: auto;
+    color: black;
+ 
+    text-indent: 100px; 
+    font-size: 140%;
+}
 
 .error{
     position: relative;
@@ -72,21 +169,21 @@ export default {
 
 }
 
-.back-video {
+.back-videoCard {
     right: 0%;
     left: 5%;
     top: 20%;
     width: 90%;
 }
 
-.back-music_instrument {
+.back-audioCard {
     right: 5%;
     top: 25%;
     width: 50%;
     min-height: 30%;
 }
 
-.back-clothes {
+.back-longCard {
     opacity: 1;
 
     right: 10%;
@@ -99,16 +196,16 @@ export default {
     transition: 1s;
     transform: rotateY(180deg);
 }
-.back-clothes  .error-info {
+.back-longCard  .error-info {
     opacity: 0;
 }
 
-/* это часть неявно связана с product-card-clothes в ProductCard */
-.product-card-clothes:hover .back-clothes {
+/* это часть неявно связана с product-card-longCard в ProductCard */
+.product-card-longCard:hover .back-longCard {
     transform: rotateY(360deg);
 }
 
-.product-card-clothes:hover .error-info {
+.product-card-longCard:hover .error-info {
     opacity: 1;
 }
 
@@ -126,11 +223,11 @@ export default {
     overflow: auto;
     color: black;
  
-    text-indent: 30px; 
+    text-indent: 10%; 
     font-size: 140%;
 }
 
-.info-video{
+.info-videoCard{
     
     white-space: nowrap; 
     overflow: hidden; 
@@ -142,11 +239,11 @@ export default {
     max-height: 1ch;
 }
 
-.info-music_instrument{
+.info-audioCard{
     aspect-ratio: 7/3;
 }
 
-.info-clothes{
+.info-longCard{
     max-height: 27ch;
 }
 
@@ -158,11 +255,11 @@ export default {
 
     color: rgb(246, 234, 234);
     text-indent: 0px;
-
-    background-color:   rgba(121, 11, 11, 0.7);
+    z-index: 100;
+    background-color:   rgb(158, 49, 49);
     border-radius: 15px 15px 0 0;
-    border-bottom: solid  0.1vw whitesmoke;
-
+    
+    border-bottom: 0;
     font-size: 150%;
 }
 

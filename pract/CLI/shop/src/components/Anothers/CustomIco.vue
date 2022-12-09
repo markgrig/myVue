@@ -38,8 +38,9 @@ export default {
 .picture {
     z-index: 1;
     margin: 0;
-    height: auto;
+   
     width: 100%;
+    aspect-ratio: 1/1;
     padding: 0;
 
     border-radius: 50%;

@@ -4,10 +4,12 @@
         
         <BlueButton 
             class = "open-product-page"
-            textButton = "page">
+            textButton = "page"
+            @click = "openProductPage">
         </BlueButton>
 
-       
+
+        
 
         <RedCross
             v-if = "!isCategoryList" 
@@ -15,6 +17,7 @@
         </RedCross>
 
         <TotalPropertyView
+            :typeCard = "typeCard"
             :isCategoryList = "isCategoryList" 
             :totalProperty = "usersProduct.totalProperty"
             :aspectRatioImage = "aspectRatioImage"
@@ -22,6 +25,7 @@
         </TotalPropertyView>
 
         <SpecificPropertyView
+            :typeCard = "typeCard"
             :isCategoryList = "isCategoryList" 
             :totalProperty = "usersProduct.totalProperty"
             :specificProperty = "usersProduct.specificProperty"
@@ -44,18 +48,28 @@ export default {
     props: {
         usersProduct: Object,
         aspectRatioImage: String,
+        typeCard: String,
         isCategoryList: Boolean,
+        keyProduct: Number
     },
     data() {
         return {
                 isHideCard: false,
-                typeCard: this.$route.params.id,
                 userClick: {
                     img: false
                 }
         }
     },
     methods: {
+        openProductPage(){
+
+            if ( this.keyProduct === 'newProduct') {      
+                this.$store.commit('updateProduct', { category: this.$route.params.id, newProduct: this.usersProduct } )
+            } 
+
+            const url = `/category/${this.$route.params.id}/product/${this.keyProduct}`;
+            this.$router.push({ path: url });
+        },
         hideModal() {
             this.isHideCard = true
             this.$emit( "hideModal", "card" , this.isHideCard )
@@ -73,7 +87,7 @@ export default {
                 }
         },
         onVideo() {
-            if ( this.userClick.img && (this.typeCard === "video") ) {
+            if ( this.userClick.img && (this.typeCard === "videoCard") ) {
                 return true
             }
 
@@ -124,7 +138,7 @@ export default {
     
 }
 
-/* с product-card-clothes неявно связанны back-clothes (InfoView) и image-clothes(ImageView)*/
+/* с product-card-clothes неявно связанны back-longCard (InfoView) и image-longCard(ImageView)*/
 .product-card-longCard {
 
     aspect-ratio: 4 / 6;
@@ -151,21 +165,21 @@ export default {
 
 @media (max-width: 700px){
     
-    .product-card-video {
+    .product-card-videoCard {
 
         width: 60%;
         margin: 2% 20%;
 
     }
 
-    .product-card-music_instrument {
+    .product-card-audioCard {
 
         width: 90%;
         margin: 4% 5%;
 
     }
 
-    .product-card-clothes {
+    .product-card-longCard {
 
         width: 40%;
         margin: 4% 30%;

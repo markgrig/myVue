@@ -3,8 +3,8 @@
         v-if = "onVideo"
         class= 'card-video'>
     
-        <div 
-            class = 'product-video error'  
+        <div
+        :class= "classList['product-video']" 
             alt="">
             
             <embed 
@@ -19,6 +19,7 @@
         </div>
 
         <BlueButton 
+            v-if = "!isPage"
             class = "off-iframe"
             textButton = "Выкл"
             @click="offVideo"
@@ -27,7 +28,7 @@
         </BlueButton>
 
         <BlueButton 
-            class = "fullwin-iframe"
+            :class= "classList['fullwin-iframe']"
             textButton = "Fullscrean"
             @click="showFullWIndow"
             >
@@ -64,7 +65,8 @@ export default {
         usersStyle: Object,
         onVideo: Boolean,
         videoUrl: String,
-        aspectRatioImage: String
+        aspectRatioImage: String,
+        isPage: Boolean,
     },
     data() {
         return {
@@ -73,10 +75,26 @@ export default {
     },
     computed: {
         classList() {
+
+            
             if( this.isFullWindow ) {
                 return { "video-iframe": `video-iframe full-win`}  
             }
-            return { "video-iframe": `video-iframe`}   
+
+            if  ( this.isPage ) { 
+                return { 
+                    "video-iframe": `video-iframe`,
+                    "fullwin-iframe": `fullwin-iframe-page`,
+                    "product-video": `product-video-page `
+                }   
+            }
+              
+
+            return { 
+                "video-iframe": `video-iframe`,
+                "fullwin-iframe": `fullwin-iframe`,
+                "product-video": `product-video error`
+            }   
         },
         styleProductPicture() {
 
@@ -112,6 +130,24 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.product-video-page {
+
+    box-sizing: content-box;
+    position: relative;
+    
+    margin: 4% 0;
+    width: 100%;
+    aspect-ratio: 720 / 480;
+
+  
+    z-index: 0;
+
+}
+.fullwin-iframe-page{
+    position: relative;
+    font-size: 200%;
+    width: 30%;
+}
 
 .error{
     position: relative;
@@ -125,6 +161,7 @@ export default {
     border: solid 1px black;
     z-index: 0;
 }
+
 .error-video {
     bottom: 0%;
     top: 90%;
@@ -136,9 +173,9 @@ export default {
 
 .product-video {
 
-    box-sizing: content-box;
+    box-sizing: border-box;
     position: absolute;
-    left: 5%;
+    left: 5.1%;
     top: 36.5%;
 
     aspect-ratio: 720 / 480;

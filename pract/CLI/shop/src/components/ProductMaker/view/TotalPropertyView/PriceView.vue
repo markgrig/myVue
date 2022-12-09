@@ -1,6 +1,6 @@
 <template>
 
-    <div :class = "classList['product-price']"> {{ priceUsersProduct }}  руб.
+    <div :class = "classList['product-price']">{{ priceUsersProduct || 0 }}  руб.
 
     <div class="error">
         <ErrorPlacholder 
@@ -22,7 +22,8 @@ export default {
     props: {
         priceUsersProduct: String,
         isPriceSuccess: Boolean,
-        valueError: String
+        valueError: String,
+        isPage: Boolean,
     },
     data() {
         return {
@@ -31,8 +32,14 @@ export default {
     },
     computed: {
         classList() {
-                   return { "product-price": `product-price ${this.nameCategory}`           
+
+            if  ( this.isPage ) { 
+                return { 
+                    "product-price": `price-page`,
                 }
+            }
+                return { "product-price": `product-price ${this.nameCategory}`           
+            }
         },
     }
 }
@@ -42,6 +49,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.price-page {
+    box-sizing: border-box;
+    position: static;
+    margin: 5% 0%;
+    width: 100%;
+    padding: 4%;
+    height: auto;
+
+    text-align: center;
+    color: rgb(0, 174, 255);
+    background-color: rgba(53, 241, 24, 0.45);
+    border-radius: 10px;
+    border: solid 2px rgb(48, 154, 9);
+    font-size: 150%;
+}
+
 
 .product-price{
     position: absolute;
