@@ -2,18 +2,18 @@ import { ref as ref_database, query, limitToLast, set , onValue, off , child, ge
  } from "firebase/database"
 import { ref as ref_storage, uploadBytes , getDownloadURL } from "firebase/storage"
 import { toRaw } from 'vue';
-import { getDataBaseForLocal, getStorageForLocal }  from "./.env.js"
+//import { getDataBaseForLocal, getStorageForLocal }  from "./.env.js"
 
 export default {
-    created() {
-       // this.answerNetlify = await this.callNetlify()       
+    async created() {
+       const answerNetlify = await this.callNetlify()   
+       return { answerNetlify }    
     }, 
     mounted() {
         this.observePage()
     }, 
     data() {
         return  {
-            answerNetlify: "",
             productsByСategory: {
                 "video_courses" : {},
                 "music_instrument" : {},
@@ -21,8 +21,8 @@ export default {
                 "clothes": {}
             }, 
             isModile: Boolean( ( window.innerWidth < 850)) ,
-            database: getDataBaseForLocal(),
-            storage:  getStorageForLocal(),
+            database: this.answerNetlify.database , // getDataBaseForLocal(),
+            storage:   this.answerNetlify.storage , // getStorageForLocal(),
             productLimit: {
                 "video_courses" : 1,
                 "concert_tickets" : 2,
@@ -198,7 +198,7 @@ export default {
         
         async callNetlify() {
 
-            const url = "/.netlify/functions/getDataBase"
+            const url = "/.netlify/functions/getDataBase/"
 
             try {
                 const response= await fetch(url) //если вызов функции асинхронный идёт ожидание

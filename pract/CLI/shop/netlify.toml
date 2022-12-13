@@ -4,8 +4,7 @@
   status = 200
 
 [build]
-  command = "npm run build"
-  Functions = "functions"
+  Functions = "functions-build"
+  command = "yarn run build"
   publish = "dist"
   NODE_ENV = "8.11.3"
-

@@ -84,7 +84,7 @@ export default {
               answers: ""
             },
             { 
-              question: 'Сейчас вы выбираете ту категорю, которая займёт бронзовое место',
+              question: 'Сейчас вы выбираете ту категорию, которая займёт бронзовое место',
               variantAnswers: this.nameCategoryArray,
               answers: ""
             },
