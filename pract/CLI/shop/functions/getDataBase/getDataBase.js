@@ -1,9 +1,9 @@
-import { initializeApp } from "firebase/app";
+/*import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
-
+*/
 export const handler = async () => {
-
+/*
   const firebaseConfig = {
 
     apiKey: process.env.API_KEY,
@@ -18,13 +18,13 @@ export const handler = async () => {
   
   const appFirebase = initializeApp(firebaseConfig);
   const database =  getDatabase(appFirebase);
-  const storage = getStorage(appFirebase);
+  const storage = getStorage(appFirebase);*/
 
     return {
       statusCode: 200,
         body: JSON.stringify( {
-        database: database,
-        storage: storage
+        database: 123,
+        storage: 123
       })
     }
 
