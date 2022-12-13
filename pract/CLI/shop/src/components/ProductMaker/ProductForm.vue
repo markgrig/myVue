@@ -1,7 +1,7 @@
 <template>
     
     <div class = "product-form" id="form">
-
+   
         <RedCross 
             :deleteModal= "hideModal">
         </RedCross>
@@ -11,7 +11,9 @@
         </TotalPropertyForm>
 
         <SpecificPropertyForm
-            :typeCard = "typeCard">
+            :typeCard = "typeCard"
+            :canChangeTypeCard = "canChangeTypeCard"
+            @changeTypeCard = "changeTypeCard">
             
         </SpecificPropertyForm>
 
@@ -26,6 +28,7 @@ export default {
     name: "ProductForm",
     props: {
         typeCard: String,
+        canChangeTypeCard: Boolean,
     },
     data() {
         return {
@@ -36,7 +39,11 @@ export default {
         hideModal() {
             this.isHideForm = true
             this.$emit( "hideModal", "form" , this.isHideForm )
+        },
+        changeTypeCard() {
+             this.$emit('changeTypeCard')
         }
+    
    
     },    
 }

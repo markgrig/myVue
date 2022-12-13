@@ -1,15 +1,33 @@
 <template >
- 
+
+
+ <div class = "main-pannel">
   <BlueButton class="but-create"
     @click="clickCreateProduct()" 
     textButton = "Создать товар"> 
   </BlueButton>
 
+ <div class ="ico-box"
+      v-if="canChangeTypeCard">
+
+  <CustomIco
+            :src = "src.changeTypeCard"
+            @userClickedOnIco = "changeTypeCard()"
+            :textPlaceholder =    "placeholder.changeTypeCard">
+  </CustomIco>
+ </div>
+
+ </div>
+  
+
   <ProductMaker v-if= "isCreatProduct"
       @deleteProductMaker = "deleteProductMaker"
       :store = 'this.$store'
       :nameCategory = "nameCategory"
-      :typeCard = "typeCard">
+      :typeCard = "typeCard"
+      :canChangeTypeCard = "canChangeTypeCard"
+      @changeTypeCard = "changeTypeCard"
+      :necessarilySpecProp = "constants.category[nameCategory].necessarily">
 
   </ProductMaker>
   
@@ -53,8 +71,16 @@ export default {
     mixins: [productData],
     data() {
       return {
+        src: {      
+          changeTypeCard: require('@/img/change.png'),      
+        },
+        placeholder: {
+          changeTypeCard:  'Переключить тип карточки'
+        },
         isCreatProduct: this.$store.state.isReturnMaker[this.$route.params.id],
         isUserWrite: false,
+        cardIndex: 0,
+        constants: constants
       }
     },
     methods: {
@@ -64,11 +90,26 @@ export default {
       deleteProductMaker() {
         this.isCreatProduct = false
       },
+      changeTypeCard() {
+        this.cardIndex +=1;
+        if ( this.cardIndex === constants.category[this.nameCategory].card.length ) {
+          this.cardIndex = 0
+        }
+      },
     },
     computed: {
+      canChangeTypeCard() { 
+        if ( this.isNotCategory ) return false
+        return constants.category[this.nameCategory].card instanceof Array
+      },
       typeCard() {
         if ( this.isNotCategory ) return ""
-        return constants.category[this.nameCategory].card 
+        
+        if ( this.canChangeTypeCard)  {
+          return constants.category[this.nameCategory].card[this.cardIndex]
+        }
+
+        return constants.category[this.nameCategory].card
       },
       classList() {
             return { "view-card": `view-card vc-${this.typeCard}`}    
@@ -85,6 +126,17 @@ export default {
 </script>
 
 <style>
+
+.main-pannel {
+  width: 20%;
+  margin: auto;
+  display: flex;
+}
+
+.ico-box{
+  width: 20%;
+  position: relative;
+}
 
 .box-product{
   display: flex;

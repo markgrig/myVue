@@ -1,16 +1,22 @@
 <template>
     <div>
         <AudioView
-            v-if = "typeCard === 'audioCard' && isShowPlayer.audio" 
-            :audioUrl = "specificProperty?.audio?.src">
+            v-if = "typeCard === 'audioCard' " 
+            :audioUrl = "specificProperty?.audio?.src"
+            :isShowPlayer = "isShowPlayer.audio"
 
-        </AudioView>
+            :isAudioSuccess = "specificProperty?.success.audio?.status"
+            :valueError = "specificProperty?.success.audio?.value">
         
+        </AudioView>
+      
         <VideoView
             v-if = "typeCard === 'videoCard' && isShowPlayer.video" 
                 :isCategoryList = "isCategoryList" 
+
                 :videoUrl = "specificProperty?.video?.src"
                 :usersStyle = "totalProperty.image.style"
+                
                 :aspectRatioImage = "aspectRatioImage"
                 :onVideo = "onVideo"
                 @offVideo = "offVideo">

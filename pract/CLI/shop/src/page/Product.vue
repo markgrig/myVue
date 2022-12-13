@@ -79,7 +79,7 @@
       <AudioView
             v-if = "isShowPlayer.audio" 
             :isPage  = 'true'
-            :audioUrl = "specificProperty?.audio?.src">
+            :audioUrl = "product?.specificProperty?.audio?.src">
 
         </AudioView>
         

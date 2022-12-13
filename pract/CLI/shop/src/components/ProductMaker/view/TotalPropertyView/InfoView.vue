@@ -196,18 +196,13 @@ export default {
     transition: 1s;
     transform: rotateY(180deg);
 }
-.back-longCard  .error-info {
-    opacity: 0;
-}
 
 /* это часть неявно связана с product-card-longCard в ProductCard */
 .product-card-longCard:hover .back-longCard {
     transform: rotateY(360deg);
 }
 
-.product-card-longCard:hover .error-info {
-    opacity: 1;
-}
+
 
 
 
@@ -267,11 +262,12 @@ export default {
     position: absolute;
     
     
-    bottom: -18%;
+    bottom: -22.5%;
     left:  20%;
     
     padding-left: 30px;
-
+    padding-right: 30px;
+    
     height: max-content;
     width: fit-content;
 
@@ -303,6 +299,8 @@ export default {
   box-shadow: none;
 
 }
+
+
 
 
 @media (max-width: 700px){

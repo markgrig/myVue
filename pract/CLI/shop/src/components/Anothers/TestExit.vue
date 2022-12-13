@@ -62,7 +62,7 @@ export default {
 }
 .ico-noexit, .ico-exit {
    margin: 100px 0px;
-   width: 20vw;
+   width: 15vw;
    height: auto;
    
 }

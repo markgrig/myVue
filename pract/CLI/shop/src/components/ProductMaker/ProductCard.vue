@@ -4,7 +4,7 @@
         
         <BlueButton 
             class = "open-product-page"
-            textButton = "page"
+            textButton = "Страница      "
             @click = "openProductPage">
         </BlueButton>
 
@@ -50,7 +50,7 @@ export default {
         aspectRatioImage: String,
         typeCard: String,
         isCategoryList: Boolean,
-        keyProduct: Number
+        keyProduct: Number,
     },
     data() {
         return {
@@ -158,8 +158,8 @@ export default {
     height: 8%;
     padding: 1% 3%;
     position:absolute;
-    top: 0;
-    right: 16%;
+    top: 0.25%;
+    right: 12%;
 }
 
 

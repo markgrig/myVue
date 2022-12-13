@@ -17,6 +17,7 @@ export default {
             productsByСategory: {
                 "video_courses" : {},
                 "music_instrument" : {},
+                "concert_tickets" : {   },
                 "clothes": {}
             }, 
             isModile: Boolean( ( window.innerWidth < 850)) ,
@@ -24,12 +25,14 @@ export default {
             storage:  getStorageForLocal(),
             productLimit: {
                 "video_courses" : 1,
+                "concert_tickets" : 2,
                 "music_instrument" : 2,
                 "clothes": 3,
                 "mobile": 3
             },
             productIterator: {
                 "video_courses" : 1,
+                "concert_tickets" : 2,
                 "music_instrument" : 2,
                 "clothes": 3
             },

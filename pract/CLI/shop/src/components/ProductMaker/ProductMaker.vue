@@ -25,8 +25,10 @@
                 <ProductForm
                     :typeCard = "typeCard"
                     :isHideForm = "isHide.form"
+                    :canChangeTypeCard = "canChangeTypeCard"
                     @hideModal= "hideModal"
-                    @isSuccessFillingForm = "isSuccessFillingForm">
+                    @isSuccessFillingForm = "isSuccessFillingForm"
+                    @changeTypeCard = "changeTypeCard">
                 </ProductForm>
                 
                 <div class= "div-calc"> 
@@ -47,7 +49,7 @@
          <div class="black-window" ></div>
 
         <h4 class ='modal-window computed-window'>
-            {{ getStatusProdaction }}   
+            {{ getStatusProdaction }} 
         </h4>
 
     
@@ -83,6 +85,16 @@
 
         </CustomForm>
         
+        <div class = "but-exit">
+            <BlueButton
+                @click="testExit"
+                v-if = "!isExit" 
+                textButton = "Выйти"
+                >
+            </BlueButton>    
+        </div>
+        
+
     </div>
 
 
@@ -98,7 +110,9 @@ export default {
         productData: String,
         typeCard: String,
         store: Object,
-        nameCategory: String
+        canChangeTypeCard: Boolean,
+        nameCategory: String,
+        necessarilySpecProp: Object
     },
     setup(props) {
 
@@ -223,14 +237,18 @@ export default {
                 card: false,
                 form: false,
             },
+            cardIndex: 0,
             nameDeletemodal: "",
             isExit: false,
             classCalc: "calcValidation",
-            numberOfErrors:  Object.keys(this.productMaker.usersProduct.totalProperty.success).length,
+            emptyFields:  "",
             productDataObject: this.productData
         }
     },
     methods: {
+        changeTypeCard() {
+            this.$emit('changeTypeCard')
+        },
         returnModal() {
 
             this.isHide.form = false
@@ -256,19 +274,46 @@ export default {
         },
         async isSuccessFillingForm() {
             
-            const number = Object.values( this.productMaker.usersProduct.totalProperty.success)
-                .filter( el => !el.status)
-                .reduce( acc=> { return acc+1 }, 0 )
-            
-            this.numberOfErrors = number
+            const successTotalProperty = this.productMaker.usersProduct.totalProperty.success
+            const successSpecificProperty = this.productMaker.usersProduct.specificProperty.success
+            const successContact = this.productMaker.usersProduct.specificProperty.success.contact.status
 
-            console.log( this.numberOfErrors );
-
-            const isSuccess = Object
-                                    .values(  this.productMaker.usersProduct.totalProperty.success )
+            const isSuccessTotal = Object
+                                    .values(  successTotalProperty)
                                     .every( (element) => {
                                         return element.status === true
                                     });
+
+            const isSuccessSpecial =  this.necessarilySpecProp
+                                        .every( (element) => {
+                                            return successSpecificProperty[element].status === true
+                                    });
+
+            const isSuccsecOneOfContact = Object
+                                                .values(successContact)
+                                                .some( (element) => {
+                                                    return element === true
+                                                });
+
+            let message
+            isSuccsecOneOfContact ? message = '' : message = "one contact"
+            this.emptyFields  = [
+
+                                ...Object
+                                    .keys( successTotalProperty )
+                                    .filter( key => successTotalProperty[key].status === false ),
+
+                                ...this.necessarilySpecProp
+                                    .filter( key =>  successSpecificProperty[key].status === false ),
+                                    
+                                message,
+                               
+                                     
+                                ].join(" | ")
+                                
+
+            const isSuccess = isSuccessTotal && isSuccessSpecial && isSuccsecOneOfContact            
+                                    
             
             if ( isSuccess ) { 
 
@@ -286,7 +331,7 @@ export default {
                 this.productMaker.usersProduct.totalProperty.image.src = urlImg
                 this.productMaker.usersProduct.totalProperty.image.style = this.productMaker.imageSettings.style  || {}
 
-                if (  this.productMaker.usersProduct?.audio === true ) {
+                if (  this.productMaker.usersProduct.specificProperty?.audio.src ) {
 
                     const urlAudio =  await this.uploadFile( this.productMaker.usersProduct.specificProperty.audio.file, "productAudio", this.typeCard )
                     this.productMaker.usersProduct.specificProperty.audio.src = urlAudio
@@ -294,7 +339,6 @@ export default {
 
                 delete this.productMaker.usersProduct.checkQualityFun;
             
-                console.log(this.productMaker.usersProduct);
                 this.writeProduct( this.productMaker.usersProduct , this.$route.params.id ) 
                 this.userLeave()
 
@@ -312,6 +356,14 @@ export default {
             this.isExit = false
             this.$emit( 'deleteProductMaker', true)
         },
+        testExit() {
+
+            Object.keys( this.isHide).forEach((key)=>{
+                this.isHide[key] = true
+            })
+            
+            this.isExit = true
+        }
         
     },
     computed: {
@@ -334,8 +386,11 @@ export default {
              }
         },
         getStatusProdaction() {
+            if ( this.productMaker.additionalForm.isOpen ) {
+                return "Заполните дополнительную форму"
+            }
             if ( this.productMaker.imageSettings.isOpen ) {
-                return ""
+                return "Настройте изображение"
             }
             if (   this.isHide.card && this.isHide.form ) {
                 return "Вы уверены, что не хотите добавлять продукт?"
@@ -346,10 +401,11 @@ export default {
             if (   this.isHide.card  ) {
                 return "Сейчас вы можете сконцетрироваться на заполнении полей"
             }
-            return "Сейчас вы можите наблюдать за карточкой и заполнять её"
+            return "Заполните основные поля, наблюдая за карточкой"
             },
-        getNumberOfErrors() {        
-            return `Число незаполненыйх полей: ${this.numberOfErrors}`
+        getNumberOfErrors() {      
+            if (!this.emptyFields) { return "" }  
+            return `Добавьте: ${this.emptyFields}`
         },
     }
 }
@@ -461,8 +517,8 @@ body, html {
     z-index: 4;
     width: 80%;
     left: 10%;
-    top: 6vw;
-    font-size: 90%;
+    top: 5.5vw;
+    font-size: 100%;
 
 
     text-align: center;
@@ -478,7 +534,7 @@ body, html {
 
 @keyframes red-color {
     0%   { color:white }
-    50%  {  color:rgb(238, 58, 58); font-size: 95%;  }
+    50%  {  color:rgb(238, 58, 58); font-size: 101%;  }
     100% { color:white }
 }
 
@@ -493,6 +549,11 @@ body, html {
   transition: 0.1s ease-in-out; 
 }
 
+.but-exit{
+    position: absolute;
+    right: 2%;
+    top: 2%;
+}
 @media (max-width: 700px){
 
 .black-window{

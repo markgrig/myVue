@@ -1,5 +1,5 @@
 <template>
-    <div @click="hideError($event)" > {{ textPlaceholder }} </div>
+    <div> {{ textPlaceholder }} </div>
 </template>
 
 <script>
@@ -8,11 +8,6 @@ export default {
     props: {
         textPlaceholder: String,
     },
-    methods: {
-        hideError(event) {
-           event.target.style.display = "none"
-        }
-    }
 }
 </script>
 

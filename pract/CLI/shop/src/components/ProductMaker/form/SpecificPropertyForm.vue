@@ -1,8 +1,6 @@
 <template>
     <div class = "pannel left-pannel">
 
-        
-    
     <div class = "div-pannel left-div-pannel"> 
 
         <CustomIco
@@ -13,6 +11,17 @@
         
     </div>
     
+    <div class = "div-pannel left-div-pannel"
+        v-if="canChangeTypeCard">
+
+        <CustomIco
+            :src = "src.changeTypeCard"
+            @userClickedOnIco = "changeTypeCard()"
+            :textPlaceholder =    "placeholder.changeTypeCard">
+        </CustomIco>
+
+    </div>
+
 
     
     <div 
@@ -58,6 +67,7 @@ export default {
     name: "SpecificPropertyForm",
     props: {
         typeCard: String,
+        canChangeTypeCard: Boolean,
     },
     setup() {
         const productMaker = inject('productMaker')
@@ -79,11 +89,13 @@ export default {
         return {
             src: {
                 addContact: require('@/img/contact.jpg'),
+                changeTypeCard: require('@/img/change.png'),
                 addAudio: require('@/img/muz_key.jpg'),
                 addUrlVideo: require('@/img/video.webp'),
             },
             placeholder: {
                 addContact:  'Добавить контактые данные?',
+                changeTypeCard:  'Найстройте для другого типа карточки',
                 addAudio: 'Добавьте аудиофайл',
                 addUrlVideo: 'Добавьте ссылку на видео'
             },
@@ -190,6 +202,9 @@ export default {
             
             this.updateMaker( "additionalForm", this.additionalFrom[nameForm], nameForm )       
             this.openNewModal("additionalForm", event.target)
+        },
+        changeTypeCard() {
+             this.$emit('changeTypeCard')
         }
     }
 }
@@ -204,10 +219,11 @@ export default {
     flex-direction: column-reverse;
     justify-content: space-around;
     position: absolute;
-    top: 20%;
+    top: 5%;
     left: -35%;
     width: 23%;
-    height: 80%;
+    height: 100%;
+    
 }
 
 

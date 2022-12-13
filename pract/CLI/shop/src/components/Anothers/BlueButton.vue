@@ -15,11 +15,11 @@ export default {
 <style scoped>
 button {
     font-size: 100%;
-    background-color: rgba(49, 97, 240, 0.8); 
-    border: solid 2px rgba(0, 0, 0, 0.323);      
+    background-color: rgb(6, 130, 254, 0.92);
+    border: solid 2px rgba(67, 64, 64, 0.323);      
     display: block;
     margin: auto;
-    color: white;
+    color: rgb(238, 236, 236);
     border-radius: 16px;
     margin-top: 1.5%;
     padding: 10px;
@@ -27,10 +27,16 @@ button {
     height: min-content;
     min-height: 50px;
 
+    box-shadow: 0 0 1px 1px blueviolet;
+
 }
 button:hover {
-    box-shadow: 0 0 10px 2px rgba(16, 151, 248, 0.744);
-    background-color: rgba(49, 97, 220, 0.8); 
- 
+    box-shadow: 0 0 3px 2px blueviolet;
+    background-color: rgb(6, 130, 254);
+    color: white;
+    font-size: 103%;
 }
+
+
+
 </style>

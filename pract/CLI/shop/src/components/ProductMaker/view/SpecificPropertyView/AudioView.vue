@@ -5,13 +5,22 @@
         <div 
             :class="classList['product-audio']"
             alt="">
-                <AudioPlayer 
-                
-                    class="audio"
-                    :audioUrl = "audioUrl">
+                <AudioPlayer  
+
+                    v-if ="isShowPlayer"
+                        class="audio"
+                        :audioUrl = "audioUrl">
                     
                 </AudioPlayer>
+
         </div>
+        
+        <ErrorPlacholder 
+            class="error-audio" 
+            v-if = "!isAudioSuccess && valueError !== ''"
+                :textPlaceholder = "valueError" > 
+        </ErrorPlacholder>
+
     </div>
 
 </template>
@@ -24,6 +33,10 @@ export default {
         deleteModal: Function,
         audioUrl: String,
         isPage: Boolean,
+        isShowPlayer: Boolean,
+
+        isAudioSuccess: Boolean,
+        valueError: String
     },
     computed:{
         classList() {
@@ -75,7 +88,17 @@ export default {
     margin: 5% 1%;
 }
 
+.error{
+    position: relative;
+}
 
+.error-audio {
+    bottom: 0;
+    left: 30%;
+    max-width: 80%;
+    height: max-content;
+    border-radius: 5px 30px 30px 30px;
+}
 
 @media (max-width: 700px){
 

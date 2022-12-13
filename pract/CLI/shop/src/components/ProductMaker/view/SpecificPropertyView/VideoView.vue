@@ -7,14 +7,15 @@
         :class= "classList['product-video']" 
             alt="">
             
-            <embed 
-                type="text/html"      
-                :class= "classList['video-iframe']"
-                :style = 'styleProductPicture'
-
-                :src= videoUrl
-                title="YouTube video player" 
-                frameborder="0"/>
+            <iframe 
+                    :class= "classList['video-iframe']"
+                    :src= "videoUrl+'?autoplay=1'"
+                    :style = "styleProductPicture" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
                 
         </div>
 
@@ -27,14 +28,7 @@
 
         </BlueButton>
 
-        <BlueButton 
-            :class= "classList['fullwin-iframe']"
-            textButton = "Fullscrean"
-            @click="showFullWIndow"
-            >
-
-        </BlueButton>
-
+    
     </div>
 
 </template>
@@ -143,11 +137,6 @@ export default {
     z-index: 0;
 
 }
-.fullwin-iframe-page{
-    position: relative;
-    font-size: 200%;
-    width: 30%;
-}
 
 .error{
     position: relative;
@@ -192,33 +181,16 @@ export default {
     height: 8%;
     position:absolute;
  
-    top: 0;
-    right: 46%;
+    top: 0.25%;
+    right: 30.5%;
 }
 
-.fullwin-iframe {
-    font-size: 90%;
 
-    width: 14%;
-    height: 8%;
-    position:absolute;
-    top: 0%;
-    right: 30%;
-    z-index: 0;
-}
 
-.full-win {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 99999;
-}
 
 
 @media (max-width: 700px){
-    .fullwin-iframe, .off-iframe {
+    .off-iframe {
         top: -1%;
         font-size: 65%;
     }    

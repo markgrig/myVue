@@ -30,6 +30,7 @@ import CustomForm from "@/components/Anothers/CustomForm.vue"
 import AudioPlayer from "@/components/Anothers/AudioPlayer.vue"
 import UserGuid from "@/components/Anothers/UserGuid.vue"
 import ErrorCard from "@/components/Anothers/ErrorCard.vue"
+import SliderContent from "@/components/Anothers/SliderContent.vue"
 
 export const componentArray = [
     ProductMaker,
@@ -63,6 +64,7 @@ export const componentArray = [
     CustomForm,
     AudioPlayer,
     UserGuid,
-    ErrorCard
+    ErrorCard,
+    SliderContent
     
 ]

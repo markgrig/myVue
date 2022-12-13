@@ -1,15 +1,43 @@
 import {createRouter, createWebHistory } from "vue-router"
-import Welcome from "@/page/Welcome"
+import Home from "@/page/Home"
+import Questionary from "@/page/Questionary"
+import About from "@/page/About"
+import Instruction from "@/page/Instruction"
 import Category from "@/page/Category"
 import Product from "@/page/Product"
+
 
 const pages = [
     {
         path: '/',
-        name: "Welcome",
-        component: Welcome,
+        name: "Home",
+        component: Home,
         meta: {
             title: "Shop",
+        }
+    },
+    {
+        path: '/about',
+        name: "About",
+        component: About,
+        meta: {
+            title: "About",
+        }
+    },
+    {
+        path: '/questionary',
+        name: "Questionary",
+        component: Questionary,
+        meta: {
+            title: "Quest",
+        }
+    },
+    {
+        path: '/instruction',
+        name: "Instruction",
+        component: Instruction,
+        meta: {
+            title: "Guid",
         }
     },
     {

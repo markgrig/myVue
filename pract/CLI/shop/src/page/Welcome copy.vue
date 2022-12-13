@@ -1,5 +1,15 @@
 <template>
 
+<div class ="audio-welcome ">
+  <AudioView
+              :isShowPlayer = 'isShowPlayer.audio'
+              :isAudioSuccess = "true"
+              :isPage  = 'true'
+              :hidePause = "true"
+
+              :audioUrl = "`${require('@/audio/test.mp3')}`">
+  </AudioView>
+</div>
   <div id = "home">
     
     <div class = "image-box"> 
@@ -8,23 +18,28 @@
         class="image-quest ligth" 
         src="@/img/quest.jpg" 
         @mouseover="placholderMouseoverQestionary()"
-        @mouseout="placholderMouseoverQestionary()">
+        @mouseout="placholderMouseoverQestionary()"
+        @click = "goToQuestionary">
 
       <WhitePlacholder 
         v-if = "mouseoverQestionary"
-        class ="white-placeholder-quest" 
-        textPlaceholder = "Пройдёшь опрос?">
+          class ="white-placeholder-quest" 
+          textPlaceholder = "Пройдёшь опрос?">
       </WhitePlacholder> 
 
     </div>
-  
-    <div class="span-box">
+    
+    
+    
 
-        <span 
-        class="text-welcome ligth" 
-        @:mouseover="tellAboutShop()"> 
-        {{ infoAbotShop }}
-      </span>
+      <div class ="audio-welcome ">
+      
+      <h2 class ="text-welcome"></h2>
+      <img src ="https://media.giphy.com/media/9Pmf3QJiDHwyftez6i/giphy-downsized-large.gif"
+            class="gif-welcome">
+
+      
+    
 
     </div>
     
@@ -44,24 +59,19 @@ export default {
             infoAbotShop: `Вы уже слышали что-то о нашем магазине?`,
             infoSilent: true,
             mouseoverQestionary: false,
+            isShowPlayer: {
+              audio: true
+            }
         };
     },
     methods: {
-        async tellAboutShop() {
-            if (this.infoSilent) {
-                this.infoSilent = false;
-                const textHello = `Привет, гость! Добро пожаловать на сайт нашего магазина!
-        Тут вы можете найти самые разные категории товаров.   В нашем магазине  очень много товаров, и все  товары - самые лучшие!`;
-                this.infoAbotShop = "";
-                for (const word of textHello.split("")) {
-                    await new Promise(resolve => setTimeout(resolve, 50 / word.length));
-                    this.infoAbotShop += word;
-                }
-            }
-        },
         placholderMouseoverQestionary() {
         
         return this.mouseoverQestionary = !this.mouseoverQestionary
+      },
+      goToQuestionary() {
+        const url = `/questionary`
+        this.$router.push({ path: url })
       }
     }
 }
@@ -83,6 +93,10 @@ img {
   opacity: 1;
 }
 
+.gif-welcome{
+  width: 50%;
+  margin-left: 25%;
+}
 .image-quest{
   width: 70%;
   margin: 15% 15%;
@@ -145,6 +159,14 @@ img {
   left: -25%;
   bottom: 45%;
 }
+
+
+.audio-welcome{
+  width: 40vw;
+  height: max-content;
+    
+  }
+
 @media (max-width: 700px){
   #home {
     display: flex;

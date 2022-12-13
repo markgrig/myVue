@@ -29,7 +29,7 @@ export default {
      
       const url = `/category/${urlName}`
       this.$router.push({ path: url })
-    //  this.nameCategory = name
+    
      },
     findUrl(urlInpute) {
         //console.log(urlInpute);

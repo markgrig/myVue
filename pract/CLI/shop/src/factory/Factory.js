@@ -50,6 +50,7 @@ export class FactoryProduct {
                 
                 if ( name.length < 20 && name.length > 2 ) {
                     this.totalProperty.success.name.status = true
+                    this.totalProperty.success.name.value = ""
                     return name 
                 } else {
                     this.totalProperty.success.name.value = "Количество символов и пробелов должно быть больше 2, но меньше 20."
@@ -85,11 +86,13 @@ export class FactoryProduct {
                 const billions = Math.round((price/100000))/10
                 
                 this.totalProperty.success.price.status = true
+                this.totalProperty.success.price.value = ""
                 return billions.toString() + " млн."
             }
            
             if (  price >= 0  ) {
                 this.totalProperty.success.price.status = true
+                this.totalProperty.success.price.value = ""
                 return this.separateThousands(price)
             } else {
                 this.totalProperty.success.price.value = "Введите положительное число!"
@@ -111,6 +114,7 @@ export class FactoryProduct {
 
             if ( info.length < 1000 ) {
                 this.totalProperty.success.info.status = true
+                this.totalProperty.success.info.value = ""
                 return info
             } else {
                 this.totalProperty.success.info.value = "Количество символов и пробелов в описании не должно привышать 1000."
@@ -137,6 +141,7 @@ export class FactoryProduct {
             }
 
             this.totalProperty.success.image.status = true
+            this.totalProperty.success.image.value  = ""
             return URL.createObjectURL(file)
         },
         
@@ -300,6 +305,7 @@ export class FactoryMediaProduct extends  FactoryProduct {
                 
         
                 this.specificProperty.success.audio.status = true
+                this.specificProperty.success.audio.value  = ""
                 return  URL.createObjectURL(file)
             },
 

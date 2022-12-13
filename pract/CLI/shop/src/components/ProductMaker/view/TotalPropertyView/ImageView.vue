@@ -1,10 +1,10 @@
 <template>
     
 <div :class = "classList['card-img']">
+    {{ isShowError }}
     <div 
         :class = "classList['product-img']"  
         :style = 'styleProductPicture'
-        @click = "userClickImg"
         alt="">
                 
         <ErrorPlacholder 
@@ -13,6 +13,14 @@
                 :textPlaceholder = "valueError" > 
         </ErrorPlacholder>
         
+        <BlueButton
+            v-if ="typeCard === 'videoCard'&& !isPage"
+                class="video-button"
+                textButton = "▶"
+                @click="userClickImg">
+        </BlueButton>
+
+
     </div>
 </div>
        
@@ -123,7 +131,7 @@ export default {
 }
 
 .error-img {
-    bottom: -25%;
+    bottom: -22.5%;
     left: 30%;
     max-width: 80%;
     height: max-content;
@@ -188,19 +196,28 @@ export default {
     transform: rotateY(0deg);
 }
 
-.image-longCard .error-img {
-    opacity: 0;
-}
-
 /* это часть неявно связана с product-card-longCard в ProductCard */
 .product-card-longCard:hover .image-longCard {
     transform: rotateY(180deg);
 }
 
-.product-card-longCard:hover .error-img {
-    opacity: 1;
+
+.video-button {
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    left: 40%;
+    top: 40%;
+
+    font-size: 250%;
+    opacity: 0.9;
 }
 
+.video-button:hover {
+    transition: 0.5s;;
+    font-size: 255%;
+    opacity: 0.95;
+}
 
 
 @media (max-width: 700px){

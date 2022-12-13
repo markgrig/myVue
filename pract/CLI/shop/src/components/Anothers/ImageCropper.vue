@@ -33,7 +33,12 @@
                     </SliderBall>
                     
                 </div>
-
+                
+                <BlueButton
+                    @click="returnAllSettings" 
+                    textButton = "Сохранить настройки"
+                    >
+                </BlueButton>
                 
             </div>
 
@@ -95,6 +100,15 @@ export default {
             },
             memberX:  this.setting?.startImgY || 0 ,
             memberY:  this.setting?.startImgY || 0, 
+            settingForReturn: {
+                koofMember: this.koof,
+                sliderSartXMember: this.sliderSartX ,
+                startImgX: this.memberX, 
+                startImgY: this.memberY ,
+            
+                startScrollValue: this.scrollValue
+            }
+        
           
         }
     },
@@ -116,12 +130,14 @@ export default {
         },
         deleteModal(event) {   
         
-            console.log(event);
+            this.$emit( "hideModalPicture" , "imageSettings", event.target)
+            this.$emit( "returnSettings" , "imageSettings" , this.settingForReturn, "image", this.styleProductPicture  )
+        },
+        returnAllSettings() {
 
-            
-            this.mouseVectorForPicutre[0]*100/(this.widthBox/2)
+            this.mouseVectorForPicutre[0]*100/(this.widthBox/2) 
 
-            const setting = {
+            this.settingForReturn = {
                 koofMember: this.koof,
                 sliderSartXMember: this.sliderSartX ,
                 startImgX: this.memberX, 
@@ -129,13 +145,7 @@ export default {
             
                 startScrollValue: this.scrollValue
             }
-            this.$emit( "returnSettings" , "imageSettings" , setting, "image", this.styleProductPicture  )
-            
-            this.$emit( "hideModalPicture" , "imageSettings", event.target)
-    
-                
-            
-            
+        
         },
         userMakePicture(event) {
 
@@ -345,7 +355,7 @@ export default {
 
     box-sizing: border-box;
 
-    margin: 10% 5%;
+    margin: 8% 5%;
     width: 45%;
     height: max-content;
     padding: 40px;
@@ -383,12 +393,12 @@ export default {
     margin: auto 5%;
     width: 40%;
     height: max-content;
-    padding: 1%;
+    padding: 2%;
 
     border-radius:  40px;
     border: solid black;
     box-shadow:  0 0 3px 1px white;
-    background-color: rgba(83, 255, 140, 0.6);
+    background-color: rgba(83, 255, 140, 0.65);
 }
 .pannel {
    
