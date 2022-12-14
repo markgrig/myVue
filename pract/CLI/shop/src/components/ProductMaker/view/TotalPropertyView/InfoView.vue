@@ -120,7 +120,6 @@ export default {
 
     box-sizing: border-box;
     height: min-content;
-    max-height: 300px;
 
     margin:  0; 
     padding:  2% 4%;

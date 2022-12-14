@@ -2,12 +2,12 @@ import { ref as ref_database, query, limitToLast, set , onValue, off , child, ge
  } from "firebase/database"
 import { ref as ref_storage, uploadBytes , getDownloadURL } from "firebase/storage"
 import { toRaw } from 'vue';
-//import { getDataBaseForLocal, getStorageForLocal }  from "./.env.js"
+import { getDataBaseForLocal, getStorageForLocal }  from "./.env.js"
 
 export default {
-    async created() {
-       const answerNetlify = await this.callNetlify()   
-       return { answerNetlify }    
+    created() {
+      // const answerNetlify = await this.callNetlify()   
+       //return { answerNetlify }    
     }, 
     mounted() {
         this.observePage()
@@ -21,8 +21,8 @@ export default {
                 "clothes": {}
             }, 
             isModile: Boolean( ( window.innerWidth < 850)) ,
-            database: this.answerNetlify.database , // getDataBaseForLocal(),
-            storage:   this.answerNetlify.storage , // getStorageForLocal(),
+            database:  getDataBaseForLocal(),  //this.answerNetlify.database , 
+            storage:  getStorageForLocal(),    // this.answerNetlify.storage , 
             productLimit: {
                 "video_courses" : 1,
                 "concert_tickets" : 2,

@@ -72,12 +72,11 @@
       </InfoView>
 
   
-
-       
       <h2 class = "topic-page-box">  Категория: </h2>
       <h2 class = "el-page-box">  {{ nameCategoryRUS }} </h2>
       <AudioView
-            v-if = "isShowPlayer.audio" 
+            v-if = "isShowPlayer.audio"
+            :isShowPlayer = "isShowPlayer.audio"
             :isPage  = 'true'
             :audioUrl = "product?.specificProperty?.audio?.src">
 
@@ -202,7 +201,8 @@
 
   width: max-content;
   margin: auto;
-  margin-bottom: 5%;
+  margin-bottom: 40px;
+
   padding: 1% 5%;
 
   border-radius: 20px;

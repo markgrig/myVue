@@ -2,7 +2,12 @@
 
  
 <div>
-  123
+
+  <BlueButton
+        @click="clicktoBack()" 
+        textButton = "Вернуться назад"> 
+  </BlueButton>
+
 </div>
   
 
@@ -18,8 +23,10 @@ export default {
     
         }
     },
-    methods: {
-      
+   methods: {
+      clicktoBack() {
+        this.$router.go(-1)
+      },
     }
 }
 </script>

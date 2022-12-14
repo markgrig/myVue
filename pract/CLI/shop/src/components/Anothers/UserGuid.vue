@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div class= "box">
         <div v-for = "el, i in insrtuction" 
-             :key = "i" >
+             :key = "i" 
+             class="el">
             <h4 class ="words" > {{ el.words }}  </h4>
             <img class = "img-instr" :src= "`${ el.img }`" alt="">
             <hr class = "hr-instr">
@@ -21,6 +22,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.el{
+    padding: 20px;
+}
+
 .words {
     width: 100% ;
     padding: 2.5%;

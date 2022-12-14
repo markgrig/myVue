@@ -28,6 +28,11 @@
     </select>
    
   </div>
+  
+  <BlueButton
+        @click="clicktoBack()" 
+        textButton = "Вернуться назад"> 
+  </BlueButton>
 
 </div>
   
@@ -99,7 +104,9 @@ export default {
       }
     },
     methods: {
-      
+      clicktoBack() {
+        this.$router.go(-1)
+      },
     }
 }
 </script>

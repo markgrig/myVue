@@ -7,6 +7,12 @@
     textButton = "Создать товар"> 
   </BlueButton>
 
+  <BlueButton class="but-create"
+    @click="goToHome()" 
+    textButton = "На главную"> 
+  </BlueButton>
+
+
  <div class ="ico-box"
       v-if="canChangeTypeCard">
 
@@ -96,6 +102,10 @@ export default {
           this.cardIndex = 0
         }
       },
+      goToHome() {
+        const url = `/`
+        this.$router.push({ path: url })
+      }
     },
     computed: {
       canChangeTypeCard() { 
@@ -128,14 +138,18 @@ export default {
 <style>
 
 .main-pannel {
-  width: 20%;
+  width: 25%;
   margin: auto;
   display: flex;
+  position: relative;
 }
 
 .ico-box{
-  width: 20%;
-  position: relative;
+  box-sizing: border-box;
+  width: 15%;
+  top: 10%;
+  right: -20%;
+  position: absolute;
 }
 
 .box-product{
