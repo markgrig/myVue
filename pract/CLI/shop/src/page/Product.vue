@@ -11,7 +11,7 @@
        </ErrorCard>
 
       <div class = "page-box">
-        <h2 class = "topic-page-box">  Страница товара </h2>
+        <h2 class = "topic-page-box">  {{ namePage }} </h2>
       <div class = "flex-page">
         <ImageView
 
@@ -120,6 +120,12 @@
 
     },
     computed: {
+      namePage(){
+        if ( Number(this.idProduct)) {
+          return `Tовар № ${this.idProduct}`
+        }
+        return "Новый товар"
+      },
       product() {
         return this.productsByСategory[this.nameCategory][this.idProduct] 
       },
@@ -188,13 +194,14 @@
 .page-box {
   position: relative;
   box-sizing: border-box;
-  width: 80%;
-  margin: 2% 10%;
+  width: 70%;
+  margin: 2% auto;
   padding: 5%;
 
   background-color: rgba(255, 255, 255, 1);
   border-radius: 10px;
   border: solid 3px saddlebrown;
+  box-shadow:  0 1px 20px 2px white;
 }
 
 .el-page-box{
@@ -220,10 +227,12 @@
   font-size: 180%;
   padding-top: 4%;
   padding-bottom: 1%;
+  filter: drop-shadow(0px 2px 1px rgb(109, 109, 109));
 }
 
 .topic-page{
     text-align: center;
+    filter: drop-shadow(0px 2px 1px rgb(109, 109, 109));
 }
 
 

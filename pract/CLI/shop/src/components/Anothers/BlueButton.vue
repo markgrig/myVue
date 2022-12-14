@@ -1,5 +1,5 @@
 <template>
-    <button> {{ textButton }} </button>
+    <button> <div> {{ textButton }}</div> </button>
 </template>
 
 <script>
@@ -30,8 +30,13 @@ button {
     box-shadow: 0 0 1px 1px blueviolet;
 
 }
+
+button div {
+    filter: drop-shadow(0px 0px 1px black);
+    font-weight: 900;
+}
 button:hover {
-    box-shadow: 0 0 3px 2px blueviolet;
+    box-shadow: 0 0 5px 1px blueviolet;
     background-color: rgb(6, 130, 254);
     color: white;
     font-size: 103%;

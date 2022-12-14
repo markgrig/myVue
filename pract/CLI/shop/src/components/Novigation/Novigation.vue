@@ -5,7 +5,7 @@
     <strong class="novigation-element ligth" 
         @:click = 'changeCategory( category.name, category.urlName)'
         v-for='category, id in categores' :key = 'id' >
-          {{ category.name }} 
+         <div>  {{ category.name }}    </div> 
     </strong>
   </div>
     
@@ -65,14 +65,18 @@ h2 {
   font-size: 1.5vw;
   width: 20vw;
   height: auto;
-  color: rgba(11, 11, 226, 0.855);
+  color: white;
   box-shadow: 0 0 8px 1px rgb(26, 173, 232);
-  background-color: rgb(151, 230, 233,0.9);
+  background-color: rgba(31, 135, 253, 0.7);
   border: solid 0.16vw;
-
+  
   padding: 1vw 0px;
   border-radius: 1vw;
 
+}
+
+.novigation-element div {
+  filter: drop-shadow(0px 0px 1px black);
 }
 @media (max-width: 700px){
   .navigator div:nth-child(2) {

@@ -31,6 +31,7 @@ export default {
     width: 100% ;
     padding: 2.5%;
     color: white;
+    filter: drop-shadow(0px 0px 2px black);
 }
 .img-instr {
     z-index: 0;
@@ -40,7 +41,13 @@ export default {
     margin-top: 0.3%;
     margin-bottom: -1%;
     border: solid 4px rgb(23, 22, 22);
-    box-shadow: none;
+    box-shadow: 0 0 50px 1px white;
+}
+
+.img-instr:hover {
+    width: 102%;
+    margin-left: -1%;
+    transition: 0.1s ease-out;
 }
 .hr-instr {
     z-index: 7;

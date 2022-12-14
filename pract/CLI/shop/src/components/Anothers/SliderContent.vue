@@ -13,7 +13,7 @@
              :key = "i" >
             <h3 class ="words" > {{ el.words }} </h3>
             <img 
-                class = "img-slider" 
+                class = "img-slider ligth" 
                 :src= "`${ el.img }`" alt=""
                 @mouseover = "placholderMouseoverQestionary(i)"
                 @mouseout = "placholderMouseoverQestionary(i)"
@@ -171,12 +171,13 @@ export default {
 .words {
     box-sizing: border-box;
     width: max-content;
+    max-width: 50%;
     margin: auto;
-    margin-bottom: -10px;
     padding: 1% 2%;
     color: rgb(236, 217, 94);
     background-color: rgba(63, 35, 243, 0.8);
     border: solid 2px rgb(157, 127, 50);
+    border-bottom: 0;
     border-radius: 10px 10px 1px 1px;
 
     text-align: center;
@@ -191,6 +192,22 @@ export default {
     border: solid 4px rgb(23, 22, 22);
     box-shadow: none;
 }
+
+.ligth:hover {
+  animation: light 5s infinite;
+}
+
+@keyframes light {
+  0% {
+    box-shadow:  0 1px 10px 4px rgb(0, 213, 255);
+  }
+  50%{
+    box-shadow:  0 1px 10px 4px rgb(0, 26, 255);
+  }
+  100%{
+    box-shadow:  0 1px 10px 4px rgb(0, 213, 255);
+  }
+  }
 
 .pannel {
     position: relative;
