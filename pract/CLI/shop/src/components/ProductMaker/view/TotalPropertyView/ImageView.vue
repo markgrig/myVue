@@ -1,7 +1,7 @@
 <template>
     
 <div :class = "classList['card-img']">
-    {{ isShowError }}
+  
     <div 
         :class = "classList['product-img']"  
         :style = 'styleProductPicture'
@@ -109,12 +109,13 @@ export default {
 .card-page {
     position: relative;
     width: 80%;
-    left: 5%;
+    margin: auto;
 }
 
 .image-page {
     box-sizing: border-box;
     position: static;
+    margin: auto;
     border-radius: 5px;
     border: solid 2px black;
 }
@@ -209,13 +210,13 @@ export default {
     left: 40%;
     top: 40%;
 
-    font-size: 250%;
+    font-size: 200%;
     opacity: 0.9;
 }
 
 .video-button:hover {
     transition: 0.5s;;
-    font-size: 255%;
+    font-size: 205%;
     opacity: 0.95;
 }
 
@@ -231,6 +232,15 @@ export default {
         border-radius: 5px 30px 30px 30px;
     }
 
+
+    .video-button {
+        font-size: 100%;
+    }
+
+        
+    .video-button:hover {
+        font-size: 105%;
+    }
 
 
 }

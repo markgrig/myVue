@@ -58,7 +58,10 @@ export default {
 
 @media (max-width: 700px){
   
-    
+    .conact-page-el{
+
+        font-size: 100%;
+    }
 
 }
 </style>

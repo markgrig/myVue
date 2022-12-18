@@ -25,7 +25,7 @@ export default {
     
     box-sizing: border-box;
     width: 50%;
-    margin: 4% 25%;
+    margin: 4% auto;
     height: max-content;
     padding: 3%;
     text-align: center;
@@ -45,6 +45,10 @@ export default {
 
 @media (max-width: 700px){
     
+    .error-box {
+    width: 90%;
+    font-size: 2vh;
+}
 
 }
 </style>

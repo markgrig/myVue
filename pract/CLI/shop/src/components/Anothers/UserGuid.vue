@@ -60,4 +60,11 @@ export default {
     border: solid 2px rgb(16, 16, 16);
     border-radius: 10px 10px 5px 5px;
 }
+
+@media (max-width: 700px){
+
+    .hr-instr {
+        margin-top: -2%; 
+    }
+}
 </style>

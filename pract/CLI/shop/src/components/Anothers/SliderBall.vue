@@ -60,7 +60,8 @@
           usedBall( event ) {
               if ( event.target.closest( ".ball-box") ) {
                   
-                  event.target.onmousedown = () => {    
+                  event.target.onmousedown = () => {  
+
                        if ( !this.isFastmove ) {
                           this.isFastmove = true
   
@@ -73,6 +74,21 @@
   
                           
                   }
+
+                  event.target.onmouseup = () => {  
+                      
+                      if ( !this.isFastmove ) {
+                         this.isFastmove = true
+ 
+ 
+                         this.userMoveBall.status = ! this.userMoveBall.status
+                         this.userMoveBall.status? this.userStartSetting():   this.userEndSetting()
+ 
+                         setTimeout( ()=> {this.isFastmove = false}, 100)
+                      }
+ 
+                         
+                 }
       
   
               } 

@@ -76,6 +76,21 @@
   
                           
                   }
+
+                  event.target.onmouseup = () => {  
+                      
+                      if ( !this.isFastmove ) {
+                         this.isFastmove = true
+ 
+ 
+                         this.userMoveBall.status = ! this.userMoveBall.status
+                         this.userMoveBall.status? this.userStartSetting():   this.userEndSetting()
+ 
+                         setTimeout( ()=> {this.isFastmove = false}, 100)
+                      }
+ 
+                         
+                 }
       
   
               } 
@@ -201,6 +216,7 @@
   
   .box-slider {
       height: 20%;
+      margin-top: -4px;
   }
   .slider {
     position: relative;

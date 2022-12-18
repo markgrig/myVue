@@ -44,12 +44,20 @@
                     Вернуть {{ nameDeletemodal }}  
             </div>
 
+            <div class = "but-exit">
+            <BlueButton
+                @click="testExit"
+                v-if = "!isExit" 
+                textButton = "Выйти"
+                >
+                </BlueButton>    
+            </div>
         </div>
-
+        
          <div class="black-window" ></div>
-
+        
         <h4 class ='modal-window computed-window'>
-            {{ getStatusProdaction }} 
+            {{ getStatusProdaction }}
         </h4>
 
     
@@ -85,14 +93,7 @@
 
         </CustomForm>
         
-        <div class = "but-exit">
-            <BlueButton
-                @click="testExit"
-                v-if = "!isExit" 
-                textButton = "Выйти"
-                >
-            </BlueButton>    
-        </div>
+        
         
 
     </div>
@@ -143,7 +144,6 @@ export default {
            
         })
 
-        console.log(productMaker.usersProduct);
        
         const updateUsersProduct = (inputedValue, typeProperty,  field, subfield) => { 
 
@@ -318,8 +318,8 @@ export default {
             if ( isSuccess ) { 
 
                 const urlImg =  await this.uploadFile( this.productMaker.usersProduct.totalProperty.image.file, "productImage", this.typeCard )
-            
-                if (  this.productMaker.imageSettings.style.backgroud ) {
+                
+                if (  this.productMaker.imageSettings.style.background ) {
 
                     this.productMaker.imageSettings.style.background = this.productMaker.imageSettings.style.background
                     .replace(this.productMaker.usersProduct.totalProperty.image.src,  urlImg)
@@ -331,13 +331,21 @@ export default {
                 this.productMaker.usersProduct.totalProperty.image.src = urlImg
                 this.productMaker.usersProduct.totalProperty.image.style = this.productMaker.imageSettings.style  || {}
 
-                if (  this.productMaker.usersProduct.specificProperty?.audio.src ) {
+                if (  this.productMaker.usersProduct.specificProperty?.audio?.src ) {
 
                     const urlAudio =  await this.uploadFile( this.productMaker.usersProduct.specificProperty.audio.file, "productAudio", this.typeCard )
                     this.productMaker.usersProduct.specificProperty.audio.src = urlAudio
                 }
 
                 delete this.productMaker.usersProduct.checkQualityFun;
+             
+                Object.keys( this.productMaker.usersProduct.totalProperty.success ).forEach( ()=>{
+                    this.productMaker.usersProduct.totalProperty.success.value = ""
+                })
+
+                Object.keys(  this.productMaker.usersProduct.specificProperty.success ).forEach( ()=>{
+                    this.productMaker.usersProduct.specificProperty.success.value = ""
+                })
             
                 this.writeProduct( this.productMaker.usersProduct , this.$route.params.id ) 
                 this.userLeave()
@@ -550,6 +558,7 @@ body, html {
 }
 
 .but-exit{
+    z-index: 10;
     position: absolute;
     right: 2%;
     top: 2%;
@@ -597,9 +606,23 @@ body, html {
 }
 
 .calcValidation {
-    width: 80%;
-    left: 10%;
-    top: 115vw;
+    font-size:  65%;
+    width: 95%;
+    left: 2.5%;
+    top: 55vh;
+}
+
+@keyframes red-color {
+    0%   { color:white }
+    50%  {  color:rgb(238, 58, 58); font-size: 65%;  }
+    100% { color:white }
+}
+
+
+.but-exit{
+    width: 100%;
+    top: 92%;
+    font-size: 150%;
 }
 
 }

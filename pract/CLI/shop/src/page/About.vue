@@ -1,10 +1,18 @@
 <template>
 
-<BlueButton
-        @click="clicktoBack()" 
-        textButton = "Вернуться назад"> 
-</BlueButton>
+  <div class = "main-pannel">
+  
+    <h3 class = "topic-mp">  Панель управления </h3>
 
+      <div>
+        <BlueButton 
+          @click="clicktoBack()" 
+          textButton = "Вернуться назад"> 
+        </BlueButton>
+      </div>
+    
+  </div>
+   
 <div class = "box-about">
 
   <img 
@@ -20,10 +28,10 @@
     <div>  
       <div class="black-text-shodow"> Тут вы можете: </div>
       <li>
-        Слушать аудифалы, закреплённые за товаром.   
+        Слушать аудиофайлы, закреплённые за товарами.   
       </li>   
       <li>
-        Смотреть видео, закреплённые за товаром.      
+        Смотреть видео, закреплённые за товарами.      
       </li>
       <li>
         Найти или добавить самые разные товары от муз. инструментов до видеокурсов!
@@ -59,11 +67,30 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.main-pannel div {
+  position: relative;
+  display: flex;
+  width: max-content;
+  margin: auto;
+}
+
+.main-pannel {
+  position: relative;
+  width: 90%;
+  margin: 10px auto;
+  padding-top: 6px;
+  padding-bottom: 15px;
+  background-color: rgba(130, 190, 249, 0.615);
+  filter: drop-shadow(0px 0px 4px rgb(255, 255, 255));
+  border-radius: 4px;
+  border: solid 2px rgb(5, 13, 248);
+}
 
 .box-about{
   display: flex;
-  padding: 4%;
+  padding: 1%;
 }
 .img-about {
   width: 50%;
@@ -94,6 +121,7 @@ export default {
 .text-about:hover{
   width: 41%;
   margin-left: auto;
+  font-size: 103%;
   transition: 0.1s;
 }
 
@@ -117,21 +145,52 @@ export default {
   filter: drop-shadow(0px 0px 1px black);
 }
 .text-about > div {
-  padding: 1% 8%;
-
+  padding: 3%;
+  margin: 0 20px;
   text-indent: 30px;
   font-weight: 600;
+  font-size: 100%;
   color: white;
   filter: drop-shadow(0px 0px 4px rgb(135, 135, 135));
+
  
   
 }
 
 .ligth-one:hover {
   transition: 0.5s;
-  box-shadow:  0 1px 20px 2px white;
+  box-shadow:  0 1px 20 px 2px white;
 }
 
+@media (max-width: 700px){
 
+  .main-pannel div {
+      flex-direction: column;
+      font-size: 120%;
+    }
+    
+
+  .img-about {
+    width: 90%;
+  }
+
+.img-about:hover {
+  width: 92%;
+}
+
+  .box-about{
+  flex-direction: column;
+  }
+
+
+  .text-about {
+    margin-top: 30px;
+    width: 90%;
+  }
+  .text-about:hover{
+    width: 91%;
+    font-size: 103%;
+  }
+}
 
 </style>

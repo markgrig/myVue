@@ -97,7 +97,7 @@ export default {
     width: 50%;
 
     margin-left: 25%;
-    margin-top: 8%;
+    margin-top: 11%;
 
 }
 
@@ -118,6 +118,12 @@ export default {
 
 @media (max-width: 700px){
   
+        
+    .name-page {
+        font-size: 100%;
+    }
+
+
     
     .error-name {
         min-width: 45%;

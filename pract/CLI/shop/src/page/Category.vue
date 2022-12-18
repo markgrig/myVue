@@ -1,27 +1,30 @@
 <template >
 
-
  <div class = "main-pannel">
-  <BlueButton class="but-create"
-    @click="clickCreateProduct()" 
-    textButton = "Создать товар"> 
-  </BlueButton>
+  
+<h3 class = "topic-mp">  Панель управления </h3>
+    <div>
+      <BlueButton class="but-create"
+        @click="clickCreateProduct()" 
+        textButton = "Создать товар"> 
+      </BlueButton>
 
-  <BlueButton class="but-create"
-    @click="goToHome()" 
-    textButton = "На главную"> 
-  </BlueButton>
+      <BlueButton class="but-create"
+        @click="goToHome()" 
+        textButton = "На главную"> 
+      </BlueButton>
+      
 
+      <div class ="ico-box"
+          v-if="canChangeTypeCard">
 
- <div class ="ico-box"
-      v-if="canChangeTypeCard">
-
-  <CustomIco
-            :src = "src.changeTypeCard"
-            @userClickedOnIco = "changeTypeCard()"
-            :textPlaceholder =    "placeholder.changeTypeCard">
-  </CustomIco>
- </div>
+        <CustomIco
+                  :src = "src.changeTypeCard"
+                  @userClickedOnIco = "changeTypeCard()"
+                  :textPlaceholder =    "placeholder.changeTypeCard">
+        </CustomIco>
+      </div>
+    </div>
 
  </div>
   
@@ -36,8 +39,7 @@
       :necessarilySpecProp = "constants.category[nameCategory].necessarily">
 
   </ProductMaker>
-  
-  
+ 
   <div class = "box-product">
     <div
       v-for=" el, key in productsByСategory[nameCategory]" :key ="key">
@@ -49,6 +51,8 @@
             :usersProduct = "el"
             :isCategoryList = "true">
           </ProductCard>
+        
+          <br>
         </div>
         
     </div> 
@@ -137,19 +141,39 @@ export default {
 
 <style>
 
-.main-pannel {
-  width: 25%;
-  margin: auto;
-  display: flex;
+.topic-mp{
+  padding:  4px 10px;
+  text-align: center;
+  color: black;
+  filter: drop-shadow(0px 0px 1px rgb(255, 255, 255));
+}
+
+.main-pannel div {
   position: relative;
+  display: flex;
+  width: max-content;
+  margin: auto;
+}
+
+.main-pannel {
+  position: relative;
+  width: 90%;
+  margin: 10px auto;
+  padding-top: 6px;
+  padding-bottom: 15px;
+  background-color: rgba(130, 190, 249, 0.615);
+  filter: drop-shadow(0px 0px 4px rgb(255, 255, 255));
+  border-radius: 4px;
+  border: solid 2px rgb(5, 13, 248);
 }
 
 .ico-box{
   box-sizing: border-box;
-  width: 15%;
-  top: 10%;
-  right: -20%;
-  position: absolute;
+  width: 50px;
+  max-width: 50px;
+  padding-top: 6px;
+  position: static;
+  
 }
 
 .box-product{
@@ -180,9 +204,9 @@ export default {
 }
 
 .vc-longCard  {
-    width: 30vw;
+    width: 25vw;
     aspect-ratio: 4 / 6;
-    margin-left: 2vw; 
+    margin-left: 5vw; 
 }
 
 
@@ -197,9 +221,16 @@ h1{
 
 @media (max-width: 700px){
 
+  
+    .main-pannel div {
+      flex-direction: column;
+      font-size: 120%;
+    }
+    
 
   .vc-videoCard {
     width: 94vw;
+    margin: 2vw;
     font-size: 150%;
   }
 
@@ -220,7 +251,6 @@ h1{
 }
 
 .observer {
-  height: 30px;
-  background-color: green;
+  height: 3px;
 }
 </style>

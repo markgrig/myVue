@@ -33,13 +33,15 @@
                     </SliderBall>
                     
                 </div>
+
                 
-                <BlueButton
+                <BlueButton 
+                    class ="butt-save-set"
                     @click="returnAllSettings" 
-                    textButton = "Сохранить настройки"
-                    >
+                    textButton = "Сохранить настройки">
                 </BlueButton>
-                
+            
+               
             </div>
 
             
@@ -320,6 +322,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.butt-save-set{
+    display: block;
+    margin: auto;
+}
 .background-cropper {
     opacity: 1;
     z-index: 3;
@@ -419,10 +426,10 @@ export default {
     
     .box-cropper {
     
-        top: 2.5%;
+        top: 5%;
         left: 0;
         width: 97%;
-        height: 87.5%;
+        height: 85%;
         border-radius: 10px;
         
     }
@@ -432,6 +439,8 @@ export default {
         margin: 0;
         padding: 0;
     }
+
+
 
 
     .white-win {
@@ -462,16 +471,13 @@ export default {
     
         width: 70%;
         margin: 0% auto;
-        padding: 0;
         height: max-content;
-        padding: 1%;
-        border-radius:  40px;
-         border: solid black;
-        box-shadow:  0 0 3px 1px white;
-        background-color: rgba(83, 255, 140, 0.6);
+        padding: 5%;
+
     }
 
 
+   
 }
 
 

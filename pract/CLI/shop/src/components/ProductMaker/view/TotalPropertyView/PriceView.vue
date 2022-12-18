@@ -99,5 +99,8 @@ export default {
         font-size: 12px;
     }
 
+    .price-page {
+        font-size: 100%;
+    }
 }
 </style>

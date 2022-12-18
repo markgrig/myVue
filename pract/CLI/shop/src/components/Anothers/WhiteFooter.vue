@@ -19,7 +19,7 @@
           </div>
           <div class= "divf" target="_blank">
             <a href="https://github.com/markgrig/myVue">
-                <h5 class= "hf ligth" target="_blank"> Репозиторий проекта</h5> 
+                <h5 class= "hf ligth" target="_blank"> Репозиторий проекта  </h5> 
              </a>
           </div>
         </div>
@@ -41,9 +41,9 @@ export default {
 .footer {
   
   box-sizing: border-box;
-  border-top: solid 0.5vh rgba(0, 0, 0, 1);
+  border-top: solid 0.5vh rgb(27, 3, 242);
   border-radius: 10vw 10vw 0 0;
-  background-color: rgba(236, 226, 226, 0.7);
+  background-color: rgba(121, 167, 205, 0.9);
   height: max-content;
   padding: 1vh;
   width: 100vw;
@@ -63,9 +63,10 @@ export default {
 
 
 .text-footer .hf {
-  background-color: rgba(34, 97, 246, 0.3);
+  background-color: white;
+  
   border-top: solid 0.5vh blue;
-  border: solid 0.35vh  ;
+  border: solid 0.35vh  blue ;
   border-radius: 10px;
   padding:  1vh 1vw;
   height: min-content;
@@ -73,10 +74,30 @@ export default {
   margin: 0 0;
 
   text-align: center;
+  
   color: black
 
 }
 
+.hf {
+  filter: drop-shadow(1px 1px 1px  rgb(83, 3, 242));
+}
+
+.ligth:hover {
+  animation: light 1.5s infinite;
+}
+
+@keyframes light {
+  0% {
+    box-shadow:  0 1px 5px 1px white;
+  }
+  50%{
+    box-shadow:  0 1px 8px 5px white;
+  }
+  100%{
+    box-shadow:  0 1px 5px 1px white;
+  }
+  }
 
 @media (max-width: 700px){
     text-footer .divf {

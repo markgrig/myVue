@@ -62,23 +62,12 @@ export default {
         aspectRatioImage: String,
         isPage: Boolean,
     },
-    data() {
-        return {
-            isFullWindow: false
-        }
-    },
     computed: {
         classList() {
-
-            
-            if( this.isFullWindow ) {
-                return { "video-iframe": `video-iframe full-win`}  
-            }
 
             if  ( this.isPage ) { 
                 return { 
                     "video-iframe": `video-iframe`,
-                    "fullwin-iframe": `fullwin-iframe-page`,
                     "product-video": `product-video-page `
                 }   
             }
@@ -86,7 +75,6 @@ export default {
 
             return { 
                 "video-iframe": `video-iframe`,
-                "fullwin-iframe": `fullwin-iframe`,
                 "product-video": `product-video error`
             }   
         },
@@ -114,9 +102,6 @@ export default {
         offVideo() {
             this.$emit("offVideo");
         },
-        showFullWIndow() {
-            this.isFullWindow = true
-        }
     }
 }
 </script>
@@ -177,11 +162,9 @@ export default {
 
 .off-iframe {
     font-size: 90%;
-    width: 12%;
-    height: 8%;
     position:absolute;
  
-    top: 0.25%;
+    top: 0.5%;
     right: 30.5%;
 }
 
@@ -191,7 +174,7 @@ export default {
 
 @media (max-width: 700px){
     .off-iframe {
-        top: -1%;
+        right: 50%;
         font-size: 65%;
     }    
 }

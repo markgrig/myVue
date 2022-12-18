@@ -16,9 +16,9 @@ export default {
 button {
     font-size: 100%;
     background-color: rgb(6, 130, 254, 0.92);
-    border: solid 2px rgba(67, 64, 64, 0.323);      
+    border: solid 2px rgba(255, 0, 0, 0.6);      
     display: block;
-    margin: auto;
+    margin: auto 15px;
     color: rgb(238, 236, 236);
     border-radius: 16px;
     margin-top: 1.5%;
@@ -27,7 +27,7 @@ button {
     height: min-content;
     min-height: 50px;
 
-    box-shadow: 0 0 1px 1px blueviolet;
+  
 
 }
 
@@ -36,12 +36,31 @@ button div {
     font-weight: 900;
 }
 button:hover {
-    box-shadow: 0 0 5px 1px blueviolet;
+    box-shadow: 1px 1px 6px 2px rgb(234, 222, 153);
     background-color: rgb(6, 130, 254);
     color: white;
     font-size: 103%;
 }
 
 
+@media (max-width: 700px){
+    button {
+        margin: 5px auto;
+        margin-top: 1%;
+        min-height:  20px;
+        padding: 4px 5px;
+
+        border: solid 1px rgba(255, 0, 0, 0.6);  
+        border-radius: 8px;
+        font-size: 70%;
+
+
+    }
+
+    button:hover {
+    font-size: 73%;
+}
+
+}
 
 </style>

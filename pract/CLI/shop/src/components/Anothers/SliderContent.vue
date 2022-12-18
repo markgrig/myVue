@@ -171,8 +171,11 @@ export default {
 .words {
     box-sizing: border-box;
     width: max-content;
+    min-width: 30%;
     max-width: 50%;
+    text-overflow: ellipsis;
     margin: auto;
+    margin-bottom: -3px;
     padding: 1% 2%;
     color: rgb(236, 217, 94);
     background-color: rgba(63, 35, 243, 0.8);
@@ -260,6 +263,37 @@ export default {
     min-width: 25%;
     max-width: 40%; 
     font-size: 110%;
+}
+
+
+
+
+@media (max-width: 700px)
+{
+
+    .el-slider{
+        position: relative;
+        width: 165vw;
+    }
+
+    
+.last-button {
+  
+  border-radius: 10px 100px 100px 100px ;
+  
+  rotate: -45deg;
+  bottom: -100vw;
+  left: -50px;
+
+}
+.next-button{
+ 
+  border-radius: 100px 10px 100px 100px ;
+  rotate: 45deg;
+  bottom: -100vw;
+  right: -50px;
+
+}
 }
 
 </style>

@@ -234,7 +234,7 @@ export default {
 }
 
 .info-audioCard{
-    aspect-ratio: 7/3;
+    aspect-ratio: 7/4;
 }
 
 .info-longCard{
@@ -316,9 +316,13 @@ export default {
     }
     
 
+
     .product-info{
         height: min-content;
-        max-height: 90px;
+        min-height: 18px;
+        
+        margin: 0;
+        padding: 2px;
         font-size: 12px;
     }
 

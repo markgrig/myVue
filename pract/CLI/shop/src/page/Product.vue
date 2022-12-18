@@ -1,9 +1,17 @@
 <template >
       
-      <BlueButton
-        @click="clicktoBack()" 
-        textButton = "Вернуться назад"> 
-      </BlueButton>
+      <div class = "main-pannel">
+  
+        <h3 class = "topic-mp">  Панель управления </h3>
+
+          <div>
+            <BlueButton 
+              @click="clicktoBack()" 
+              textButton = "Вернуться назад"> 
+            </BlueButton>
+          </div>
+        
+      </div>
 
       <ErrorCard
          :textError = "textError"
@@ -78,6 +86,7 @@
             v-if = "isShowPlayer.audio"
             :isShowPlayer = "isShowPlayer.audio"
             :isPage  = 'true'
+            :isAudioSuccess = "true"
             :audioUrl = "product?.specificProperty?.audio?.src">
 
         </AudioView>
@@ -187,6 +196,25 @@
  
  <style>
 
+.main-pannel div {
+  position: relative;
+  display: flex;
+  width: max-content;
+  margin: auto;
+}
+
+.main-pannel {
+  position: relative;
+  width: 90%;
+  margin: 10px auto;
+  padding-top: 6px;
+  padding-bottom: 15px;
+  background-color: rgba(130, 190, 249, 0.615);
+  filter: drop-shadow(0px 0px 4px rgb(255, 255, 255));
+  border-radius: 4px;
+  border: solid 2px rgb(5, 13, 248);
+}
+
 .flex-page {
   display: flex;
   padding: 4% 0 ;
@@ -246,7 +274,29 @@
  
  
  @media (max-width: 700px){
- 
+  .main-pannel div {
+    flex-direction: column;
+    font-size: 120%;
+  }
+
+  .page-box {
+    width: 95%;
+  }
+
+  .flex-page {
+    flex-direction: column;
+  }
+  .el-page-box{
+    font-size: 100%;
+  }
+
+  .topic-page{
+    margin: 5px;
+    font-size: 110%;
+  }
+  .topic-page-box{
+    font-size: 120%;
+  }
  
  }
  </style>

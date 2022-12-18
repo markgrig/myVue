@@ -71,7 +71,7 @@ export default {
 
 .product-audio {
     position: relative;
-    aspect-ratio: 16/2;
+    aspect-ratio: 15/2;
     width: 90%;
     margin: 1% 5%;
 }
@@ -101,6 +101,14 @@ export default {
 }
 
 @media (max-width: 700px){
+
+
+    .product-audio-page {
+        position: relative;
+        aspect-ratio: 16/2;
+        width: 98%;
+        margin: 5% 1%;
+    }
 
 
 

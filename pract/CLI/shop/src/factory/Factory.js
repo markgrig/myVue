@@ -127,7 +127,7 @@ export class FactoryProduct {
         image:  ()=> {
             const file =  this.totalProperty.image.file
         
-            if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml"].includes(file.type)) {
+            if (!["image/jpeg", "image/png", "image/gif", "image/svg+xml", "image/webp"].includes(file.type)) {
                 this.totalProperty.success.image.value = "Разрешены только изображения"
                 this.totalProperty.success.image.status = false
                 return ""

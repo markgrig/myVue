@@ -14,15 +14,18 @@
 </template>
 
 <script>
-import { constants } from '@/components/Novigation/constants.js'
 
 export default {
   name: 'NovigationElement',
   data () {
   return {
-    categores: Object.values( constants.category ),
     nameCategory: "",
   }
+  },
+  computed: {
+    categores() {
+      return this.$store.state.nameCategoryArray
+    } 
   },
   methods: {
     changeCategory( name, urlName) {
@@ -95,7 +98,7 @@ h2 {
     margin: 1vw;
     width: 50vw;
     padding: 1vh 10vw;
-    height: 6vw;
+    height: max-content;
     font-size: 2.1vh;
     border: solid 0.65vw;
   }

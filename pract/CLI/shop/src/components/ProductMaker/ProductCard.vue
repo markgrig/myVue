@@ -131,7 +131,7 @@ export default {
 
 .product-card-audioCard {
     
-    aspect-ratio: 8 / 5;
+    aspect-ratio: 16 / 11;
     width: 80%;
     margin: 17.5% 10%;
 
@@ -154,12 +154,11 @@ export default {
 
 .open-product-page {
     font-size: 90%;
-    width: 12%;
-    height: 8%;
-    padding: 1% 3%;
+    width: 10%;
+    height: 100%;
     position:absolute;
     top: 0.25%;
-    right: 12%;
+    right: 10%; 
 }
 
 
@@ -185,6 +184,7 @@ export default {
         margin: 4% 30%;
 
     }
+
 
 
 }

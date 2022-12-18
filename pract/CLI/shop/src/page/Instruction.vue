@@ -1,12 +1,26 @@
 <template>
-
  
+<div class = "main-pannel">
+  
+  <h3 class = "topic-mp">  Панель управления </h3>
+
+    <div>
+      <BlueButton 
+        @click="clicktoBack()" 
+        textButton = "Вернуться назад"> 
+      </BlueButton>
+    </div>
+  
+</div>
+
 <div class = "instr-box">
+
+
     <UserGuid
       :insrtuction = "userGuid">
     </UserGuid>
 
-    <BlueButton
+    <BlueButton class ="but-exit"
         @click="clicktoBack()" 
         textButton = "Вернуться назад"> 
     </BlueButton>
@@ -75,11 +89,29 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
+.main-pannel div {
+  position: relative;
+  display: flex;
+  width: max-content;
+  margin: auto;
+}
+
+.main-pannel {
+  position: relative;
+  width: 90%;
+  margin: 10px auto;
+  padding-top: 6px;
+  padding-bottom: 15px;
+  background-color: rgba(130, 190, 249, 0.615);
+  filter: drop-shadow(0px 0px 4px rgb(255, 255, 255));
+  border-radius: 4px;
+  border: solid 2px rgb(5, 13, 248);
+}
 .instr-box{
   width: 70%;
-  padding: 40px 5%;
+  padding: 20px 5%;
   margin: 50px 10%;
   text-align: center;
 
@@ -89,4 +121,17 @@ export default {
   border-radius: 15px;
   font-size: 120%;
 }
+
+.but-exit{
+    margin: auto;
+}
+
+@media (max-width: 700px){
+
+.main-pannel div {
+    flex-direction: column;
+    font-size: 120%;
+  }
+  
+}   
 </style>

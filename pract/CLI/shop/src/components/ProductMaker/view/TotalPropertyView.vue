@@ -3,7 +3,7 @@
  <div>
     <NameView
         :typeCard = "typeCard"
-        :nameUsersProduct = "totalProperty.name"
+        :nameUsersProduct = "totalProperty?.name"
         :isNameSuccess = "totalProperty.success.name.status"
         :valueError = "totalProperty.success.name.value"    
         >
