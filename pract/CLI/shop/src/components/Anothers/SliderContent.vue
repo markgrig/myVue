@@ -172,7 +172,7 @@ export default {
     box-sizing: border-box;
     width: max-content;
     min-width: 30%;
-    max-width: 50%;
+    max-width: 45%;
     text-overflow: ellipsis;
     margin: auto;
     margin-bottom: -3px;
@@ -276,24 +276,47 @@ export default {
         width: 165vw;
     }
 
+    .box-empty{
+        height: 30vw;
+    }
     
-.last-button {
-  
-  border-radius: 10px 100px 100px 100px ;
-  
-  rotate: -45deg;
-  bottom: -100vw;
-  left: -50px;
+    .pannel {
+        position: relative;
+        height: 40vw;
+        margin-top: 80vw;
+        display: flex;
+    }
 
-}
-.next-button{
- 
-  border-radius: 100px 10px 100px 100px ;
-  rotate: 45deg;
-  bottom: -100vw;
-  right: -50px;
+    .last-button {
+    
+    border-radius: 10px 100px 100px 100px ;
+    
+    rotate: -45deg; 
+    margin-left: -15vw;
 
+    }
+    .next-button{
+    
+    border-radius: 100px 10px 100px 100px ;
+
+    rotate: 45deg;
+    margin-right: -15vw;
+
+    }
+
+.next-button, .last-button  {
+    box-sizing: border-box;
+    position: static;
+    height:   30vw;
 }
+
+
+.next-button:hover, .last-button:hover  {
+    height:  31vw;
+    background-color: rgba(0, 0, 255, 0.95);
+}
+
+
 }
 
 </style>

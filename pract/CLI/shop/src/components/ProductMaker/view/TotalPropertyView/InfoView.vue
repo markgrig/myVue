@@ -238,7 +238,7 @@ export default {
 }
 
 .info-longCard{
-    max-height: 27ch;
+    max-height: 85%;
 }
 
 .product-info-topic {

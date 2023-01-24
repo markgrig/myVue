@@ -126,12 +126,14 @@ export default {
 }
 
 .text-about h3 {
-  width: max-content;
+  width: fit-content;
+  max-width: 80%;
   margin: 5% auto;
   padding: 1% 4%;
 
   text-align: center;
   color: brown;
+  word-wrap: break-word;
   filter: drop-shadow(0px 0px 2px rgb(115, 99, 6));
 
   background-color: rgb(243, 240, 50); 
@@ -152,6 +154,8 @@ export default {
   font-size: 100%;
   color: white;
   filter: drop-shadow(0px 0px 4px rgb(135, 135, 135));
+
+  word-wrap: break-word;
 
  
   

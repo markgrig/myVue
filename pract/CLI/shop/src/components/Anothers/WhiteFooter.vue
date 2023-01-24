@@ -79,6 +79,11 @@ export default {
 
 }
 
+.text-footer .divf {
+  width: 15%;
+}
+
+
 .hf {
   filter: drop-shadow(1px 1px 1px  rgb(83, 3, 242));
 }
@@ -100,19 +105,19 @@ export default {
   }
 
 @media (max-width: 700px){
-    text-footer .divf {
-        width: 80vw;
-
-    }
 
   .text-footer {
     flex-direction: column;
   }
 
-  .text-footer .hf {
-    margin: auto;
+  .text-footer .divf {
+    width: 80%;
     margin-bottom: 10px; 
     margin-top: 10px;
+  }
+
+  .text-footer .hf {
+    margin: auto;
   }
 
 }

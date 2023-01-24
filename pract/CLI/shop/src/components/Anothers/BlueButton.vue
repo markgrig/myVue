@@ -47,18 +47,18 @@ button:hover {
     button {
         margin: 5px auto;
         margin-top: 1%;
-        min-height:  20px;
+        min-height:  16px;
         padding: 4px 5px;
 
         border: solid 1px rgba(255, 0, 0, 0.6);  
         border-radius: 8px;
-        font-size: 70%;
+        font-size: 65%;
 
 
     }
 
     button:hover {
-    font-size: 73%;
+    font-size: 68%;
 }
 
 }

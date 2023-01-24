@@ -97,7 +97,7 @@ export default {
     width: 50%;
 
     margin-left: 25%;
-    margin-top: 11%;
+    margin-top: 8%;
 
 }
 

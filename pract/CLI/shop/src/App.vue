@@ -6,7 +6,6 @@
         <Novigation/>
         <router-view/>
       </div>
-
       <WhiteFooter></WhiteFooter>
 </template>
 
@@ -75,48 +74,36 @@ body{
 
    background-image: -webkit-image-set(
     url("./img/background1920w.jpg")  4x,
-    url("./img/background700w.jpg")  3x,
-    url("./img/background1200w.jpg")  2x,
-    url("./img/background500w.jpg")  1x, 
+    url("./img/background1200w.jpg")  3x,
     ); 
     
   background-image: image-set(
-    url("./img/background500w.jpg")  4x, 
-    url("./img/background700w.jpg")  3x,
     url("./img/background1200w.jpg") 2x,
     url("./img/background1920w.jpg")  1x);
   
   background-image: image-set(
-    url("./img/background500w.jpg")  500wv, 
-    url("./img/background700w.jpg")  700wv,
     url("./img/background1200w.jpg") 1200wv,
     url("./img/background1920w.jpg") 1920wv);
+  
 
-
+  
   max-width: 100vw;
   max-height: 100vh;
   scrollbar-width: none;
   overflow: hidden;
-  background-position: center center;
+  background-position: top center;
   margin: 0;
   
- /* background-image: -webkit-image-set(
-    url("./img/background1920w.jpg")  2x,
-    url("./img/background700w.jpg")  1x,
-    url("./img/background1200w.jpg")  1x,
-    url("./img/background500w.jpg")  2x, 
-    ); */
 
 
   background-size: 110vw auto;
+
+  background-color: rgba(10, 10, 96, 0.822);
   background-attachment: fixed;
   background-repeat: no-repeat;
   overflow-x: hidden;
   overflow-y: auto;
 
- 
-
- 
 }
 
 
@@ -139,31 +126,10 @@ body{
 
 }
 
-.text-footer {
-  width: 90%;
-  margin: 1vh auto;
-  justify-content: space-between;
-  align-items: center;
-  
-}
 .text-footer .divf {
   width: 15%;
 }
 
-.text-footer .hf {
-  background-color: rgba(34, 97, 246, 0.2);
-  border-top: solid 0.5vh blue;
-  border: solid 0.3vh  ;
-  border-radius: 10px;
-  padding: 1vh;
-  height: min-content;
-  width: fit-content;
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  color: black
-
-}
 
 a{
   text-decoration: none;
@@ -177,7 +143,21 @@ a:hover{
 @media (max-width: 700px){
   body{
     overflow-y: auto;
-    }
+    
+    background-image: -webkit-image-set(
+    url("./img/background700w.jpg")  3x, 
+    url("./img/background500w.jpg")  1x, 
+    ); 
+    
+  background-image: image-set(
+    url("./img/background500w.jpg")  4x, 
+    url("./img/background700w.jpg")  3x);
+  
+  background-image: image-set(
+    url("./img/background500w.jpg")  500wv, 
+    url("./img/background700w.jpg")  700wv);
+    } 
+
   html {
     max-width: 100vw;
     max-height: 100vh;
@@ -186,18 +166,6 @@ a:hover{
   .flex-class {
     margin: 10px auto;
     flex-direction: column;
-  }
-
-  .text-footer .divf {
-    width: 80%;
-  }
-
-  
-  .text-footer .hf {
-    width: 80%;
-    margin-bottom: 10px; 
-    margin-top: 10px;
-    border-radius: 0;
   }
 
 }
