@@ -5,12 +5,14 @@
         <img 
           class = "ico-play" 
           src = "@/img/play.png"
-          @click="playAudio($event)">
+          v-if = "!isPlay"
+            @click="playAudio($event)">
     
         <img 
           class = "ico-pause" 
           src = "@/img/pause.png"
-          @click="pauseAudio()">
+          v-if = "isPlay"
+            @click="pauseAudio()">
         
           <div 
             class= "volume">
@@ -76,7 +78,8 @@ export default {
       return {
         widthPlayer: 1,
         interval: {},
-        volumeSliderX: 0
+        volumeSliderX: 0,
+        isPlay: false
       }
   },
   computed: {
@@ -132,6 +135,7 @@ export default {
     playAudio() {
       
       this.audioObj.play();
+      this.isPlay = true 
       
       this.interval = setInterval( ()=>{
         this.audioData.time =  this.audioObj.currentTime
@@ -144,6 +148,7 @@ export default {
     pauseAudio() {
 
       this.audioObj.pause(); 
+      this.isPlay = false
       clearInterval( this.interval );
       
     },
@@ -173,16 +178,18 @@ export default {
 .slider-player {
   position: relative;
   width: 60%;
-  margin-left: 25% ;
+  margin-left: 20% ;
   text-align: center;
 
+  font-size: calc(50% + 0.5vw);
  
 }
 
 
 .ico-play {
+  z-index: 1;
   top: 10%;
-  left: 2%;
+  left: 6%;
 
   position: absolute;
   aspect-ratio: 1/1;
@@ -197,8 +204,9 @@ export default {
   animation: light-play 1.5s infinite; animation: light-play 1.5s infinite;
 }
 .ico-pause {
+  z-index: 0;
   top: 10%;
-  left: 13%;
+  left: 6%;
   position: absolute;
 
   aspect-ratio: 1/1;
@@ -281,22 +289,11 @@ export default {
 
 
 
-
-
 @media (max-width: 700px){
 
   .slider-player {
     font-size: 85%;
   }
 
-  .volume-slider {
-    position: absolute;
-    width: 100%;
-    rotate: 0deg;
-    z-index: 1;
-    
-    top: 100%;
-    right: 10%;
-  }
 }
 </style>

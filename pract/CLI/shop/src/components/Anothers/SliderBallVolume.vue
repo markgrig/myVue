@@ -60,15 +60,21 @@
           }
       },
       methods: { 
-          usedBall( event ) {
+            hideBodyOverFlow() {
+                document.querySelector("body").style.overflowY = "hidden"
+            },
+            showBodyOverFlow() {
+                document.querySelector("body").style.overflowY = "auto"
+            },
+            usedBall( event ) {
               if ( event.target.closest( ".ball-box") ) {
                   
                   event.target.onmousedown = () => {    
                        if ( !this.isFastmove ) {
                           this.isFastmove = true
-  
-  
+                        
                           this.userMoveBall.status = ! this.userMoveBall.status
+                          
                           this.userMoveBall.status? this.userStartSetting():   this.userEndSetting()
   
                           setTimeout( ()=> {this.isFastmove = false}, 100)
@@ -135,19 +141,19 @@
           userTouchedSetting(event) {
   
             if ( event.target.closest( ".ball-box") ) {
-                
-                console.log( event.target.parentNode.getBoundingClientRect().x);
 
-//                event.defaultPrevented = true
+                this.hideBodyOverFlow()
 
                 this.test = this.userMoveBall.vector
                 this.sliderWidth = event.target.parentNode.offsetWidth 
                 this.ballWidth = event.target.offsetWidth
-                this.userMoveBall.vector = event.touches[0].clientX - event.target.parentNode.getBoundingClientRect().x
+                this.userMoveBall.vector = event.touches[0].clientY - event.target.parentNode.getBoundingClientRect().y
 
                 this.isNotStartOrEnd()
-                this.possitionBall["left"] = `calc( -0.5vw + ${ this.userMoveBall.vector + "px" })`
+                this.possitionBall["left"] = `${ this.userMoveBall.vector}` + "px" 
                 this.returnKoofSetting()
+
+                this.showBodyOverFlow()
 
             }
               
@@ -246,13 +252,13 @@
   .line {
       position: absolute;
       width: 100%;
-      height: 1000%;
+      height: 1500%;
       margin: 1vw 0;
       bottom: -100%;
   
       background-color: rgba(255, 255, 255, 1);
       border: solid 2px rgb(208, 131, 131);
-      border-radius: 0.4vw;
+      border-radius: calc( 5px + 0.4vw);
   
   }
   

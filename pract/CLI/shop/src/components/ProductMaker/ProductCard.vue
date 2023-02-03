@@ -2,11 +2,14 @@
     
     <div :class = "classList['product-card']" id= "card">
         
-        <BlueButton 
-            class = "open-product-page"
-            textButton = "Страница      "
-            @click = "openProductPage">
-        </BlueButton>
+        <div
+            :class = "classList['open-product-page']">
+            <BlueButton 
+                textButton = "Страница      "
+                @click = "openProductPage">
+            </BlueButton>    
+        </div>
+       
 
 
         
@@ -57,17 +60,17 @@ export default {
                 isHideCard: false,
                 userClick: {
                     img: false
-                }
+                },
         }
     },
     methods: {
         openProductPage(){
 
-            if ( this.keyProduct === 'newProduct') {      
+            if ( this.keyProduct === 0) {      
                 this.$store.commit('updateProduct', { category: this.$route.params.id, newProduct: this.usersProduct } )
             } 
 
-            const url = `/category/${this.$route.params.id}/product/${this.keyProduct}`;
+            const url = `/category/${this.$route.params.id}/product/${this.nameProduct}`;
             this.$router.push({ path: url });
         },
         hideModal() {
@@ -82,8 +85,17 @@ export default {
         }
     },
     computed: {
+        nameProduct() {
+            if ( this.keyProduct ) {
+                return this.keyProduct 
+            }
+            return "newProduct"
+        },
         classList() {
-                   return { "product-card": `card product-card-${this.typeCard}`           
+                   return { 
+                    "product-card": `card product-card-${this.typeCard}`,
+                    "open-product-page": `open-product-page open-product-page-${this.typeCard}`
+
                 }
         },
         onVideo() {
@@ -105,8 +117,8 @@ export default {
 
 .card {
 
-    z-index: 2;
-    position: absolute;
+    z-index: 200;
+    position: relative;
     box-sizing: border-box;
 
     background-color: white;
@@ -141,7 +153,7 @@ export default {
 /* с product-card-clothes неявно связанны back-longCard (InfoView) и image-longCard(ImageView)*/
 .product-card-longCard {
 
-    aspect-ratio: 4 / 6;
+    aspect-ratio: 40 / 66;
     width: 40%;
     margin: 10% 30%;
 
@@ -154,13 +166,16 @@ export default {
 
 .open-product-page {
     font-size: 90%;
-    width: 10%;
-    height: 100%;
     position:absolute;
-    top: 0.25%;
+    top: 3%;
     right: 10%; 
 }
 
+.open-product-page-longCard{
+    top: 90%;
+    right: 0;
+    width: 100%;
+}
 
 @media (max-width: 700px){
     

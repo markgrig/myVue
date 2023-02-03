@@ -90,7 +90,6 @@ body{
   max-width: 100vw;
   max-height: 100vh;
   scrollbar-width: none;
-  overflow: hidden;
   background-position: top center;
   margin: 0;
   
@@ -140,9 +139,8 @@ a:hover{
   color: white;
 }
 
-@media (max-width: 700px){
+@media (max-width: 1000px){
   body{
-    overflow-y: auto;
     
     background-image: -webkit-image-set(
     url("./img/background700w.jpg")  3x, 

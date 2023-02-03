@@ -10,7 +10,7 @@
 export default {
     name: "ErrorCard",
     props: {
-        textError: String
+        textErrors: String
     }
 }
 </script>

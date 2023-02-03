@@ -9,7 +9,7 @@
         
                 <ProductCard
                     :typeCard = "typeCard"
-                    keyProduct  = 'newProduct' 
+                    :keyProduct  = "0" 
                     :isHideCard = "isHide.card"
                     :aspectRatioImage = "aspectRatioImage"
                     @hideModal= "hideModal"
@@ -112,15 +112,15 @@ export default {
         typeCard: String,
         store: Object,
         canChangeTypeCard: Boolean,
-        nameCategory: String,
+        nameCategorys: String,
         necessarilySpecProp: Object
     },
     setup(props) {
 
         let product = {}
         
-        if ( props.store.state.isReturnMaker[props.nameCategory] ) {
-            product = reactive(  props.store.state.product[props.nameCategory])
+        if ( props.store.state.isReturnMaker[props.nameCategorys] ) {
+            product = reactive(  props.store.state.product[props.nameCategorys])
         } else {
             product = reactive( AbstactFactory.createProduct(props.typeCard))
         }
@@ -461,7 +461,7 @@ body, html {
 .overflower-product-card {
     position: relative;
     width: 60%;
-    height: 100%;
+    aspect-ratio: 1/1;
     
     display: block;
     margin: auto;
@@ -470,7 +470,7 @@ body, html {
 .overflower-product-form {
     position: relative;
     width: 40%;
-    height: 100%;
+    aspect-ratio: 1/1;
 
     display: block;
     margin: auto;
@@ -579,15 +579,16 @@ body, html {
 
 
 .overflower-product-card {
-    position: relative;
+    z-index: 200;
+    position: static;
     width: 98%;
-    height: 35%;
+    height: max-content;
 }
 
 .overflower-product-form {
-    position: relative;
+    position: static;
     width: 98%;
-    height: 65%;
+    height: max-content;
 }
 
 .return-two-window   {
@@ -620,8 +621,8 @@ body, html {
 
 
 .but-exit{
+    position: static;
     width: 100%;
-    top: 92%;
     font-size: 150%;
 }
 

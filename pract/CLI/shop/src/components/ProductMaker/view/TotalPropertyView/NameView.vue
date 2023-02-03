@@ -21,12 +21,7 @@ export default {
         valueError: String,
         productData: Object,
         isPage: Boolean,
-        typeCard: Object
-    },
-    data() {
-        return {
-            nameCategory: this.$route.params.id,
-        }
+        typeCard: String
     },
     computed: {
         classList() {
@@ -79,7 +74,7 @@ export default {
     text-align: center;
     color: black;
 
-    font-size: 140%;
+    font-size: calc(50% + 1vw);
 }
 
 .videoCard {
@@ -89,7 +84,7 @@ export default {
     margin-left: 25%;
     margin-top: 12%;
 
-    font-size: 130%;
+    font-size: calc(60% + 1vw);
 }
 
 .audioCard {
@@ -97,8 +92,9 @@ export default {
     width: 50%;
 
     margin-left: 25%;
-    margin-top: 8%;
+    margin-top: 10%;
 
+    font-size: calc(60% + 1vw);
 }
 
 .longCard {
@@ -126,7 +122,7 @@ export default {
 
     
     .error-name {
-        min-width: 45%;
+        min-width: 70%;
         padding-right: 0;
     }
 

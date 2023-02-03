@@ -245,7 +245,7 @@
   
       background-color: rgba(255, 255, 255, 1);
       border: solid 2px rgb(208, 131, 131);
-      border-radius: 0.4vw;
+      border-radius:  calc( 5px + 0.4vw);
   
   }
   

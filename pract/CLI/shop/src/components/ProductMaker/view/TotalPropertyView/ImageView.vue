@@ -132,7 +132,7 @@ export default {
 }
 
 .error-img {
-    bottom: -22.5%;
+    bottom: -5%;
     left: 30%;
     max-width: 80%;
     height: max-content;
@@ -210,13 +210,13 @@ export default {
     left: 40%;
     top: 40%;
 
-    font-size: 200%;
+    font-size: 125%;
     opacity: 0.9;
 }
 
 .video-button:hover {
     transition: 0.5s;;
-    font-size: 205%;
+    font-size: 130%;
     opacity: 0.95;
 }
 

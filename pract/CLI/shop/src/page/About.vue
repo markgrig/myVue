@@ -4,7 +4,7 @@
   
     <h3 class = "topic-mp">  Панель управления </h3>
 
-      <div>
+      <div class="div-main-pannel">
         <BlueButton 
           @click="clicktoBack()" 
           textButton = "Вернуться назад"> 

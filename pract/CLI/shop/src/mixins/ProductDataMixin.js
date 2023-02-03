@@ -4,11 +4,7 @@ import { ref as ref_storage, uploadBytes , getDownloadURL } from "firebase/stora
 import { toRaw } from 'vue';
 import { getDataBaseForLocal, getStorageForLocal }  from "./.env.js"
 
-export default {
-    created() {
-      // const answerNetlify = await this.callNetlify()   
-       //return { answerNetlify }    
-    }, 
+export default { 
     mounted() {
         this.observePage()
     }, 

@@ -56,7 +56,7 @@ export default {
 
 .product-form {
     z-index: 3;
-    position: absolute;
+    position: relative;
     box-sizing: border-box;
 
     aspect-ratio: 1 / 1;
@@ -78,7 +78,8 @@ export default {
 
         margin: 0; 
         margin-left: 25%;
-        margin-top: 35vw;
+        margin-top: 10%;
+        margin-bottom: 20%;
         padding-top: 1%;
 
     }

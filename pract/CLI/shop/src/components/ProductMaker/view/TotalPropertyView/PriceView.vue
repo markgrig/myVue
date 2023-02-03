@@ -25,11 +25,7 @@ export default {
         valueError: String,
         isPage: Boolean,
     },
-    data() {
-        return {
-            nameCategory: this.$route.params.id,
-        }
-    },
+    
     computed: {
         classList() {
 
@@ -38,7 +34,7 @@ export default {
                     "product-price": `price-page`,
                 }
             }
-                return { "product-price": `product-price ${this.nameCategory}`           
+                return { "product-price": `product-price`           
             }
         },
     }
@@ -63,7 +59,7 @@ export default {
     background-color: rgba(53, 241, 24, 0.45);
     border-radius: 10px;
     border: solid 2px rgb(48, 154, 9);
-    font-size: 150%;
+    font-size: 100%;
 }
 
 
@@ -84,7 +80,7 @@ export default {
     background-color: #b60f0fb4;
 
 
-    font-size: 140%;
+    font-size: calc(70% + 1vw);
 }
 
 .error-price {
@@ -96,7 +92,7 @@ export default {
 @media (max-width: 700px){
   
     .product-price {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .price-page {

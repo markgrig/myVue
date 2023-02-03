@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <AudioView
             v-if = "typeCard === 'audioCard' " 
             :audioUrl = "specificProperty?.audio?.src"
@@ -44,8 +45,8 @@ export default {
     computed: {
         isShowPlayer() {
                 return {
-                    audio: this.specificProperty?.audio?.src || false,
-                    video: this.specificProperty?.video?.src || false
+                    audio: Boolean(this.specificProperty?.audio?.src) || false,
+                    video: Boolean(this.specificProperty?.video?.src ) || false
                 }
             }
     },

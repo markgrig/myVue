@@ -1,5 +1,5 @@
 <template>
-   <h2> {{ nameCategory }} </h2>
+   <h2> {{ rusNameCategory }} </h2>
 
   <div class ="navigator">
     <strong class="novigation-element ligth" 
@@ -19,13 +19,13 @@ export default {
   name: 'NovigationElement',
   data () {
   return {
-    nameCategory: "",
+    rusNameCategory: "",
   }
   },
   computed: {
     categores() {
       return this.$store.state.nameCategoryArray
-    } 
+    },
   },
   methods: {
     changeCategory( name, urlName) {
@@ -37,7 +37,7 @@ export default {
     findUrl(urlInpute) {
         //console.log(urlInpute);
         this.categores.forEach(element => {
-            if ( urlInpute?.trim() === element.urlName?.trim() ) { this.nameCategory = element.name }
+            if ( urlInpute?.trim() === element.urlName?.trim() ) { this.rusNameCategory = element.name }
         });
     }
   },

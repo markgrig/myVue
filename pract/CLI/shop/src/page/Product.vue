@@ -4,7 +4,7 @@
   
         <h3 class = "topic-mp">  Панель управления </h3>
 
-          <div>
+          <div class="div-main-pannel">
             <BlueButton 
               @click="clicktoBack()" 
               textButton = "Вернуться назад"> 
@@ -14,7 +14,7 @@
       </div>
 
       <ErrorCard
-         :textError = "textError"
+         :textErrors = "textError"
          v-if = "isError">
        </ErrorCard>
 
@@ -36,7 +36,7 @@
 
         <div class= "left-list">
 
-          <h2 class = "topic-page">  Наименование: </h2>
+          <h2 class = "topic-page">  {{ topics.name }} </h2>
           <NameView
             :isPage  = 'true'
             :nameUsersProduct = "product?.totalProperty.name"
@@ -57,7 +57,8 @@
           
           <ConactView
             :isPage  = 'true'
-            :contact = "product?.specificProperty.contact"   
+            :contact = "product?.specificProperty.contact"
+            :topics = "topicsContact"   
             >
           </ConactView>
         </div>
@@ -68,7 +69,7 @@
       
       <InfoView
         :isPage  = 'true'
-        :isCategoryList = "isCategoryList" 
+        :isCategoryList = "true" 
         :typeCard = "typeCard"
         :infoUsersProduct = "product?.totalProperty.info"
         :srcImageUsersProduct = "product?.totalProperty.image.src"
@@ -98,8 +99,7 @@
                 :videoUrl = "product?.specificProperty?.video?.src"
                 :usersStyle = "product?.totalProperty.image.style"
                 :aspectRatioImage = "aspectRatioImage"
-                :onVideo = "true"
-                @offVideo = "offVideo">
+                :onVideo = "true" >
         </VideoView>
 
       </div>
@@ -131,7 +131,7 @@
     computed: {
       namePage(){
         if ( Number(this.idProduct)) {
-          return `Tовар № ${this.idProduct}`
+          return this.topics.product
         }
         return "Новый товар"
       },
@@ -140,11 +140,23 @@
       },
       typeCard() {
             if ( this.isNotCategory ) return ""
-            return constants.category[this.nameCategory].card 
+
+            const typeCard = constants.category[this.nameCategory].card
+            
+            if ( typeCard instanceof Array ) { 
+              return typeCard[0] 
+            } 
+            else {
+              return typeCard
+            }   
+
       },
       nameCategoryRUS() {
             if ( this.isNotCategory ) return ""
             return constants.category[this.nameCategory].name 
+      },
+      topics() {
+            return constants.category[this.nameCategory].topics 
       },
       aspectRatioImage() {
             switch (this.typeCard) {
@@ -203,6 +215,9 @@
   margin: auto;
 }
 
+.div-main-pannel {
+  margin:  0 15px;
+}
 .main-pannel {
   position: relative;
   width: 90%;

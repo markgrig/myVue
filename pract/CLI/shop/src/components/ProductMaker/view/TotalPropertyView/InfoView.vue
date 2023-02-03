@@ -218,7 +218,7 @@ export default {
     color: black;
  
     text-indent: 10%; 
-    font-size: 140%;
+    font-size: calc(50% + 0.5vw);
 }
 
 .info-videoCard{
@@ -227,7 +227,7 @@ export default {
     overflow: hidden; 
     text-overflow: ellipsis;
 
-    font-size: 130%;
+    font-size: calc(50% + 0.5vw);
     padding: 1% 5% 3% 0%;
 
     max-height: 1ch;
@@ -238,7 +238,7 @@ export default {
 }
 
 .info-longCard{
-    max-height: 85%;
+    font-size: calc(50% + 0.5vw);
 }
 
 .product-info-topic {
@@ -254,14 +254,14 @@ export default {
     border-radius: 15px 15px 0 0;
     
     border-bottom: 0;
-    font-size: 150%;
+    font-size: calc(60% + 0.5vw);
 }
 
 .error-info {
     position: absolute;
     
     
-    bottom: -22.5%;
+    bottom: -5%;
     left:  20%;
     
     padding-left: 30px;

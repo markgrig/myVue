@@ -7,7 +7,7 @@
         <div 
             v-if = "el">
 
-                <h2 class = "topic-page">   {{ key }}:</h2>
+                <h2 class = "topic-page">   {{ topics[key] }}:</h2>
                 <div class = "conact-page-el"> {{ el }} </div>
 
         </div>
@@ -24,7 +24,14 @@ export default {
     props: {
         contact: Object,
         isPage: Boolean,
-       
+    },
+    data() {
+      return {
+        topics: {
+        phone: "Tелефон",
+        email: "Электронная почта"
+      }
+      }
     },
 }
 </script>

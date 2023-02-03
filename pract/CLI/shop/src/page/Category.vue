@@ -4,35 +4,40 @@
   
 <h3 class = "topic-mp">  Панель управления </h3>
     <div>
-      <BlueButton class="but-create"
+      <div class="div-main-pannel">
+      <BlueButton 
+        class="but-create"
         @click="clickCreateProduct()" 
         textButton = "Создать товар"> 
       </BlueButton>
+    </div>
+      <div class="div-main-pannel">
+        <BlueButton 
+          class="but-create"
+          @click="goToHome()" 
+          textButton = "На главную"> 
+        </BlueButton>
+      </div>
 
-      <BlueButton class="but-create"
-        @click="goToHome()" 
-        textButton = "На главную"> 
-      </BlueButton>
-      
-
-      <div class ="ico-box"
+      <div class="div-main-pannel">
+        <div class ="ico-box"
           v-if="canChangeTypeCard">
 
-        <CustomIco
-                  :src = "src.changeTypeCard"
-                  @userClickedOnIco = "changeTypeCard()"
-                  :textPlaceholder =    "placeholder.changeTypeCard">
-        </CustomIco>
+          <CustomIco
+                    :src = "src.changeTypeCard"
+                    @userClickedOnIco = "changeTypeCard()"
+                    :textPlaceholder =    "placeholder.changeTypeCard">
+          </CustomIco>
+        </div>
       </div>
     </div>
-
- </div>
+    </div>
   
 
   <ProductMaker v-if= "isCreatProduct"
       @deleteProductMaker = "deleteProductMaker"
       :store = 'this.$store'
-      :nameCategory = "nameCategory"
+      :nameCategorys = "nameCategory"
       :typeCard = "typeCard"
       :canChangeTypeCard = "canChangeTypeCard"
       @changeTypeCard = "changeTypeCard"
@@ -47,7 +52,7 @@
         <div :class = "classList['view-card']">
           <ProductCard
             :typeCard = "typeCard"
-            :keyProduct  = "key" 
+            :keyProduct  = "Number(key)" 
             :usersProduct = "el"
             :isCategoryList = "true">
           </ProductCard>
@@ -59,7 +64,7 @@
 
   
       <ErrorCard
-        :textError = "textError"
+        :textErrors = "textError"
         v-if = "isError">
       </ErrorCard>
      
@@ -126,7 +131,9 @@ export default {
         return constants.category[this.nameCategory].card
       },
       classList() {
-            return { "view-card": `view-card vc-${this.typeCard}`}    
+            return { 
+              "view-card": `view-card vc-${this.typeCard}`,
+            }    
               
       },
     },
@@ -167,6 +174,10 @@ export default {
   border: solid 2px rgb(5, 13, 248);
 }
 
+.div-main-pannel {
+  padding: 0 15px;
+}
+
 .ico-box{
   box-sizing: border-box;
   width: 50px;
@@ -192,7 +203,7 @@ export default {
 .vc-videoCard {
     width: 45vw;
     aspect-ratio: 8 / 8;
-    margin-left: 26vw;
+    margin-left: 27.5vw;
 
 }
 
@@ -200,13 +211,13 @@ export default {
 .vc-audioCard {
     width: 45vw;
     aspect-ratio: 8 / 5;
-    margin-left: 2.5vw;
+    margin-left: 3vw;
 }
 
 .vc-longCard  {
     width: 25vw;
-    aspect-ratio: 4 / 6;
-    margin-left: 5vw; 
+    aspect-ratio: 4 / 7;
+    margin-left: 6vw; 
 }
 
 
