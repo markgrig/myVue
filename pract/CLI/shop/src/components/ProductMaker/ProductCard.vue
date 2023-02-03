@@ -167,7 +167,7 @@ export default {
 .open-product-page {
     font-size: 90%;
     position:absolute;
-    top: 3%;
+    top: 2%;
     right: 10%; 
 }
 
